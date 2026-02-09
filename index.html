@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الرئيسية - السداسي الرابع</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root { --primary: #1a4d2e; --secondary: #c9a227; --bg: #f4f6f8; --card-bg: #ffffff; --text: #333; }
+    body { font-family: 'Tajawal', sans-serif; background: var(--bg); margin: 0; padding: 20px; color: var(--text); }
+    
+    header { text-align: center; margin-bottom: 40px; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); border-top: 6px solid var(--primary); }
+    h1 { color: var(--primary); margin: 0 0 10px; font-weight: 800; font-size: 1.8rem; }
+    .subtitle { color: #666; font-size: 1.1rem; margin-top: 5px; font-weight: 500; }
+    
+    /* اسم الأستاذ */
+    .prof-name { 
+      color: var(--secondary); font-weight: bold; margin-top: 15px; display: inline-block; 
+      padding: 8px 25px; background: #fffcf0; border-radius: 50px; border: 1px solid #faeab8; font-size: 1.1rem;
+    }
+
+    .timeline-container { max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
+    
+    .topic-card { 
+        background: var(--card-bg); border-radius: 12px; padding: 20px; 
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05); display: flex; align-items: center; 
+        justify-content: space-between; transition: transform 0.3s ease; border-right: 5px solid #ccc; 
+    }
+    .topic-card.active { border-right: 5px solid var(--primary); background: #ffffff; }
+    .topic-card.active:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(26, 77, 46, 0.15); }
+    .topic-card.locked { opacity: 0.7; background: #fafafa; border: 1px dashed #ddd; border-right: 5px solid #999; }
+
+    .card-content { flex: 1; padding-left: 20px; }
+    .topic-number { font-size: 0.85rem; color: #888; margin-bottom: 5px; font-weight: bold; text-transform: uppercase; }
+    .topic-title { font-size: 1.1rem; font-weight: 700; margin: 0; color: #333; }
+    .topic-desc { font-size: 0.9rem; color: #666; margin-top: 5px; line-height: 1.5; }
+
+    /* الأزرار */
+    .action-btn { 
+        text-decoration: none; padding: 10px 20px; border-radius: 50px; font-weight: bold; font-size: 0.9rem; 
+        transition: all 0.3s; white-space: nowrap; display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-view { background: var(--primary); color: white; box-shadow: 0 4px 10px rgba(26, 77, 46, 0.2); }
+    .btn-view:hover { background: #143d24; transform: scale(1.05); }
+    .status-badge { background: #eee; color: #777; padding: 8px 15px; border-radius: 50px; font-size: 0.85rem; font-weight: bold; cursor: default; }
+
+    @media (max-width: 600px) {
+      .topic-card { flex-direction: column; align-items: flex-start; gap: 15px; }
+      .action-btn, .status-badge { width: 100%; text-align: center; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="logo.jpj" alt="شعار الجامعة" style="width: 80px; margin-bottom: 10px;">
+    <h1>مقياس: تقنيات إعداد البحث العلمي</h1>
+    <div class="subtitle">السداسي الرابع - أعمال موجهة</div>
+    <div class="prof-name"><i class="fa-solid fa-user-tie"></i> إشراف الأستاذ: د. خرشي عمر معمر</div>
+  </header>
+
+  <div class="timeline-container">
+
+    <div class="topic-card active">
+      <div class="card-content">
+        <div class="topic-number">الموضوع الأول</div>
+        <h3 class="topic-title">منهجية تحرير النصوص التشريعية</h3>
+        <p class="topic-desc">نموذج قانون الطيران المدني 98-06.</p>
+      </div>
+      <a href="Presentation.html" class="action-btn btn-view"><i class="fa-solid fa-play"></i> عرض المشروع</a>
+    </div>
+
+    <div class="topic-card active">
+      <div class="card-content">
+        <div class="topic-number">الموضوع الثاني</div>
+        <h3 class="topic-title">منهجية تحرير النصوص التنظيمية</h3>
+        <p class="topic-desc">المرسوم التنفيذي 26-70 (الثانوية المتخصصة).</p>
+      </div>
+      <a href="Presentation2.html" class="action-btn btn-view"><i class="fa-solid fa-play"></i> عرض المشروع</a>
+    </div>
+
+    <div class="topic-card locked">
+      <div class="card-content">
+        <div class="topic-number">الموضوع الثالث</div>
+        <h3 class="topic-title">منهجية تحرير العرائض القضائية</h3>
+      </div>
+      <span class="status-badge"><i class="fa-solid fa-lock"></i> قريباً</span>
+    </div>
+
+    <div class="topic-card active" style="border-right-color: #d35400;">
+      <div class="card-content">
+        <div class="topic-number" style="color: #d35400;">الموضوع الرابع (جديد)</div>
+        <h3 class="topic-title">منهجية التعليق على نص قانوني</h3>
+        <p class="topic-desc">تحليل المادتين 42 و 43 من القانون المدني (الأهلية).</p>
+      </div>
+      <a href="Presentation4.html" class="action-btn btn-view" style="background: #d35400;"><i class="fa-solid fa-star"></i> عرض المشروع</a>
+    </div>
+
+    <div class="topic-card locked">
+      <div class="card-content">
+        <div class="topic-number">الموضوع الخامس</div>
+        <h3 class="topic-title">التعليق على حكم أو قرار قضائي</h3>
+      </div>
+      <span class="status-badge">قريباً</span>
+    </div>
+
+  </div>
+
+  <footer style="text-align: center; margin-top: 40px; color: #999; font-size: 0.8rem; font-weight: bold;">
+    تم التطوير بواسطة الطالب: بولنوار م | 2026
+  </footer>
+
+</body>
+</html>
