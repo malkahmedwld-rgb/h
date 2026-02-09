@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عرض منهجي: قانون الطيران 98-06</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { margin: 0; font-family: 'Tajawal', sans-serif; background: #eceff1; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; }
+        .slider-container { width: 95%; max-width: 1100px; height: 95%; background: white; border-radius: 12px; box-shadow: 0 15px 40px rgba(0,0,0,0.15); display: flex; flex-direction: column; overflow: hidden; border-top: 6px solid #1a4d2e; }
+        .slide { flex: 1; padding: 30px; display: none; overflow-y: auto; text-align: center; animation: fadeEffect 0.5s; }
+        .slide.active { display: block; }
+        @keyframes fadeEffect { from {opacity: 0;} to {opacity: 1;} }
+        h1 { color: #1a4d2e; border-bottom: 3px solid #c9a227; display: inline-block; }
+        .controls { height: 60px; background: #fff; border-top: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
+        button { background: #1a4d2e; color: white; border: none; padding: 10px 25px; border-radius: 30px; cursor: pointer; font-weight: bold; }
+        button:disabled { background: #ccc; }
+        .doc-box { background: #f4f4f4; padding: 15px; border: 1px dashed #999; margin: 10px auto; max-width: 80%; }
+        .home-btn { background: #555; margin-top: 20px; display: inline-block; text-decoration: none; color: white; padding: 10px 20px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+<div class="slider-container">
+    <div class="slide active">
+        <h1>منهجية صياغة النصوص التشريعية</h1>
+        <h3>قانون الطيران المدني 98-06</h3>
+        <p>إعداد الطالب: بولنوار م | إشراف: د. خرشي عمر معمر</p>
+    </div>
+    <div class="slide">
+        <h2>1. البيانات الشكلية</h2>
+        <div class="doc-box">الرقم: 98-06 | التاريخ: 27 يونيو 1998</div>
+        <p>ضبط الهوية الزمنية والقانونية للنص.</p>
+    </div>
+    <div class="slide">
+        <h2>2. المرجعية الدستورية</h2>
+        <p>الاستناد للدستور واتفاقية شيكاغو 1944 لضمان الشرعية.</p>
+    </div>
+    <div class="slide">
+        <h2>3. الانسجام التشريعي</h2>
+        <p>استحضار القوانين السابقة (التأشيرات) لضمان وحدة المصطلحات.</p>
+    </div>
+    <div class="slide">
+        <h2>4. نموذج تطبيقي: المادة 12</h2>
+        <div style="background:#e8f5e9; padding:20px; border-radius:10px; margin:20px;">
+            "يتولى قيادة الطائرات مستخدمون مؤهلون..."
+        </div>
+        <ul style="list-style:none;">
+            <li>✅ لغة الإلزام (يتولى)</li>
+            <li>✅ دقة المصطلح (مستخدمون)</li>
+        </ul>
+        <a href="index.html" class="home-btn">العودة للرئيسية</a>
+    </div>
+
+    <div class="controls">
+        <span id="slideNum">1 / 5</span>
+        <div>
+            <button id="prevBtn" onclick="move(-1)">السابق</button>
+            <button id="nextBtn" onclick="move(1)">التالي</button>
+        </div>
+    </div>
+</div>
+<script>
+    let current = 0;
+    const slides = document.querySelectorAll('.slide');
+    function move(d) {
+        slides[current].classList.remove('active');
+        current += d;
+        if (current < 0) current = 0;
+        if (current >= slides.length) current = slides.length - 1;
+        slides[current].classList.add('active');
+        document.getElementById('slideNum').innerText = (current+1) + " / " + slides.length;
+    }
+</script>
+</body>
+</html>
