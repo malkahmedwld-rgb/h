@@ -4,72 +4,120 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>عرض منهجي: قانون الطيران 98-06</title>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
         body { margin: 0; font-family: 'Tajawal', sans-serif; background: #eceff1; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; }
-        .slider-container { width: 95%; max-width: 1100px; height: 95%; background: white; border-radius: 12px; box-shadow: 0 15px 40px rgba(0,0,0,0.15); display: flex; flex-direction: column; overflow: hidden; border-top: 6px solid #1a4d2e; }
-        .slide { flex: 1; padding: 30px; display: none; overflow-y: auto; text-align: center; animation: fadeEffect 0.5s; }
-        .slide.active { display: block; }
-        @keyframes fadeEffect { from {opacity: 0;} to {opacity: 1;} }
-        h1 { color: #1a4d2e; border-bottom: 3px solid #c9a227; display: inline-block; }
-        .controls { height: 60px; background: #fff; border-top: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
-        button { background: #1a4d2e; color: white; border: none; padding: 10px 25px; border-radius: 30px; cursor: pointer; font-weight: bold; }
-        button:disabled { background: #ccc; }
-        .doc-box { background: #f4f4f4; padding: 15px; border: 1px dashed #999; margin: 10px auto; max-width: 80%; }
-        .home-btn { background: #555; margin-top: 20px; display: inline-block; text-decoration: none; color: white; padding: 10px 20px; border-radius: 5px; }
+        .slider-container { width: 90%; max-width: 1000px; height: 90%; background: white; border-radius: 15px; box-shadow: 0 20px 50px rgba(0,0,0,0.1); display: flex; flex-direction: column; position: relative; overflow: hidden; border-top: 6px solid #1a4d2e; }
+        
+        .slide { 
+            position: absolute; top: 0; right: 0; width: 100%; height: 100%; 
+            padding: 40px; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            opacity: 0; transform: translateX(50px); transition: 0.5s ease-in-out;
+        }
+        .slide.active { opacity: 1; transform: translateX(0); z-index: 1; }
+        
+        h1 { color: #1a4d2e; margin-bottom: 20px; font-size: 2.5rem; }
+        h2 { color: #c9a227; margin-bottom: 15px; }
+        p, li { font-size: 1.2rem; line-height: 1.8; color: #444; max-width: 800px; }
+        
+        .box { background: #f5f5f5; padding: 20px; border-radius: 10px; border: 1px dashed #999; margin: 20px 0; width: 80%; }
+        
+        .controls { 
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 70px; background: white; border-top: 1px solid #eee; 
+            display: flex; justify-content: space-between; align-items: center; padding: 0 30px; z-index: 10;
+        }
+        
+        button { background: #1a4d2e; color: white; border: none; padding: 10px 30px; border-radius: 30px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        button:hover { background: #143d24; }
+        button:disabled { background: #ccc; cursor: not-allowed; }
+        
+        .home-btn { position: absolute; top: 20px; left: 20px; background: #eee; padding: 10px; border-radius: 50%; color: #333; text-decoration: none; z-index: 100; transition: 0.3s; }
+        .home-btn:hover { background: #ddd; }
     </style>
 </head>
 <body>
+
+<a href="index.html" class="home-btn" title="العودة للرئيسية"><i class="fa-solid fa-house"></i></a>
+
 <div class="slider-container">
+    
     <div class="slide active">
         <h1>منهجية صياغة النصوص التشريعية</h1>
-        <h3>قانون الطيران المدني 98-06</h3>
-        <p>إعداد الطالب: بولنوار م | إشراف: د. خرشي عمر معمر</p>
+        <h3 style="color: #666;">دراسة حالة: قانون الطيران المدني 98-06</h3>
+        <div style="margin-top: 40px; font-weight: bold;">
+            <p>إعداد الطالب: بولنوار م</p>
+            <p>إشراف الأستاذ: د. خرشي عمر معمر</p>
+        </div>
     </div>
+
     <div class="slide">
-        <h2>1. البيانات الشكلية</h2>
-        <div class="doc-box">الرقم: 98-06 | التاريخ: 27 يونيو 1998</div>
-        <p>ضبط الهوية الزمنية والقانونية للنص.</p>
+        <h2>1. البيانات الشكلية (الهوية)</h2>
+        <div class="box">
+            <strong>الرقم:</strong> 98-06<br>
+            <strong>التاريخ:</strong> 27 يونيو 1998 (3 ربيع الأول 1419)
+        </div>
+        <p>أول خطوة في الصياغة هي ضبط الهوية الزمنية والقانونية للنص بدقة لضمان دخوله حيز التنفيذ.</p>
     </div>
+
     <div class="slide">
-        <h2>2. المرجعية الدستورية</h2>
-        <p>الاستناد للدستور واتفاقية شيكاغو 1944 لضمان الشرعية.</p>
+        <h2>2. المرجعية الدستورية (الشرعية)</h2>
+        <p>يؤسس المشرع شرعية القانون بالاستناد إلى النصوص الأعلى درجة (الدستور) والاتفاقيات الدولية.</p>
+        <div class="box" style="border-color: #c9a227;">
+            مثال: "بناءً على الدستور... وبمقتضى اتفاقية شيكاغو 1944"
+        </div>
     </div>
+
     <div class="slide">
-        <h2>3. الانسجام التشريعي</h2>
-        <p>استحضار القوانين السابقة (التأشيرات) لضمان وحدة المصطلحات.</p>
+        <h2>3. الانسجام التشريعي (التأشيرات)</h2>
+        <p>استخدام "التأشيرات" (Visas) لربط القانون الجديد بالقوانين السابقة (مثل القانون المدني والتجاري) لضمان:</p>
+        <ul style="text-align: right; display: inline-block;">
+            <li>✅ وحدة المصطلحات القانونية.</li>
+            <li>✅ عدم تعارض الأحكام.</li>
+        </ul>
     </div>
+
     <div class="slide">
         <h2>4. نموذج تطبيقي: المادة 12</h2>
-        <div style="background:#e8f5e9; padding:20px; border-radius:10px; margin:20px;">
-            "يتولى قيادة الطائرات مستخدمون مؤهلون..."
+        <div class="box" style="background: #e8f5e9; font-family: 'Amiri'; font-size: 1.3rem;">
+            "يتولى قيادة الطائرات مستخدمون مؤهلون حائزون شهادات..."
         </div>
-        <ul style="list-style:none;">
-            <li>✅ لغة الإلزام (يتولى)</li>
-            <li>✅ دقة المصطلح (مستخدمون)</li>
+        <ul style="list-style: none;">
+            <li>🔹 <strong>يتولى:</strong> فعل مضارع يفيد الإلزام والوجوب.</li>
+            <li>🔹 <strong>مستخدمون:</strong> مصطلح دقيق وشامل للطاقم.</li>
         </ul>
-        <a href="index.html" class="home-btn">العودة للرئيسية</a>
     </div>
 
     <div class="controls">
-        <span id="slideNum">1 / 5</span>
+        <span id="slideNum" style="font-weight: bold; color: #777;">1 / 5</span>
         <div>
             <button id="prevBtn" onclick="move(-1)">السابق</button>
             <button id="nextBtn" onclick="move(1)">التالي</button>
         </div>
     </div>
 </div>
+
 <script>
     let current = 0;
     const slides = document.querySelectorAll('.slide');
-    function move(d) {
-        slides[current].classList.remove('active');
-        current += d;
-        if (current < 0) current = 0;
-        if (current >= slides.length) current = slides.length - 1;
+    const total = slides.length;
+    
+    function update() {
+        slides.forEach(s => s.classList.remove('active'));
         slides[current].classList.add('active');
-        document.getElementById('slideNum').innerText = (current+1) + " / " + slides.length;
+        document.getElementById('slideNum').innerText = (current + 1) + " / " + total;
+        document.getElementById('prevBtn').disabled = current === 0;
+        document.getElementById('nextBtn').disabled = current === total - 1;
     }
+    
+    function move(dir) {
+        current += dir;
+        update();
+    }
+    
+    update();
 </script>
+
 </body>
 </html>
