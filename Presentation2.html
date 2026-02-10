@@ -2,40 +2,472 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>منهجية النصوص التنظيمية: مرسوم 26-70</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>منهجية تحرير النصوص التنظيمية: المرسوم الرئاسي 25-221</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Tajawal:wght@300;400;500;700;800&family=Scheherazade+New:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
-        body { font-family: 'Tajawal'; background: #f0f2f5; display: flex; justify-content: center; height: 100vh; margin: 0; align-items: center; }
-        .container { width: 90%; max-width: 1000px; height: 90%; background: white; border-top: 5px solid #2c3e50; border-radius: 10px; padding: 20px; overflow-y: auto; text-align: center; }
-        h1 { color: #2c3e50; }
-        .card { background: #ecf0f1; padding: 15px; margin: 10px 0; border-radius: 5px; text-align: right; }
-        .btn { background: #2c3e50; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block; margin-top: 20px; }
+        /* ==========================================================================
+           1. نظام الألوان والمتغيرات (Design System)
+           ========================================================================== */
+        :root {
+            /* ألوان السيادة (مستوحاة من الجريدة الرسمية والطابع الرئاسي) */
+            --royal-blue: #1c2e4a;      /* أزرق داكن للهيكل */
+            --gold-accent: #d4af37;     /* ذهبي للعناوين المهمة */
+            --bg-paper: #f9fbfd;        /* خلفية ورقية */
+            --text-dark: #2c3e50;
+            --text-light: #ecf0f1;
+            
+            /* ألوان التحليل */
+            --highlight-green: #e8f5e9; /* للمصطلحات الصحيحة */
+            --highlight-red: #fce4ec;   /* للتنبيهات */
+            --border-soft: #e2e8f0;
+            
+            --sidebar-width: 260px;
+            --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        /* ==========================================================================
+           2. التأسيس العام (Reset & Base)
+           ========================================================================== */
+        * { box-sizing: border-box; outline: none; -webkit-tap-highlight-color: transparent; }
+        
+        body {
+            margin: 0; padding: 0;
+            font-family: 'Tajawal', sans-serif;
+            background-color: var(--bg-paper);
+            color: var(--text-dark);
+            height: 100vh; overflow: hidden;
+            display: flex;
+        }
+
+        /* ==========================================================================
+           3. القائمة الجانبية للمصطلحات (Glossary Sidebar)
+           ========================================================================== */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--royal-blue);
+            color: white;
+            display: flex; flex-direction: column;
+            box-shadow: 5px 0 15px rgba(0,0,0,0.1);
+            z-index: 100;
+            transition: var(--transition);
+        }
+
+        .sidebar-header {
+            padding: 30px 20px;
+            background: rgba(0,0,0,0.1);
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .sidebar-logo { font-family: 'Amiri', serif; font-size: 1.4rem; color: var(--gold-accent); margin-bottom: 5px; }
+        .sidebar-sub { font-size: 0.85rem; opacity: 0.7; }
+
+        .nav-menu { list-style: none; padding: 20px 0; margin: 0; overflow-y: auto; flex: 1; }
+        
+        .nav-item {
+            padding: 15px 25px;
+            cursor: pointer;
+            border-left: 4px solid transparent;
+            transition: var(--transition);
+            display: flex; align-items: center; gap: 10px;
+            font-size: 0.95rem;
+        }
+
+        .nav-item:hover { background: rgba(255,255,255,0.05); }
+        .nav-item.active { background: rgba(212, 175, 55, 0.1); border-left-color: var(--gold-accent); color: var(--gold-accent); font-weight: bold; }
+
+        /* ==========================================================================
+           4. منطقة العرض الرئيسية (Main Stage)
+           ========================================================================== */
+        .main-content {
+            flex: 1; position: relative;
+            display: flex; flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* شريط العنوان العلوي */
+        .top-bar {
+            height: 70px;
+            background: white;
+            border-bottom: 1px solid var(--border-soft);
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 30px;
+            z-index: 90;
+        }
+
+        .page-title { font-family: 'Amiri', serif; font-size: 1.5rem; color: var(--royal-blue); }
+        .page-title span { color: var(--gold-accent); }
+
+        /* حاوية الشرائح */
+        .slider-container {
+            flex: 1;
+            position: relative;
+            background: var(--bg-paper);
+            overflow: hidden;
+            display: flex; align-items: center; justify-content: center;
+            padding: 20px;
+        }
+
+        /* الشريحة (Slide Design) */
+        .slide {
+            position: absolute; top: 0; right: 0; width: 100%; height: 100%;
+            padding: 40px 60px;
+            opacity: 0; visibility: hidden;
+            transform: translateY(20px) scale(0.98);
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            overflow-y: auto;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.05);
+            border-radius: 20px;
+            margin: 20px;
+            border-top: 6px solid var(--royal-blue);
+        }
+
+        .slide.active { opacity: 1; visibility: visible; transform: translateY(0) scale(1); z-index: 10; }
+
+        /* ==========================================================================
+           5. العناصر التحليلية (Components)
+           ========================================================================== */
+        /* العناوين */
+        h2.section-title {
+            font-family: 'Amiri', serif; font-size: 2rem;
+            color: var(--royal-blue);
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--border-soft);
+            position: relative;
+        }
+        h2.section-title::after {
+            content: ''; position: absolute; bottom: -2px; right: 0;
+            width: 100px; height: 2px; background: var(--gold-accent);
+        }
+
+        /* النصوص القانونية */
+        p.legal-text { font-size: 1.2rem; line-height: 1.9; color: #444; text-align: justify; margin-bottom: 20px; }
+
+        /* البطاقات الأكاديمية */
+        .academic-card {
+            background: white;
+            border: 1px solid var(--border-soft);
+            border-right: 5px solid var(--royal-blue);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            transition: transform 0.2s;
+        }
+        .academic-card:hover { transform: translateX(-5px); box-shadow: 0 8px 15px rgba(0,0,0,0.05); }
+        .card-header { font-weight: bold; color: var(--royal-blue); display: flex; align-items: center; gap: 10px; margin-bottom: 10px; font-size: 1.1rem; }
+        
+        /* التلوين الدلالي */
+        .highlight-term { background-color: var(--highlight-green); color: #2e7d32; padding: 2px 6px; border-radius: 4px; font-weight: bold; border-bottom: 1px dashed #2e7d32; }
+        .highlight-error { background-color: var(--highlight-red); color: #c62828; text-decoration: line-through; padding: 2px 6px; border-radius: 4px; opacity: 0.8; }
+
+        /* عرض الصور */
+        .doc-viewer {
+            display: flex; gap: 20px; margin: 20px 0;
+            background: #f1f5f9; padding: 15px; border-radius: 12px; border: 1px dashed #cbd5e1;
+        }
+        .doc-img-container { flex: 1; overflow: hidden; border-radius: 8px; border: 2px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.1); cursor: zoom-in; transition: 0.3s; }
+        .doc-img-container:hover { transform: scale(1.02); }
+        .doc-img { width: 100%; height: auto; display: block; }
+        .doc-desc { flex: 1; padding: 10px; display: flex; flex-direction: column; justify-content: center; }
+
+        /* الهرم القانوني */
+        .hierarchy-list { list-style: none; padding: 0; position: relative; margin: 30px 0; }
+        .hierarchy-item {
+            padding: 15px 30px; margin: 5px 0;
+            background: linear-gradient(90deg, var(--royal-blue), #34495e);
+            color: white; font-weight: bold;
+            border-radius: 4px;
+            width: fit-content;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        /* تدرج العرض للهرم */
+        .hierarchy-item:nth-child(1) { width: 20%; background: #c0392b; } /* الدستور */
+        .hierarchy-item:nth-child(2) { width: 40%; background: #d35400; } /* القوانين العضوية */
+        .hierarchy-item:nth-child(3) { width: 60%; background: #f39c12; } /* القوانين العادية */
+        .hierarchy-item:nth-child(4) { width: 80%; background: var(--royal-blue); border: 2px solid var(--gold-accent); } /* المرسوم (المعني) */
+
+        /* زر العودة */
+        .home-btn {
+            position: absolute; top: 20px; left: 20px;
+            background: var(--royal-blue); color: white;
+            width: 40px; height: 40px; border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            text-decoration: none; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: 0.3s; z-index: 200;
+        }
+        .home-btn:hover { background: var(--gold-accent); transform: scale(1.1); }
+
+        /* التحكم السفلي */
+        .controls {
+            height: 70px; background: white; border-top: 1px solid var(--border-soft);
+            display: flex; justify-content: space-between; align-items: center; padding: 0 40px;
+        }
+        .btn-ctrl {
+            background: white; border: 2px solid var(--royal-blue); color: var(--royal-blue);
+            padding: 10px 30px; border-radius: 30px; font-weight: bold; cursor: pointer; transition: 0.3s;
+            font-family: 'Tajawal'; display: flex; align-items: center; gap: 10px;
+        }
+        .btn-ctrl:hover:not(:disabled) { background: var(--royal-blue); color: white; }
+        .btn-ctrl:disabled { border-color: #ccc; color: #ccc; cursor: not-allowed; }
+
+        /* ==========================================================================
+           6. التجاوب (Mobile Response)
+           ========================================================================== */
+        @media (max-width: 900px) {
+            .sidebar { position: absolute; right: -100%; height: 100%; }
+            .sidebar.active { right: 0; }
+            .doc-viewer { flex-direction: column; }
+            .slide { padding: 20px; margin: 10px; border-radius: 10px; }
+            .hierarchy-item { width: 100% !important; text-align: center; }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>منهجية تحرير النصوص التنظيمية</h1>
-        <h3>دراسة المرسوم التنفيذي 26-70</h3>
+
+<a href="index.html" class="home-btn" title="الخروج"><i class="fa-solid fa-house"></i></a>
+
+<aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <div class="sidebar-logo"><i class="fa-solid fa-scale-balanced"></i> التحليل القانوني</div>
+        <div class="sidebar-sub">المرسوم الرئاسي 25-221</div>
+    </div>
+    <ul class="nav-menu" id="navMenu">
+        </ul>
+    <div style="padding: 20px; font-size: 0.8rem; text-align: center; border-top: 1px solid rgba(255,255,255,0.1);">
+        إعداد: بولنوار م
+    </div>
+</aside>
+
+<main class="main-content">
+    <div class="top-bar">
+        <div class="page-title">تحليل النصوص: <span>تحويل الاعتمادات المالية</span></div>
+        <div style="font-weight: bold; color: var(--text-dark);">2026</div>
+    </div>
+
+    <div class="slider-container">
         
-        <div class="card">
-            <strong>📌 طبيعة النص:</strong> مرسوم تنفيذي (يصدره الوزير الأول لتطبيق القوانين).
-        </div>
-        <div class="card">
-            <strong>📅 التاريخ:</strong> 13 جانفي 2026.
-        </div>
-        <div class="card">
-            <strong>📝 المضمون:</strong> تعديل القانون الأساسي للثانوية المتخصصة (إضافة تخصصات وفصول جديدة).
-        </div>
-        
-        <div style="margin: 30px 0;">
-            <h3>أهم التعديلات:</h3>
-            <ul style="text-align: right; list-style-position: inside;">
-                <li>المادة 2: تعديل تعريف الثانوية (للمواهب المتميزة).</li>
-                <li>المادة 3: إضافة فصل جديد لتنظيم السير الداخلي.</li>
-            </ul>
+        <div class="slide active" data-title="الواجهة والموضوع">
+            <div style="text-align: center; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                <img src="logo.jpg" alt="University Logo" style="width: 100px; margin-bottom: 20px;">
+                <h3 style="color: #7f8c8d; margin: 0;">الجمهورية الجزائرية الديمقراطية الشعبية</h3>
+                <h1 style="font-family: 'Amiri'; font-size: 2.8rem; color: var(--royal-blue); margin: 20px 0;">
+                    منهجية تحرير النصوص التنظيمية
+                </h1>
+                <div style="background: var(--highlight-green); padding: 15px 30px; border-radius: 50px; border: 2px solid var(--royal-blue); margin-bottom: 30px;">
+                    <strong>دراسة تحليلية للمرسوم الرئاسي رقم 25-221</strong>
+                </div>
+                <p style="font-size: 1.3rem; max-width: 700px; color: #555;">
+                    المتضمن تحويل اعتماد بعنوان ميزانية الدولة يوضع تحت تصرف رئاسة الجمهورية.
+                </p>
+            </div>
         </div>
 
-        <a href="index.html" class="btn">العودة للصفحة الرئيسية</a>
+        <div class="slide" data-title="قواعد الصياغة الفنية">
+            <h2 class="section-title"><i class="fa-solid fa-pen-nib"></i> القواعد الفنية للتحرير</h2>
+            <p class="legal-text">تخضع صياغة النصوص التنظيمية لضوابط صارمة لضمان الدقة القانونية وسلامة التطبيق:</p>
+            
+            <div class="academic-card">
+                <div class="card-header"><i class="fa-solid fa-bullseye"></i> 1. وحدة الموضوع</div>
+                <p>يجب أن يعالج النص موضوعاً واحداً محدداً. <br>
+                <span class="highlight-error">خطأ:</span> الخلط بين تحويل ميزانية وتعيين موظف في نفس المرسوم.<br>
+                <span class="highlight-term">صحيح:</span> الاقتصار على موضوع تحويل الاعتماد المالي فقط.</p>
+            </div>
+
+            <div class="academic-card">
+                <div class="card-header"><i class="fa-solid fa-gavel"></i> 2. اللغة الآمرة (Imperative)</div>
+                <p>استخدام صيغة المضارع الذي يفيد الوجوب والالزام الفوري.<br>
+                <span class="highlight-error">لا نكتب:</span> "سوف يلغى" أو "يجب أن يخصص".<br>
+                <span class="highlight-term">نكتب مباشرة:</span> "يلغى"، "يخصص"، "يعاقب".</p>
+            </div>
+
+            <div class="academic-card">
+                <div class="card-header"><i class="fa-solid fa-filter"></i> 3. الإيجاز والوضوح</div>
+                <p>تجنب الحشو والجمل الطويلة التي تحتمل التأويل، والالتزام بالمصطلحات القانونية الدقيقة (مثل: "اعتمادات الدفع"، "الآمر بالصرف").</p>
+            </div>
+        </div>
+
+        <div class="slide" data-title="البيانات الشكلية والديباجة">
+            <h2 class="section-title"><i class="fa-solid fa-file-contract"></i> أ. البيانات الشكلية والديباجة</h2>
+            
+            <div class="doc-viewer">
+                <div class="doc-img-container">
+                    <img src="03.jpg" class="doc-img" alt="صورة المرسوم - الجزء العلوي">
+                </div>
+                <div class="doc-desc">
+                    <div class="academic-card" style="border-right-color: var(--gold-accent);">
+                        <strong><i class="fa-solid fa-fingerprint"></i> الهوية القانونية للنص:</strong>
+                        <ul style="list-style: none; padding: 0; line-height: 2;">
+                            <li>🔹 <strong>النوع:</strong> مرسوم رئاسي.</li>
+                            <li>🔹 <strong>الرقم:</strong> 25-221 (سنة 2025 - تسلسلي 221).</li>
+                            <li>🔹 <strong>التاريخ:</strong> الهجري والميلادي (كما في الصورة).</li>
+                            <li>🔹 <strong>الموضوع:</strong> تحويل اعتماد ميزانية لرئاسة الجمهورية.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <strong><i class="fa-solid fa-sitemap"></i> التدرج في التأشيرات (Visas):</strong>
+                <p>الترتيب إلزامي من الأعلى للأدنى:</p>
+                <ul class="hierarchy-list">
+                    <li class="hierarchy-item">1. الدستور (السند الأعلى)</li>
+                    <li class="hierarchy-item">2. القوانين العضوية (قوانين المالية)</li>
+                    <li class="hierarchy-item">3. القوانين العادية (المتعلقة بالميزانية)</li>
+                    <li class="hierarchy-item">4. المراسيم السابقة ذات الصلة</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide" data-title="تحليل المتن (المواد)">
+            <h2 class="section-title"><i class="fa-solid fa-list-ol"></i> ب. تحليل المتن (Articles)</h2>
+            <p class="legal-text">يتميز المتن في مراسيم تحويل الاعتمادات بالهيكلة القياسية التالية:</p>
+
+            <div class="doc-viewer" style="flex-direction: row-reverse;">
+                <div class="doc-img-container">
+                    <img src="04.jpg" class="doc-img" alt="صورة المرسوم - المواد">
+                </div>
+                <div class="doc-desc">
+                    <div class="academic-card">
+                        <div class="card-header" style="color: #c0392b;"><i class="fa-solid fa-minus-circle"></i> المادة الأولى (الإلغاء)</div>
+                        <p>تنص على <strong>إلغاء</strong> المبلغ من البند الأصلي.<br>
+                        <em>"يلغى من الاعتمادات... مبلغ قدره..."</em></p>
+                    </div>
+                    
+                    <div class="academic-card">
+                        <div class="card-header" style="color: #27ae60;"><i class="fa-solid fa-plus-circle"></i> المادة الثانية (التخصيص)</div>
+                        <p>تنص على <strong>تحويل</strong> نفس المبلغ للبند الجديد (رئاسة الجمهورية).<br>
+                        <em>"يخصص بعنوان سنة... مبلغ قدره..."</em></p>
+                    </div>
+
+                    <div class="academic-card">
+                        <div class="card-header"><i class="fa-solid fa-newspaper"></i> المادة الأخيرة (النشر)</div>
+                        <p>مادة قياسية إجرائية.<br>
+                        <em>"ينشر هذا المرسوم في الجريدة الرسمية..."</em></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="الخاتمة والتوقيع">
+            <h2 class="section-title"><i class="fa-solid fa-signature"></i> ج. الخاتمة</h2>
+            
+            <div style="display: flex; gap: 30px; align-items: center; justify-content: center; height: 60%;">
+                <div style="text-align: center; border: 3px double var(--royal-blue); padding: 40px; border-radius: 10px;">
+                    <i class="fa-solid fa-map-location-dot" style="font-size: 3rem; color: var(--gold-accent); margin-bottom: 20px;"></i>
+                    <h3 style="margin: 0; color: var(--royal-blue);">حرر بالجزائر في...</h3>
+                    <p style="color: #777;">(ذكر التاريخ بدقة)</p>
+                </div>
+
+                <div style="font-size: 3rem; color: #ccc;">⬅</div>
+
+                <div style="text-align: center; background: var(--royal-blue); color: white; padding: 40px; border-radius: 10px; box-shadow: 0 10px 30px rgba(28, 46, 74, 0.3);">
+                    <i class="fa-solid fa-file-signature" style="font-size: 3rem; margin-bottom: 20px;"></i>
+                    <h3 style="margin: 0;">عبد المجيد تبون</h3>
+                    <p style="opacity: 0.8;">رئيس الجمهورية</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="خلاصة منهجية">
+            <div style="text-align: center; max-width: 800px; margin: 0 auto;">
+                <i class="fa-solid fa-check-double" style="font-size: 4rem; color: var(--gold-accent); margin-bottom: 20px;"></i>
+                <h1 style="border: none; color: var(--royal-blue);">الخلاصة</h1>
+                <p class="legal-text" style="text-align: center;">
+                    إن تحرير النصوص التنظيمية (مثل المرسوم 25-221) ليس عملاً إنشائياً، بل هو عملية <strong>تقنية وقانونية</strong> دقيقة تتطلب احترام التدرج الهرمي للقوانين، واستخدام المصطلحات المالية والإدارية بدقة، لضمان حجية النص وقابليته للتنفيذ من طرف المحاسبين العموميين والآمرين بالصرف.
+                </p>
+                <div style="margin-top: 40px;">
+                    <button class="btn-ctrl" onclick="location.reload()" style="margin: 0 auto; background: var(--royal-blue); color: white;">
+                        <i class="fa-solid fa-rotate-right"></i> إعادة العرض
+                    </button>
+                </div>
+            </div>
+        </div>
+
     </div>
+
+    <div class="controls">
+        <button class="btn-ctrl" id="prevBtn" onclick="changeSlide(-1)">
+            <i class="fa-solid fa-arrow-right"></i> السابق
+        </button>
+        <div style="font-weight: bold; color: #7f8c8d;" id="slideCounter">1 / 6</div>
+        <button class="btn-ctrl" id="nextBtn" onclick="changeSlide(1)">
+            التالي <i class="fa-solid fa-arrow-left"></i>
+        </button>
+    </div>
+</main>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const navMenu = document.getElementById('navMenu');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const slideCounter = document.getElementById('slideCounter');
+
+        // بناء القائمة الجانبية تلقائياً
+        slides.forEach((slide, index) => {
+            const title = slide.getAttribute('data-title');
+            const li = document.createElement('li');
+            li.className = 'nav-item';
+            if(index === 0) li.classList.add('active');
+            li.innerHTML = `<i class="fa-solid fa-chevron-left" style="font-size:0.7rem;"></i> ${title}`;
+            li.onclick = () => goToSlide(index);
+            navMenu.appendChild(li);
+        });
+
+        const navItems = document.querySelectorAll('.nav-item');
+
+        window.goToSlide = function(index) {
+            slides[currentSlide].classList.remove('active');
+            navItems[currentSlide].classList.remove('active');
+            
+            currentSlide = index;
+            
+            slides[currentSlide].classList.add('active');
+            navItems[currentSlide].classList.add('active');
+            
+            updateControls();
+        }
+
+        window.changeSlide = function(dir) {
+            const newIndex = currentSlide + dir;
+            if (newIndex >= 0 && newIndex < slides.length) {
+                goToSlide(newIndex);
+            }
+        }
+
+        function updateControls() {
+            slideCounter.innerText = `${currentSlide + 1} / ${slides.length}`;
+            prevBtn.disabled = currentSlide === 0;
+            nextBtn.disabled = currentSlide === slides.length - 1;
+            
+            if(currentSlide === slides.length - 1) {
+                nextBtn.innerHTML = 'إنهاء <i class="fa-solid fa-check"></i>';
+            } else {
+                nextBtn.innerHTML = 'التالي <i class="fa-solid fa-arrow-left"></i>';
+            }
+        }
+
+        // دعم لوحة المفاتيح
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') changeSlide(-1);
+            if (e.key === 'ArrowLeft') changeSlide(1);
+        });
+
+        updateControls();
+    });
+</script>
+
 </body>
 </html>
