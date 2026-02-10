@@ -3,321 +3,837 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>المنصة الأكاديمية: تقنيات البحث العلمي</title>
+    <meta name="description" content="منصة عرض أكاديمية لتحليل النصوص القانونية - القانون المدني الجزائري">
+    <meta name="author" content="بولنوار ميلود">
+    <title>المنصة الأكاديمية: منهجية التعليق على النصوص (م 42-43)</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Tajawal:wght@300;400;500;700;800&family=Scheherazade+New:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* =========================================
-           1. نظام الألوان والتصميم (Design System)
-           ========================================= */
+        /* ==========================================================================
+         2. متغيرات التصميم (Design Tokens & Variables)
+         ========================================================================== */
         :root {
-            --primary: #1a4d2e;       /* أخضر أكاديمي غامق */
-            --primary-dark: #0f301b;
-            --accent: #d4af37;        /* ذهبي ملكي */
-            --bg-body: #f3f4f6;
-            --white: #ffffff;
-            --text-main: #2d3436;
-            --text-light: #636e72;
-            --shadow-card: 0 10px 30px rgba(0,0,0,0.08);
-            --hover-shadow: 0 20px 40px rgba(26, 77, 46, 0.15);
+            /* الألوان الأساسية (الوضع النهاري) */
+            --primary-hue: 210; /* أزرق ملكي */
+            --primary-color: #1c2e4a;
+            --primary-light: #34495e;
+            --secondary-color: #d4af37; /* ذهبي */
+            --secondary-light: #f1c40f;
+            --accent-success: #27ae60;
+            --accent-danger: #c0392b;
+            
+            /* ألوان الخلفيات والنصوص */
+            --bg-body: #f4f7f6;
+            --bg-card: #ffffff;
+            --bg-sidebar: #1c2e4a;
+            --text-main: #2c3e50;
+            --text-muted: #7f8c8d;
+            --text-light: #ecf0f1;
+            
+            /* الظلال والمؤثرات */
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 8px rgba(0,0,0,0.1);
+            --shadow-lg: 0 15px 30px rgba(0,0,0,0.15);
+            --shadow-inner: inset 0 2px 4px rgba(0,0,0,0.06);
+            --border-radius-sm: 5px;
+            --border-radius-md: 10px;
+            --border-radius-lg: 20px;
+            
+            /* الأبعاد */
+            --sidebar-width: 280px;
+            --header-height: 70px;
+            --footer-height: 60px;
+            
+            /* الحركة */
+            --transition-fast: 0.2s ease;
+            --transition-normal: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        /* الوضع الليلي (Dark Mode Override) */
+        [data-theme="dark"] {
+            --primary-color: #34495e;
+            --bg-body: #121212;
+            --bg-card: #1e1e1e;
+            --text-main: #e0e0e0;
+            --text-muted: #a0a0a0;
+            --shadow-lg: 0 15px 30px rgba(0,0,0,0.5);
+        }
+
+        /* ==========================================================================
+         3. التنسيقات الأساسية (Reset & Base Styles)
+         ========================================================================== */
+        * { box-sizing: border-box; outline: none; -webkit-tap-highlight-color: transparent; }
+        
+        /* تخصيص شريط التمرير */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-body); }
+        ::-webkit-scrollbar-thumb { background: var(--secondary-color); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--secondary-light); }
 
         body {
             margin: 0; padding: 0;
             font-family: 'Tajawal', sans-serif;
             background-color: var(--bg-body);
-            background-image: radial-gradient(#e2e8f0 1px, transparent 1px);
-            background-size: 20px 20px;
             color: var(--text-main);
-            min-height: 100vh;
+            height: 100vh; width: 100vw;
+            display: flex; overflow: hidden;
+            transition: background-color var(--transition-normal), color var(--transition-normal);
+        }
+
+        /* ==========================================================================
+         4. شاشة الترحيب والتحميل (Splash Screen)
+         ========================================================================== */
+        .splash-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, var(--primary-color), #000);
+            z-index: 9999;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            color: white;
+            transition: opacity 0.8s ease-out, visibility 0.8s;
+        }
+
+        .splash-content { text-align: center; animation: fadeInUp 1s ease-out; }
+        
+        .loader-ring {
+            display: inline-block; width: 64px; height: 64px; margin-bottom: 20px;
+        }
+        .loader-ring:after {
+            content: " "; display: block; width: 46px; height: 46px; margin: 8px;
+            border-radius: 50%; border: 5px solid #fff;
+            border-color: #fff transparent #fff transparent;
+            animation: ring-spin 1.2s linear infinite;
+        }
+        
+        .start-btn {
+            margin-top: 40px; padding: 15px 50px;
+            font-size: 1.2rem; background: var(--secondary-color);
+            color: white; border: none; border-radius: 50px;
+            cursor: pointer; font-family: 'Tajawal'; font-weight: bold;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
+            transition: var(--transition-normal);
+            display: flex; align-items: center; gap: 10px;
+            position: relative; overflow: hidden;
+        }
+        
+        .start-btn::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: 0.5s;
+        }
+        
+        .start-btn:hover::before { left: 100%; }
+        .start-btn:hover { transform: scale(1.05); background: #b89628; }
+
+        @keyframes ring-spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* ==========================================================================
+         5. القائمة الجانبية (Sidebar)
+         ========================================================================== */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--bg-sidebar);
+            color: var(--text-light);
+            display: flex; flex-direction: column;
+            box-shadow: 5px 0 15px rgba(0,0,0,0.1);
+            z-index: 1000;
+            transition: var(--transition-normal);
+        }
+
+        .sidebar-header {
+            padding: 30px 20px;
+            background: rgba(0,0,0,0.2);
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .app-logo { font-family: 'Amiri', serif; font-size: 1.4rem; color: var(--secondary-color); font-weight: bold; }
+        .app-sub { font-size: 0.8rem; opacity: 0.7; margin-top: 5px; }
+
+        .nav-scroll { flex: 1; overflow-y: auto; padding: 10px 0; }
+        
+        .nav-item {
+            list-style: none; padding: 15px 25px;
+            cursor: pointer; border-left: 4px solid transparent;
+            transition: var(--transition-fast);
+            display: flex; align-items: center; gap: 12px;
+            font-size: 0.95rem; opacity: 0.8;
+        }
+
+        .nav-item:hover { background: rgba(255,255,255,0.05); opacity: 1; }
+        .nav-item.active {
+            background: linear-gradient(90deg, rgba(212, 175, 55, 0.15), transparent);
+            border-left-color: var(--secondary-color);
+            color: var(--secondary-color);
+            font-weight: bold; opacity: 1;
+        }
+
+        .sidebar-footer {
+            padding: 20px; text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.8rem; color: rgba(255,255,255,0.5);
+        }
+
+        /* ==========================================================================
+         6. المنطقة الرئيسية (Main Wrapper)
+         ========================================================================== */
+        .main-wrapper {
+            flex: 1; display: flex; flex-direction: column;
+            position: relative; overflow: hidden;
+        }
+
+        /* الشريط العلوي */
+        .top-bar {
+            height: var(--header-height);
+            background: var(--bg-card);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 30px; z-index: 900;
+        }
+
+        .toggle-btn { background: none; border: none; font-size: 1.4rem; color: var(--text-main); cursor: pointer; display: none; }
+        
+        .search-box {
+            position: relative; width: 300px;
+            background: var(--bg-body);
+            border-radius: 20px; padding: 5px 15px;
+            border: 1px solid transparent;
+            transition: 0.3s;
+        }
+        .search-box:focus-within { border-color: var(--secondary-color); width: 320px; }
+        .search-input { width: 100%; border: none; background: transparent; padding: 8px; color: var(--text-main); }
+        .search-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
+
+        .toolbar { display: flex; gap: 15px; align-items: center; }
+        .tool-btn {
+            background: none; border: none; cursor: pointer;
+            width: 40px; height: 40px; border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            color: var(--text-main); transition: 0.3s;
+        }
+        .tool-btn:hover { background: var(--bg-body); color: var(--secondary-color); }
+
+        /* منطقة العرض (Viewport) */
+        .viewport {
+            flex: 1; padding: 20px;
+            display: flex; align-items: center; justify-content: center;
+            position: relative;
+            background-image: radial-gradient(var(--text-muted) 1px, transparent 1px);
+            background-size: 30px 30px;
+            background-color: var(--bg-body);
+        }
+
+        /* بطاقة العرض (The Slide Card) */
+        .slide-card {
+            background: var(--bg-card);
+            width: 100%; max-width: 1100px;
+            height: 100%; max-height: 850px;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-lg);
+            position: relative; overflow: hidden;
+            border-top: 6px solid var(--primary-color);
             display: flex; flex-direction: column;
         }
 
-        /* =========================================
-           2. الترويسة الفاخرة (Hero Section)
-           ========================================= */
-        header {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: var(--white);
-            padding: 40px 20px 70px;
-            text-align: center;
-            border-bottom-left-radius: 40px;
-            border-bottom-right-radius: 40px;
-            box-shadow: 0 10px 30px rgba(26, 77, 46, 0.3);
+        /* ==========================================================================
+         7. تصميم الشرائح (Slides Styles)
+         ========================================================================== */
+        .slides-container { flex: 1; position: relative; overflow: hidden; }
+
+        .slide {
+            position: absolute; top: 0; right: 0; width: 100%; height: 100%;
+            padding: 40px 60px;
+            opacity: 0; visibility: hidden;
+            transform: translateY(30px) scale(0.95);
+            transition: 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+            overflow-y: auto;
+        }
+
+        .slide.active { opacity: 1; visibility: visible; transform: translateY(0) scale(1); z-index: 10; }
+
+        /* العناوين داخل الشرائح */
+        .slide-title {
+            font-family: 'Amiri', serif; font-size: 2.4rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            border-bottom: 2px solid rgba(0,0,0,0.05);
+            padding-bottom: 15px;
+            display: inline-block;
             position: relative;
-            overflow: hidden;
+        }
+        .slide-title::after {
+            content: ''; position: absolute; bottom: -2px; right: 0;
+            width: 60px; height: 2px; background: var(--secondary-color);
         }
 
-        /* زخرفة خلفية الترويسة */
-        header::before {
-            content: "\f19c"; /* أيقونة الميزان */
-            font-family: "Font Awesome 6 Free"; font-weight: 900;
-            position: absolute; top: -30px; left: -20px;
-            font-size: 18rem; opacity: 0.05; color: white; transform: rotate(-15deg);
+        /* النصوص الأكاديمية */
+        .academic-text { font-size: 1.25rem; line-height: 1.9; text-align: justify; margin-bottom: 25px; color: var(--text-main); }
+
+        /* الكلمات المفتاحية (Glossary Terms) */
+        .term-highlight {
+            color: var(--primary-color); font-weight: bold;
+            border-bottom: 1px dotted var(--primary-color);
+            cursor: help; position: relative;
+            transition: 0.2s;
+        }
+        .term-highlight:hover { background-color: rgba(28, 46, 74, 0.05); }
+
+        /* البطاقات القانونية (Legal Cards) */
+        .legal-card {
+            background: var(--bg-body);
+            border-right: 5px solid var(--primary-color);
+            padding: 20px; border-radius: var(--border-radius-md);
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.3s;
+        }
+        .legal-card:hover { transform: translateX(-5px); box-shadow: var(--shadow-md); }
+        .card-icon { font-size: 1.5rem; color: var(--secondary-color); margin-left: 10px; }
+        .card-header { font-weight: bold; font-size: 1.1rem; margin-bottom: 10px; display: flex; align-items: center; }
+
+        /* جداول المقارنة */
+        .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 30px; }
+        .compare-box {
+            padding: 25px; border-radius: var(--border-radius-md);
+            text-align: center; border: 1px solid rgba(0,0,0,0.05);
+        }
+        .box-danger { background: #fff5f5; border-top: 4px solid #c0392b; }
+        .box-success { background: #f0fdf4; border-top: 4px solid #27ae60; }
+        
+        .badge {
+            display: inline-block; padding: 5px 15px; border-radius: 20px;
+            font-size: 0.9rem; font-weight: bold; color: white; margin-top: 15px;
         }
 
-        .logo-container {
-            width: 110px; height: 110px;
-            margin: 0 auto 15px;
-            background: white; border-radius: 50%; padding: 5px;
-            box-shadow: 0 0 0 6px rgba(255,255,255,0.2);
-            animation: float 3s ease-in-out infinite;
+        /* قسم التحميل PDF */
+        .pdf-section {
+            background: linear-gradient(45deg, var(--bg-body), #fff);
+            border: 2px dashed #cbd5e1;
+            border-radius: var(--border-radius-md);
+            padding: 30px; text-align: center; margin-top: 40px;
         }
-        .logo-img { width: 100%; height: 100%; object-fit: contain; border-radius: 50%; }
-
-        h1 { margin: 10px 0; font-family: 'Amiri', serif; font-size: 2.2rem; text-shadow: 0 2px 4px rgba(0,0,0,0.2); }
-        .subtitle { font-size: 1.1rem; opacity: 0.9; font-weight: 300; letter-spacing: 1px; }
-
-        .prof-badge {
-            margin-top: 25px;
+        .btn-download {
+            background: var(--primary-color); color: white;
+            padding: 12px 35px; border-radius: 8px;
+            text-decoration: none; font-weight: bold;
             display: inline-flex; align-items: center; gap: 10px;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(5px);
-            padding: 8px 25px; border-radius: 50px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            font-weight: bold; color: var(--accent);
+            transition: 0.3s; margin: 0 10px;
+            box-shadow: 0 5px 15px rgba(28, 46, 74, 0.2);
+        }
+        .btn-download:hover { background: var(--secondary-color); transform: translateY(-3px); }
+
+        /* ==========================================================================
+         8. شريط التحكم السفلي (Bottom Controls)
+         ========================================================================== */
+        .controls-bar {
+            height: var(--footer-height);
+            background: var(--bg-card);
+            border-top: 1px solid rgba(0,0,0,0.05);
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 30px; position: relative;
         }
 
-        /* =========================================
-           3. شبكة البطاقات (Card Grid)
-           ========================================= */
-        .container {
-            max-width: 1200px; margin: -50px auto 20px;
-            padding: 0 20px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            position: relative; z-index: 10;
+        /* شريط التقدم */
+        .progress-track { position: absolute; top: 0; right: 0; left: 0; height: 3px; background: #eee; }
+        .progress-fill { height: 100%; background: var(--secondary-color); width: 0%; transition: width 0.3s; }
+
+        .nav-btn {
+            background: white; border: 1px solid #ddd;
+            color: var(--text-main);
+            padding: 8px 25px; border-radius: 30px;
+            font-weight: bold; cursor: pointer;
+            display: flex; align-items: center; gap: 8px;
+            transition: 0.2s; font-family: 'Tajawal';
         }
+        .nav-btn:hover:not(:disabled) { background: var(--primary-color); color: white; border-color: var(--primary-color); }
+        .nav-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
-        .card {
-            background: var(--white);
-            border-radius: 20px;
-            padding: 25px;
-            position: relative; overflow: hidden;
-            border: 1px solid rgba(0,0,0,0.05);
-            box-shadow: var(--card-shadow);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            display: flex; flex-direction: column; justify-content: space-between;
+        /* ==========================================================================
+         9. النوافذ المنبثقة (Tooltips)
+         ========================================================================== */
+        .tooltip {
+            position: fixed;
+            background: var(--bg-sidebar); color: white;
+            padding: 15px; border-radius: 8px;
+            font-size: 0.9rem; max-width: 300px;
+            box-shadow: var(--shadow-lg);
+            z-index: 2000; display: none;
+            pointer-events: none;
+            animation: fadeIn 0.2s;
         }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .card:hover { transform: translateY(-10px); box-shadow: var(--hover-shadow); border-color: var(--accent); }
-
-        /* الأيقونة الخلفية الكبيرة */
-        .card::after {
-            content: attr(data-icon);
-            font-family: "Font Awesome 6 Free"; font-weight: 900;
-            position: absolute; bottom: -15px; left: -15px;
-            font-size: 7rem; opacity: 0.04; color: var(--text-main);
-            z-index: 0;
-        }
-
-        .card.active { border-top: 5px solid var(--primary); }
-        .card.featured { border-top: 5px solid var(--accent); background: linear-gradient(to bottom right, #fff, #fffcf5); }
-        .card.locked { opacity: 0.8; background: #f9f9f9; cursor: not-allowed; filter: grayscale(0.9); }
-
-        .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; position: relative; z-index: 1; }
-        .topic-num { font-size: 0.85rem; font-weight: 800; text-transform: uppercase; color: var(--text-light); letter-spacing: 1px; }
-        
-        .status-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--primary); box-shadow: 0 0 10px var(--primary); }
-        .card.featured .status-dot { background: var(--accent); box-shadow: 0 0 10px var(--accent); }
-        .card.locked .status-dot { background: #ccc; box-shadow: none; }
-
-        .card-title { font-size: 1.4rem; font-weight: 800; margin: 0 0 10px; color: var(--primary); line-height: 1.4; position: relative; z-index: 1; }
-        .card-desc { font-size: 0.95rem; color: var(--text-light); line-height: 1.6; margin-bottom: 20px; position: relative; z-index: 1; }
-
-        /* الأزرار */
-        .btn {
-            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-            width: 100%; padding: 12px; border-radius: 12px;
-            font-weight: bold; text-decoration: none; font-size: 0.95rem;
-            transition: 0.3s; position: relative; z-index: 1; border: none;
-        }
-        .btn-primary { background: var(--primary); color: white; box-shadow: 0 4px 10px rgba(26, 77, 46, 0.2); }
-        .btn-primary:hover { background: var(--primary-dark); transform: scale(1.02); }
-        .btn-gold { background: var(--accent); color: white; box-shadow: 0 4px 10px rgba(212, 175, 55, 0.3); }
-        .btn-gold:hover { background: #b89628; transform: scale(1.02); }
-        .btn-locked { background: #e0e0e0; color: #999; cursor: not-allowed; }
-
-        /* =========================================
-           4. قسم المراجع والمكتبة (New Additions)
-           ========================================= */
-        .library-section { max-width: 1200px; margin: 30px auto 60px; padding: 0 20px; }
-
-        /* بانر مكتبة الأستاذ */
-        .prof-library-banner {
-            background: linear-gradient(90deg, #2c3e50, #34495e);
-            border-radius: 20px; padding: 35px; margin-bottom: 40px;
-            color: white; display: flex; align-items: center; justify-content: space-between;
-            box-shadow: 0 15px 30px rgba(44, 62, 80, 0.2); transition: 0.3s;
-            text-decoration: none; border: 1px solid rgba(255,255,255,0.1);
-        }
-        .prof-library-banner:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(44, 62, 80, 0.3); }
-        
-        .lib-text h3 { margin: 0; font-family: 'Amiri'; font-size: 1.8rem; color: var(--accent); }
-        .lib-text p { margin: 10px 0 0; opacity: 0.85; font-size: 1.1rem; }
-        .lib-icon { font-size: 3.5rem; color: rgba(255,255,255,0.2); }
-
-        /* عنوان القسم */
-        .section-header { 
-            font-family: 'Amiri'; font-size: 1.8rem; color: var(--text-main); 
-            margin-bottom: 25px; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;
-            display: flex; align-items: center; gap: 10px; 
-        }
-
-        /* شبكة المراجع */
-        .ref-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
-        
-        .ref-card {
-            background: white; border-radius: 15px; padding: 20px;
-            text-align: center; text-decoration: none; color: var(--text-main);
-            border: 1px solid #eee; transition: 0.3s;
-            display: flex; flex-direction: column; align-items: center; gap: 10px;
-        }
-        .ref-card:hover { border-color: var(--primary); background: #fdfdfd; transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-        
-        .ref-icon-box {
-            width: 50px; height: 50px; border-radius: 12px;
-            background: #e8f5e9; color: var(--primary);
-            display: flex; justify-content: center; align-items: center;
-            font-size: 1.5rem; margin-bottom: 5px;
-        }
-
-        /* التذييل */
-        footer { text-align: center; padding: 40px; color: var(--text-light); font-size: 0.9rem; margin-top: auto; }
-
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
-
-        @media (max-width: 768px) {
-            h1 { font-size: 1.8rem; }
-            .container { grid-template-columns: 1fr; margin-top: -30px; }
-            .prof-library-banner { flex-direction: column; text-align: center; gap: 20px; }
-            header { border-radius: 0 0 30px 30px; }
+        /* ==========================================================================
+         10. التجاوب مع الجوال (Mobile Responsiveness)
+         ========================================================================== */
+        @media (max-width: 900px) {
+            .sidebar { position: fixed; right: -100%; height: 100%; }
+            .sidebar.active { right: 0; box-shadow: -10px 0 30px rgba(0,0,0,0.2); }
+            .toggle-btn { display: block; }
+            .search-box { display: none; } /* إخفاء البحث في الجوال */
+            .slide { padding: 25px; }
+            .slide-title { font-size: 1.8rem; }
+            .compare-grid { grid-template-columns: 1fr; }
+            .start-btn { width: 90%; justify-content: center; }
         }
     </style>
 </head>
-<body>
+<body data-theme="light">
 
-    <header>
-        <div class="logo-container">
-            <img src="logo.jpg" alt="University Logo" class="logo-img">
+    <div class="splash-screen" id="splashScreen">
+        <div class="splash-content">
+            <img src="logo.jpg" alt="شعار الجامعة" style="width: 140px; border-radius: 50%; border: 4px solid white; margin-bottom: 30px; box-shadow: 0 0 20px rgba(255,255,255,0.2);">
+            <div class="loader-ring"></div>
+            <h1 style="font-size: 2.5rem; margin: 0;">المنصة الأكاديمية الرقمية</h1>
+            <p style="font-size: 1.2rem; opacity: 0.8; margin-top: 10px;">تحليل النصوص القانونية - القانون المدني الجزائري</p>
+            
+            <button class="start-btn" id="startBtn">
+                <i class="fa-solid fa-play"></i> بدء العرض التفاعلي
+            </button>
         </div>
-        <h1>تقنيات إعداد البحث العلمي</h1>
-        <div class="subtitle">السداسي الرابع - أعمال موجهة</div>
-        
-        <div class="prof-badge">
-            <i class="fa-solid fa-user-tie"></i>
-            إشراف الأستاذ: د. خرشي عمر معمر
-        </div>
-    </header>
-
-    <div class="container">
-
-        <div class="card active" data-icon="\f0e3">
-            <div class="card-header"><span class="topic-num">الموضوع الأول</span><span class="status-dot"></span></div>
-            <h3 class="card-title">تحرير النصوص التشريعية</h3>
-            <p class="card-desc">دراسة تحليلية لقانون الطيران المدني 98-06.</p>
-            <a href="Presentation.html" class="btn btn-primary"><i class="fa-solid fa-play"></i> عرض المشروع</a>
-        </div>
-
-        <div class="card active" data-icon="\f56e">
-            <div class="card-header"><span class="topic-num">الموضوع الثاني</span><span class="status-dot"></span></div>
-            <h3 class="card-title">تحرير النصوص التنظيمية</h3>
-            <p class="card-desc">تحليل المرسوم الرئاسي 25-221 (تحويل الاعتمادات).</p>
-            <a href="Presentation2.html" class="btn btn-primary"><i class="fa-solid fa-file-invoice-dollar"></i> عرض التحليل</a>
-        </div>
-
-        <div class="card locked" data-icon="\f02d">
-            <div class="card-header"><span class="topic-num">الموضوع الثالث</span><span class="status-dot"></span></div>
-            <h3 class="card-title" style="color: #999;">تحرير العرائض القضائية</h3>
-            <p class="card-desc">كيفية صياغة العرائض ومقالات الرد.</p>
-            <button class="btn btn-locked"><i class="fa-solid fa-lock"></i> قريباً</button>
-        </div>
-
-        <div class="card featured" data-icon="\f005">
-            <div class="card-header"><span class="topic-num" style="color: var(--accent);">الموضوع الرابع</span><span class="status-dot"></span></div>
-            <h3 class="card-title" style="color: var(--primary);">التعليق على نص قانوني</h3>
-            <p class="card-desc">تحليل المادتين 42 و 43 من القانون المدني (الأهلية).</p>
-            <a href="Presentation4.html" class="btn btn-gold"><i class="fa-solid fa-star"></i> عرض المنصة</a>
-        </div>
-
-        <div class="card locked" data-icon="\f0e3">
-            <div class="card-header"><span class="topic-num">الموضوع الخامس</span><span class="status-dot"></span></div>
-            <h3 class="card-title" style="color: #999;">التعليق على حكم قضائي</h3>
-            <p class="card-desc">منهجية استخراج الوقائع والإجراءات.</p>
-            <button class="btn btn-locked"><i class="fa-solid fa-lock"></i> قريباً</button>
-        </div>
-
-        <div class="card locked" data-icon="\f086">
-            <div class="card-header"><span class="topic-num">الموضوع السادس</span><span class="status-dot"></span></div>
-            <h3 class="card-title" style="color: #999;">منهجية الاستشارة القانونية</h3>
-            <p class="card-desc">تقديم الحلول القانونية للمسائل الواقعية.</p>
-            <button class="btn btn-locked"><i class="fa-solid fa-lock"></i> قريباً</button>
-        </div>
-
-        <div class="card locked" data-icon="\f0c5">
-            <div class="card-header"><span class="topic-num">الموضوع السابع</span><span class="status-dot"></span></div>
-            <h3 class="card-title" style="color: #999;">تحرير الوثائق الإدارية</h3>
-            <p class="card-desc">صياغة القرارات والمحاضر الإدارية.</p>
-            <button class="btn btn-locked"><i class="fa-solid fa-lock"></i> قريباً</button>
-        </div>
-
-        <div class="card locked" data-icon="\f0c5">
-            <div class="card-header"><span class="topic-num">الموضوع الثامن</span><span class="status-dot"></span></div>
-            <h3 class="card-title" style="color: #999;">المذكرة الاستخلاصية</h3>
-            <p class="card-desc">منهجية التلخيص الموضوعي للملفات الوثائقية.</p>
-            <button class="btn btn-locked"><i class="fa-solid fa-lock"></i> قريباً</button>
-        </div>
-
     </div>
 
-    <div class="library-section">
+    <audio id="audioPlayer" preload="auto">
+        <source src="vocal01.mp3" type="audio/mpeg">
+        متصفحك لا يدعم تشغيل الصوت.
+    </audio>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="app-logo"><i class="fa-solid fa-university"></i> المنصة القانونية</div>
+            <div class="app-sub">السداسي الرابع - أعمال موجهة</div>
+        </div>
         
-        <a href="ProfLibrary.html" class="prof-library-banner">
-            <div class="lib-text">
-                <h3><i class="fa-solid fa-book-reader"></i> فضاء الأستاذ المشرف</h3>
-                <p>مكتبة رقمية شاملة تحتوي على مقالات، أطروحات، وأبحاث الدكتور خرشي عمر معمر.</p>
+        <ul class="nav-scroll" id="navList">
+            </ul>
+
+        <div class="sidebar-footer">
+            نسخة الطالب: <strong>بولنوار ميلود</strong><br>
+            2025 - 2026
+        </div>
+    </aside>
+
+    <div class="main-wrapper">
+        
+        <header class="top-bar">
+            <div style="display: flex; align-items: center; gap: 20px;">
+                <button class="toggle-btn" id="sidebarToggle"><i class="fa-solid fa-bars"></i></button>
+                <div class="search-box">
+                    <i class="fa-solid fa-search search-icon"></i>
+                    <input type="text" class="search-input" id="searchInput" placeholder="بحث عن مصطلح أو مادة...">
+                </div>
             </div>
-            <div class="lib-icon"><i class="fa-solid fa-arrow-left"></i></div>
-        </a>
+            
+            <div class="toolbar">
+                <button class="tool-btn" id="themeToggle" title="تغيير المظهر"><i class="fa-solid fa-moon"></i></button>
+                <button class="tool-btn" title="معلومات"><i class="fa-solid fa-circle-info"></i></button>
+            </div>
+        </header>
 
-        <div class="section-header">
-            <i class="fa-solid fa-scale-balanced" style="color: var(--primary);"></i>
-            المراجع القانونية الرسمية
+        <div class="viewport" id="viewport">
+            <div class="slide-card">
+                
+                <div class="slides-container">
+
+                    <div class="slide active" data-title="الواجهة الرئيسية">
+                        <div style="text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%;">
+                            <img src="logo.jpg" alt="University Logo" style="width: 100px; margin-bottom: 20px;">
+                            
+                            <h3 style="color: var(--text-muted); font-family: 'Amiri'; margin: 0;">جامعة د. مولاي الطاهر - سعيدة</h3>
+                            <h1 style="font-size: 3rem; color: var(--primary-color); font-family: 'Amiri'; margin: 15px 0;">
+                                منهجية إعداد البحث العلمي
+                            </h1>
+                            
+                            <div style="width: 100px; height: 4px; background: var(--secondary-color); margin: 20px 0;"></div>
+                            
+                            <h2 style="font-size: 1.5rem; color: var(--text-main); font-weight: normal;">
+                                تحليل المادتين <span style="color: var(--secondary-color); font-weight: bold;">42</span> و <span style="color: var(--secondary-color); font-weight: bold;">43</span> من القانون المدني
+                            </h2>
+
+                            <div style="display: flex; gap: 30px; margin-top: 40px; flex-wrap: wrap; justify-content: center;">
+                                <div class="legal-card" style="min-width: 250px; text-align: right;">
+                                    <div class="card-header"><i class="fa-solid fa-user-graduate card-icon"></i> إعداد الطالب</div>
+                                    <div style="font-size: 1.2rem; font-weight: bold;">بولنوار ميلود</div>
+                                </div>
+                                <div class="legal-card" style="min-width: 250px; text-align: right; border-color: var(--secondary-color);">
+                                    <div class="card-header"><i class="fa-solid fa-chalkboard-user card-icon"></i> إشراف الأستاذة</div>
+                                    <div style="font-size: 1.2rem; font-weight: bold;">د. عمارة فتيحة</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="slide" data-title="التحليل الشكلي (م 42)">
+                        <h1 class="slide-title">أولاً: التحليل الشكلي (المادة 42)</h1>
+                        <p class="academic-text">
+                            يعالج هذا النص حالة قانونية دقيقة وهي <span class="term-highlight" data-desc="انعدام الأهلية يعني عدم قدرة الشخص على القيام بأي تصرف قانوني، ويقع باطلاً بطلاناً مطلقاً.">انعدام الأهلية</span>، وذلك من خلال تحديد الفئات المعنية بدقة متناهية.
+                        </p>
+
+                        <div class="legal-card">
+                            <div class="card-header">
+                                <i class="fa-solid fa-map-location-dot card-icon"></i> الموقع الجغرافي للنص
+                            </div>
+                            <ul style="list-style: none; padding: 0; line-height: 2; font-size: 1.1rem;">
+                                <li><i class="fa-solid fa-book"></i> <strong>المصدر:</strong> الأمر 75-58 المتضمن القانون المدني الجزائري.</li>
+                                <li><i class="fa-solid fa-folder-tree"></i> <strong>التموقع:</strong> الكتاب الأول (الأحكام العامة) ⬅ الباب الثاني (الأشخاص) ⬅ الفصل الأول.</li>
+                            </ul>
+                        </div>
+
+                        <h3 style="color: var(--primary-color); border-bottom: 1px solid #eee; padding-bottom: 10px;">
+                            <i class="fa-solid fa-layer-group"></i> البنية الهيكلية
+                        </h3>
+                        <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                            <div style="flex: 1; background: #fff; padding: 15px; border-radius: 8px; border: 1px solid #eee;">
+                                <strong style="color: #c0392b;">الفقرة الأولى:</strong>
+                                <p style="margin: 5px 0; font-size: 0.95rem;">بدأت بصيغة النفي "لا يكون أهلاً" لتقرير حكم الانعدام بشكل قطعي.</p>
+                            </div>
+                            <div style="flex: 1; background: #fff; padding: 15px; border-radius: 8px; border: 1px solid #eee;">
+                                <strong style="color: #2980b9;">الفقرة الثانية:</strong>
+                                <p style="margin: 5px 0; font-size: 0.95rem;">استخدمت "يُعتبر" لإنشاء قرينة قانونية قاطعة غير قابلة لإثبات العكس.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="slide" data-title="المصطلحات الفنية (م 42)">
+                        <h1 class="slide-title">القاموس القانوني (المادة 42)</h1>
+                        <p class="academic-text">
+                            لا يمكن فهم النص دون تفكيك مصطلحاته الفنية. اعتمد المشرع المصطلحات التالية:
+                        </p>
+
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px;">
+                            <div class="legal-card" style="border-right-color: #8e44ad; margin: 0;">
+                                <div class="card-header" style="color: #8e44ad;"><i class="fa-solid fa-brain"></i> التمييز</div>
+                                <p style="font-size: 0.95rem;">القدرة العقلية التي تمكن الشخص من إدراك ماهية تصرفاته وتوقع نتائجها القانونية.</p>
+                            </div>
+                            
+                            <div class="legal-card" style="border-right-color: #c0392b; margin: 0;">
+                                <div class="card-header" style="color: #c0392b;"><i class="fa-solid fa-bolt"></i> الجنون</div>
+                                <p style="font-size: 0.95rem;">اختلال يصيب العقل فيعدم الإدراك كلياً، ويجعل الشخص فاقداً للأهلية بقوة القانون.</p>
+                            </div>
+                            
+                            <div class="legal-card" style="border-right-color: #e67e22; margin: 0;">
+                                <div class="card-header" style="color: #e67e22;"><i class="fa-solid fa-smog"></i> العته</div>
+                                <p style="font-size: 0.95rem;">آفة عقلية تجعل الشخص قليل الفهم، مختلط الكلام، لكنه لا يبلغ حد الجنون المطبق.</p>
+                            </div>
+                            
+                            <div class="legal-card" style="border-right-color: #27ae60; margin: 0;">
+                                <div class="card-header" style="color: #27ae60;"><i class="fa-solid fa-child"></i> صغر السن</div>
+                                <p style="font-size: 0.95rem;">حالة طبيعية تتعلق بكل شخص لم يبلغ سن التمييز المحددة قانوناً بـ 13 سنة كاملة.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="slide" data-title="التحليل الشكلي (م 43)">
+                        <h1 class="slide-title">ثانياً: التحليل الشكلي (المادة 43)</h1>
+                        <p class="academic-text">
+                            تنتقل المنظومة التشريعية هنا من مرحلة "الانعدام" إلى مرحلة <span class="term-highlight" data-desc="حالة يكون فيها الشخص أهلاً للتصرف لكن تصرفاته قابلة للإبطال لمصلحته">نقص الأهلية</span>، وهي مرحلة وسطية تهدف لحماية المصلحة المالية للشخص.
+                        </p>
+
+                        <div class="legal-card" style="border-color: var(--secondary-color); background: #fffcf5;">
+                            <h2 style="font-size: 1.3rem; margin: 0 0 15px 0; color: var(--secondary-color);">
+                                <i class="fa-solid fa-list-check"></i> الفئات المحصورة قانوناً:
+                            </h2>
+                            <ul style="font-size: 1.1rem; line-height: 1.8;">
+                                <li><strong>أولاً:</strong> من بلغ <span class="term-highlight" data-desc="بلوغ سن 13 سنة كاملة">سن التمييز</span> (13) ولم يبلغ سن الرشد (19).</li>
+                                <li><strong>ثانياً:</strong> <span class="term-highlight" data-desc="من يبذر ماله فيما لا فائدة فيه وعلى غير مقتضى العقل">السفيه</span>.</li>
+                                <li><strong>ثالثاً:</strong> <span class="term-highlight" data-desc="طيب القلب الذي يسهل خداعه في المعاملات المالية">ذو الغفلة</span>.</li>
+                            </ul>
+                        </div>
+
+                        <div style="margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px;">
+                            <strong><i class="fa-solid fa-pen-nib"></i> تقنية الصياغة المستخدمة:</strong>
+                            <p class="academic-text">
+                                اعتمد المشرع أسلوب <strong>"الإحالة التشريعية"</strong> (Legislative Reference) في عبارة "وفقاً لما يقرره القانون"، ليحيل التفاصيل الإجرائية إلى قانون الأسرة، تجنباً للتكرار وحفاظاً على وحدة الموضوع.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="slide" data-title="مقارنة درجات الأهلية">
+                        <h1 class="slide-title">مقارنة تحليلية لدرجات الأهلية</h1>
+                        <p class="academic-text">الجدول التالي يوضح الفروقات الجوهرية بين المادتين من حيث السبب والأثر القانوني:</p>
+                        
+                        <div class="compare-grid">
+                            <div class="compare-box box-danger">
+                                <div style="color: #c0392b; font-size: 2rem; margin-bottom: 10px;"><i class="fa-solid fa-ban"></i></div>
+                                <h2 style="margin: 0; color: #c0392b;">المادة 42</h2>
+                                <h3 style="margin: 5px 0 15px; opacity: 0.8;">انعدام الأهلية</h3>
+                                
+                                <ul style="text-align: right; font-size: 1rem; list-style: none; padding: 0;">
+                                    <li style="padding: 5px 0; border-bottom: 1px dashed #e6b0aa;">• دون 13 سنة / المجنون / المعتوه</li>
+                                    <li style="padding: 5px 0; border-bottom: 1px dashed #e6b0aa;">• فاقد الإدراك تماماً</li>
+                                </ul>
+                                <span class="badge" style="background: #c0392b;">باطلة بطلاناً مطلقاً</span>
+                            </div>
+
+                            <div class="compare-box box-success">
+                                <div style="color: #27ae60; font-size: 2rem; margin-bottom: 10px;"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                                <h2 style="margin: 0; color: #27ae60;">المادة 43</h2>
+                                <h3 style="margin: 5px 0 15px; opacity: 0.8;">نقص الأهلية</h3>
+                                
+                                <ul style="text-align: right; font-size: 1rem; list-style: none; padding: 0;">
+                                    <li style="padding: 5px 0; border-bottom: 1px dashed #a9dfbf;">• 13 - 19 سنة / السفيه / ذو الغفلة</li>
+                                    <li style="padding: 5px 0; border-bottom: 1px dashed #a9dfbf;">• إدراك موجود لكنه قاصر</li>
+                                </ul>
+                                <span class="badge" style="background: #27ae60;">قابلة للإبطال (لمصلحته)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="slide" data-title="الإشكالية القانونية">
+                        <h1 class="slide-title">طرح الإشكالية</h1>
+                        
+                        <div style="background: linear-gradient(135deg, var(--primary-color), var(--primary-light)); color: white; padding: 40px; border-radius: 15px; text-align: center; margin: 30px 0; box-shadow: 0 10px 30px rgba(28, 46, 74, 0.3);">
+                            <i class="fa-regular fa-lightbulb" style="font-size: 3rem; color: var(--secondary-color); margin-bottom: 20px;"></i>
+                            <h2 style="color: white; margin: 0; font-family: 'Amiri'; border: none;">الإشكالية المحورية</h2>
+                            <p style="font-size: 1.3rem; margin-top: 15px; line-height: 1.6;">
+                                كيف وازن المشرع الجزائري بين معيار <strong>"السن المادي"</strong> الصارم ومعيار <strong>"الحالة العقلية"</strong> المتغير لضبط التدرج في الأهلية المدنية؟
+                            </p>
+                        </div>
+
+                        <div class="legal-card" style="border-right-width: 8px;">
+                            <strong style="color: var(--primary-color); display: block; margin-bottom: 15px; font-size: 1.2rem;">
+                                <i class="fa-solid fa-clipboard-question"></i> التساؤلات الفرعية:
+                            </strong>
+                            <ul style="font-size: 1.15rem; line-height: 2;">
+                                <li>ما هو الفرق في الأثر القانوني بين العوارض الذهنية (الجنون) والسلوكية (السفه)؟</li>
+                                <li>هل يعتبر بلوغ سن الرشد (19 سنة) دليلاً قاطعاً على كمال الأهلية دائماً؟</li>
+                                <li>كيف يعالج القانون تصرفات "ذي الغفلة" قبل صدور حكم الحجر؟</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="slide" data-title="الخاتمة والنتائج">
+                        <div style="height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+                            <div style="font-size: 5rem; color: var(--secondary-color); margin-bottom: 20px;">
+                                <i class="fa-solid fa-scale-unbalanced-flip"></i>
+                            </div>
+                            <h1 style="font-family: 'Amiri'; font-size: 3.5rem; color: var(--primary-color); margin-bottom: 20px; border: none;">الخاتمة</h1>
+                            
+                            <p class="academic-text" style="text-align: center; max-width: 800px; font-size: 1.4rem;">
+                                نخلص من خلال هذا التحليل إلى أن المشرع الجزائري وضع نظاماً دقيقاً للأهلية، يتسم <strong>بالواقعية</strong> من خلال اعتماد السن كمعيار بسيط لضبط المعاملات، و<strong>بالعدالة</strong> من خلال مراعاة العوارض العقلية حمايةً للطرف الضعيف.
+                            </p>
+
+                            <div class="pdf-section">
+                                <h3 style="margin-top: 0; color: var(--primary-color);">تحميل البحث كاملاً</h3>
+                                <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                                    <a href="01.pdf" target="_blank" class="btn-download" style="background: var(--text-main);">
+                                        <i class="fa-solid fa-book-open"></i> قراءة مباشرة
+                                    </a>
+                                    <a href="01.pdf" download class="btn-download">
+                                        <i class="fa-solid fa-download"></i> تحميل PDF
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
         </div>
-        
-        <div class="ref-grid">
-            <a href="https://www.joradp.dz/HAR/Index.htm" target="_blank" class="ref-card">
-                <div class="ref-icon-box"><i class="fa-solid fa-scroll"></i></div>
-                <strong>الجريدة الرسمية</strong>
-                <small style="color: #888;">المصدر الرسمي للنصوص</small>
-            </a>
-            <a href="https://www.cour-supreme.dz/" target="_blank" class="ref-card">
-                <div class="ref-icon-box"><i class="fa-solid fa-gavel"></i></div>
-                <strong>المحكمة العليا</strong>
-                <small style="color: #888;">الاجتهاد القضائي</small>
-            </a>
-            <a href="http://www.conseil-etat.dz/" target="_blank" class="ref-card">
-                <div class="ref-icon-box"><i class="fa-solid fa-building-columns"></i></div>
-                <strong>مجلس الدولة</strong>
-                <small style="color: #888;">القضاء الإداري</small>
-            </a>
-            <a href="https://asjp.cerist.dz/" target="_blank" class="ref-card">
-                <div class="ref-icon-box"><i class="fa-solid fa-globe"></i></div>
-                <strong>منصة ASJP</strong>
-                <small style="color: #888;">المجلات العلمية الجزائرية</small>
-            </a>
-        </div>
+
+        <footer class="controls-bar">
+            <div class="progress-track"><div class="progress-fill" id="progressBar"></div></div>
+            
+            <div class="slide-counter" id="slideCounter" style="font-weight: bold; color: var(--text-muted);">1 / 7</div>
+            
+            <div style="display: flex; gap: 10px;">
+                <button class="nav-btn" id="prevBtn" onclick="moveSlide(-1)">
+                    <i class="fa-solid fa-arrow-right"></i> السابق
+                </button>
+                <button class="nav-btn" id="nextBtn" onclick="moveSlide(1)">
+                    التالي <i class="fa-solid fa-arrow-left"></i>
+                </button>
+            </div>
+        </footer>
+
     </div>
 
-    <footer>
-        <p>تم التصميم والتطوير بلمسة أكاديمية <br> 
-        <strong>الطالب: بولنوار م</strong> | جميع الحقوق محفوظة © 2026</p>
-    </footer>
+    <div class="tooltip" id="tooltip"></div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- تعريف المتغيرات (State Management) ---
+            const state = {
+                currentSlide: 0,
+                totalSlides: 0,
+                isPlaying: false
+            };
+
+            // --- عناصر DOM ---
+            const dom = {
+                slides: document.querySelectorAll('.slide'),
+                navList: document.getElementById('navList'),
+                prevBtn: document.getElementById('prevBtn'),
+                nextBtn: document.getElementById('nextBtn'),
+                counter: document.getElementById('slideCounter'),
+                progress: document.getElementById('progressBar'),
+                tooltip: document.getElementById('tooltip'),
+                search: document.getElementById('searchInput'),
+                splash: document.getElementById('splashScreen'),
+                audio: document.getElementById('audioPlayer'),
+                startBtn: document.getElementById('startBtn'),
+                sidebar: document.getElementById('sidebar'),
+                toggleBtn: document.getElementById('sidebarToggle'),
+                themeBtn: document.getElementById('themeToggle')
+            };
+
+            state.totalSlides = dom.slides.length;
+
+            // --- 1. التهيئة (Initialization) ---
+            function init() {
+                buildSidebar();
+                updateUI();
+                bindEvents();
+                // تفعيل الشريحة الأولى
+                activateSlide(0);
+            }
+
+            // --- 2. إدارة الشرائح (Slide Logic) ---
+            function activateSlide(index) {
+                // إخفاء الكل
+                dom.slides.forEach(s => s.classList.remove('active'));
+                const navItems = document.querySelectorAll('.nav-item');
+                navItems.forEach(n => n.classList.remove('active'));
+
+                // تفعيل المحدد
+                state.currentSlide = index;
+                dom.slides[index].classList.add('active');
+                if(navItems[index]) navItems[index].classList.add('active');
+
+                // تحديث الواجهة
+                updateUI();
+            }
+
+            function moveSlide(dir) {
+                const newIndex = state.currentSlide + dir;
+                if (newIndex >= 0 && newIndex < state.totalSlides) {
+                    activateSlide(newIndex);
+                }
+            }
+
+            // --- 3. تحديث الواجهة (UI Update) ---
+            function updateUI() {
+                // العداد
+                dom.counter.innerText = `${state.currentSlide + 1} / ${state.totalSlides}`;
+                
+                // شريط التقدم
+                const percent = ((state.currentSlide + 1) / state.totalSlides) * 100;
+                dom.progress.style.width = `${percent}%`;
+
+                // حالة الأزرار
+                dom.prevBtn.disabled = state.currentSlide === 0;
+                dom.nextBtn.disabled = state.currentSlide === state.totalSlides - 1;
+
+                if (state.currentSlide === state.totalSlides - 1) {
+                    dom.nextBtn.innerHTML = 'إنهاء <i class="fa-solid fa-check"></i>';
+                } else {
+                    dom.nextBtn.innerHTML = 'التالي <i class="fa-solid fa-arrow-left"></i>';
+                }
+            }
+
+            // --- 4. بناء القائمة الجانبية (Sidebar Builder) ---
+            function buildSidebar() {
+                dom.navList.innerHTML = '';
+                dom.slides.forEach((slide, index) => {
+                    const title = slide.getAttribute('data-title');
+                    const li = document.createElement('li');
+                    li.className = 'nav-item';
+                    li.innerHTML = `<i class="fa-solid fa-chevron-left" style="font-size:0.8rem"></i> ${title}`;
+                    li.addEventListener('click', () => {
+                        activateSlide(index);
+                        // في الجوال، نغلق القائمة عند الاختيار
+                        if(window.innerWidth < 900) dom.sidebar.classList.remove('active');
+                    });
+                    dom.navList.appendChild(li);
+                });
+            }
+
+            // --- 5. نظام الشرح المنبثق (Glossary System) ---
+            const terms = document.querySelectorAll('.term-highlight');
+            terms.forEach(term => {
+                term.addEventListener('mouseenter', (e) => {
+                    const desc = e.target.getAttribute('data-desc');
+                    dom.tooltip.innerText = desc;
+                    dom.tooltip.style.display = 'block';
+                    dom.tooltip.style.opacity = '1';
+                    
+                    const rect = e.target.getBoundingClientRect();
+                    // حساب الموقع بدقة
+                    dom.tooltip.style.top = (rect.top - dom.tooltip.offsetHeight - 10) + 'px';
+                    dom.tooltip.style.left = rect.left + 'px';
+                });
+                
+                term.addEventListener('mouseleave', () => {
+                    dom.tooltip.style.display = 'none';
+                });
+            });
+
+            // --- 6. ربط الأحداث (Events Binding) ---
+            function bindEvents() {
+                // أزرار التنقل
+                dom.nextBtn.addEventListener('click', () => moveSlide(1));
+                dom.prevBtn.addEventListener('click', () => moveSlide(-1));
+
+                // لوحة المفاتيح
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowRight') moveSlide(-1);
+                    if (e.key === 'ArrowLeft') moveSlide(1);
+                });
+
+                // زر البداية (تشغيل الصوت وإخفاء الترحيب)
+                dom.startBtn.addEventListener('click', () => {
+                    dom.audio.play().then(() => {
+                        console.log("Audio Playing");
+                    }).catch(err => {
+                        console.error("Audio Blocked:", err);
+                        alert("يرجى تفعيل الصوت يدوياً");
+                    });
+                    
+                    dom.splash.style.opacity = '0';
+                    setTimeout(() => dom.splash.style.display = 'none', 800);
+                });
+
+                // القائمة الجانبية (موبايل)
+                dom.toggleBtn.addEventListener('click', () => {
+                    dom.sidebar.classList.toggle('active');
+                });
+
+                // الوضع الليلي
+                dom.themeBtn.addEventListener('click', () => {
+                    const body = document.body;
+                    if (body.getAttribute('data-theme') === 'light') {
+                        body.setAttribute('data-theme', 'dark');
+                        dom.themeBtn.innerHTML = '<i class="fa-solid fa-sun"></i>';
+                    } else {
+                        body.setAttribute('data-theme', 'light');
+                        dom.themeBtn.innerHTML = '<i class="fa-solid fa-moon"></i>';
+                    }
+                });
+
+                // البحث (Search Engine)
+                dom.search.addEventListener('input', (e) => {
+                    const term = e.target.value.toLowerCase();
+                    if(term.length < 2) return;
+
+                    // البحث في نص الشرائح
+                    for (let i = 0; i < state.totalSlides; i++) {
+                        if (dom.slides[i].textContent.toLowerCase().includes(term)) {
+                            activateSlide(i);
+                            break; // التوقف عند أول نتيجة
+                        }
+                    }
+                });
+            }
+
+            // تشغيل التطبيق
+            init();
+        });
+    </script>
 </body>
 </html>
