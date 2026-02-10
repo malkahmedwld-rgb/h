@@ -6,56 +6,114 @@
   <title>الرئيسية - السداسي الرابع</title>
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
   <style>
-    :root { --primary: #1a4d2e; --secondary: #c9a227; --bg: #f4f6f8; --card-bg: #ffffff; --text: #333; }
-    body { font-family: 'Tajawal', sans-serif; background: var(--bg); margin: 0; padding: 20px; color: var(--text); }
+    /* المتغيرات والألوان */
+    :root { 
+        --primary: #1a4d2e; 
+        --secondary: #c9a227; 
+        --bg: #f4f6f8; 
+        --card-bg: #ffffff; 
+        --text: #333; 
+    }
     
-    header { text-align: center; margin-bottom: 40px; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); border-top: 6px solid var(--primary); }
-    h1 { color: var(--primary); margin: 0 0 10px; font-weight: 800; font-size: 1.8rem; }
-    .subtitle { color: #666; font-size: 1.1rem; margin-top: 5px; font-weight: 500; }
+    * { box-sizing: border-box; }
     
-    .prof-name { 
-      color: var(--secondary); font-weight: bold; margin-top: 15px; display: inline-block; 
-      padding: 8px 25px; background: #fffcf0; border-radius: 50px; border: 1px solid #faeab8; font-size: 1.1rem;
+    body { 
+        font-family: 'Tajawal', sans-serif; 
+        background: var(--bg); 
+        margin: 0; 
+        padding: 20px; 
+        color: var(--text); 
+    }
+    
+    /* الترويسة */
+    header { 
+        text-align: center; 
+        margin-bottom: 40px; 
+        background: white; 
+        padding: 40px; 
+        border-radius: 20px; 
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
+        border-top: 8px solid var(--primary); 
+    }
+    
+    .logo-img {
+        width: 100px;
+        height: auto;
+        margin-bottom: 15px;
     }
 
-    .timeline-container { max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
+    h1 { color: var(--primary); margin: 0 0 15px; font-weight: 800; font-size: 2rem; }
+    .subtitle { color: #666; font-size: 1.2rem; margin-top: 5px; font-weight: 500; }
     
-    .topic-card { 
-        background: var(--card-bg); border-radius: 12px; padding: 20px; 
-        box-shadow: 0 2px 10px rgba(0,0,0,0.05); display: flex; align-items: center; 
-        justify-content: space-between; transition: transform 0.3s ease; border-right: 5px solid #ccc; 
+    /* اسم الأستاذ */
+    .prof-name { 
+      color: var(--secondary); 
+      font-weight: bold; 
+      margin-top: 20px; 
+      display: inline-block; 
+      padding: 10px 30px; 
+      background: #fffcf0; 
+      border-radius: 50px; 
+      border: 2px solid #faeab8; 
+      font-size: 1.1rem;
     }
-    .topic-card.active { border-right: 5px solid var(--primary); background: #ffffff; }
-    .topic-card.active:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(26, 77, 46, 0.15); }
-    .topic-card.locked { opacity: 0.7; background: #fafafa; border: 1px dashed #ddd; border-right: 5px solid #999; }
+
+    /* الحاوية */
+    .timeline-container { max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; gap: 25px; }
+    
+    /* البطاقات */
+    .topic-card { 
+        background: var(--card-bg); border-radius: 15px; padding: 25px; 
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05); display: flex; align-items: center; 
+        justify-content: space-between; transition: transform 0.3s ease; border-right: 6px solid #ccc; 
+    }
+    .topic-card:hover { transform: translateY(-5px); }
+    
+    .topic-card.active { border-right-color: var(--primary); background: #ffffff; }
+    .topic-card.highlight { border-right-color: #d35400; background: #fffbf7; } /* للموضوع الجديد */
+    .topic-card.locked { opacity: 0.7; background: #fafafa; border: 1px dashed #ddd; border-right-color: #999; }
 
     .card-content { flex: 1; padding-left: 20px; }
-    .topic-number { font-size: 0.85rem; color: #888; margin-bottom: 5px; font-weight: bold; text-transform: uppercase; }
-    .topic-title { font-size: 1.1rem; font-weight: 700; margin: 0; color: #333; }
-    .topic-desc { font-size: 0.9rem; color: #666; margin-top: 5px; line-height: 1.5; }
+    .topic-number { font-size: 0.9rem; color: #888; margin-bottom: 8px; font-weight: bold; }
+    .topic-title { font-size: 1.3rem; font-weight: 700; margin: 0; color: #333; }
+    .topic-desc { font-size: 1rem; color: #666; margin-top: 8px; line-height: 1.6; }
 
+    /* الأزرار */
     .action-btn { 
-        text-decoration: none; padding: 10px 20px; border-radius: 50px; font-weight: bold; font-size: 0.9rem; 
-        transition: all 0.3s; white-space: nowrap; display: inline-flex; align-items: center; gap: 8px;
+        text-decoration: none; padding: 12px 25px; border-radius: 50px; font-weight: bold; font-size: 1rem; 
+        transition: all 0.3s; white-space: nowrap; display: inline-flex; align-items: center; gap: 10px;
     }
     .btn-view { background: var(--primary); color: white; box-shadow: 0 4px 10px rgba(26, 77, 46, 0.2); }
+    .btn-special { background: #d35400; color: white; box-shadow: 0 4px 10px rgba(211, 84, 0, 0.2); }
+    
     .btn-view:hover { background: #143d24; transform: scale(1.05); }
-    .status-badge { background: #eee; color: #777; padding: 8px 15px; border-radius: 50px; font-size: 0.85rem; font-weight: bold; cursor: default; }
+    .btn-special:hover { background: #a04000; transform: scale(1.05); }
+    
+    .status-badge { background: #eee; color: #777; padding: 10px 20px; border-radius: 50px; font-size: 0.9rem; font-weight: bold; cursor: default; }
 
+    /* التجاوب مع الهاتف */
     @media (max-width: 600px) {
-      .topic-card { flex-direction: column; align-items: flex-start; gap: 15px; }
-      .action-btn, .status-badge { width: 100%; text-align: center; justify-content: center; }
+      .topic-card { flex-direction: column; align-items: flex-start; gap: 20px; text-align: center; }
+      .card-content { padding: 0; width: 100%; }
+      .action-btn, .status-badge { width: 100%; justify-content: center; }
+      header { padding: 20px; }
+      h1 { font-size: 1.5rem; }
     }
   </style>
 </head>
 <body>
 
   <header>
-    <img src="logo.jpg" alt="شعار الجامعة" style="width: 80px; margin-bottom: 10px;">
+    <img src="logo.jpg" alt="جامعة سعيدة" class="logo-img">
+    
     <h1>مقياس: تقنيات إعداد البحث العلمي</h1>
     <div class="subtitle">السداسي الرابع - أعمال موجهة</div>
-    <div class="prof-name"><i class="fa-solid fa-user-tie"></i> إشراف الأستاذ: د. خرشي عمر معمر</div>
+    
+    <div class="prof-name">
+        <i class="fa-solid fa-chalkboard-user"></i> إشراف الأستاذ: د. خرشي عمر معمر
+    </div>
   </header>
 
   <div class="timeline-container">
@@ -64,18 +122,22 @@
       <div class="card-content">
         <div class="topic-number">الموضوع الأول</div>
         <h3 class="topic-title">منهجية تحرير النصوص التشريعية</h3>
-        <p class="topic-desc">نموذج قانون الطيران المدني 98-06.</p>
+        <p class="topic-desc">دراسة نموذجية لقانون الطيران المدني 98-06.</p>
       </div>
-      <a href="Presentation.html" class="action-btn btn-view"><i class="fa-solid fa-play"></i> عرض المشروع</a>
+      <a href="Presentation.html" class="action-btn btn-view">
+          <i class="fa-solid fa-play"></i> عرض المشروع
+      </a>
     </div>
 
     <div class="topic-card active">
       <div class="card-content">
         <div class="topic-number">الموضوع الثاني</div>
         <h3 class="topic-title">منهجية تحرير النصوص التنظيمية</h3>
-        <p class="topic-desc">المرسوم التنفيذي 26-70 (الثانوية المتخصصة).</p>
+        <p class="topic-desc">تحليل المرسوم التنفيذي 26-70 (الثانوية المتخصصة).</p>
       </div>
-      <a href="Presentation2.html" class="action-btn btn-view"><i class="fa-solid fa-play"></i> عرض المشروع</a>
+      <a href="Presentation2.html" class="action-btn btn-view">
+          <i class="fa-solid fa-play"></i> عرض المشروع
+      </a>
     </div>
 
     <div class="topic-card locked">
@@ -86,13 +148,15 @@
       <span class="status-badge"><i class="fa-solid fa-lock"></i> قريباً</span>
     </div>
 
-    <div class="topic-card active" style="border-right-color: #d35400;">
+    <div class="topic-card highlight">
       <div class="card-content">
-        <div class="topic-number" style="color: #d35400;">الموضوع الرابع (جديد)</div>
+        <div class="topic-number" style="color: #d35400;">الموضوع الرابع (جديد) <i class="fa-solid fa-star"></i></div>
         <h3 class="topic-title">منهجية التعليق على نص قانوني</h3>
-        <p class="topic-desc">تحليل المادتين 42 و 43 من القانون المدني.</p>
+        <p class="topic-desc">تحليل معمق للمادتين 42 و 43 من القانون المدني (نظام الأهلية).</p>
       </div>
-      <a href="Presentation4.html" class="action-btn btn-view" style="background: #d35400;"><i class="fa-solid fa-star"></i> عرض المشروع</a>
+      <a href="Presentation4.html" class="action-btn btn-special">
+          <i class="fa-solid fa-rocket"></i> عرض المنصة
+      </a>
     </div>
 
     <div class="topic-card locked">
@@ -103,10 +167,18 @@
       <span class="status-badge">قريباً</span>
     </div>
 
+    <div class="topic-card locked">
+      <div class="card-content">
+        <div class="topic-number">الموضوع السادس</div>
+        <h3 class="topic-title">منهجية الاستشارة القانونية</h3>
+      </div>
+      <span class="status-badge">قريباً</span>
+    </div>
+
   </div>
 
-  <footer style="text-align: center; margin-top: 40px; color: #999; font-size: 0.8rem; font-weight: bold;">
-    تم التطوير بواسطة الطالب: بولنوار م | 2026
+  <footer style="text-align: center; margin-top: 50px; color: #999; font-size: 0.9rem; padding-bottom: 20px;">
+    <strong>إعداد وتطوير الطالب:</strong> بولنوار م | السنة الجامعية 2026
   </footer>
 
 </body>
