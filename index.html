@@ -1,185 +1,256 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>الرئيسية - السداسي الرابع</title>
-  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
-  <style>
-    /* المتغيرات والألوان */
-    :root { 
-        --primary: #1a4d2e; 
-        --secondary: #c9a227; 
-        --bg: #f4f6f8; 
-        --card-bg: #ffffff; 
-        --text: #333; 
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>المنصة الأكاديمية: تقنيات البحث العلمي</title>
     
-    * { box-sizing: border-box; }
-    
-    body { 
-        font-family: 'Tajawal', sans-serif; 
-        background: var(--bg); 
-        margin: 0; 
-        padding: 20px; 
-        color: var(--text); 
-    }
-    
-    /* الترويسة */
-    header { 
-        text-align: center; 
-        margin-bottom: 40px; 
-        background: white; 
-        padding: 40px; 
-        border-radius: 20px; 
-        box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
-        border-top: 8px solid var(--primary); 
-    }
-    
-    .logo-img {
-        width: 100px;
-        height: auto;
-        margin-bottom: 15px;
-    }
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    h1 { color: var(--primary); margin: 0 0 15px; font-weight: 800; font-size: 2rem; }
-    .subtitle { color: #666; font-size: 1.2rem; margin-top: 5px; font-weight: 500; }
-    
-    /* اسم الأستاذ */
-    .prof-name { 
-      color: var(--secondary); 
-      font-weight: bold; 
-      margin-top: 20px; 
-      display: inline-block; 
-      padding: 10px 30px; 
-      background: #fffcf0; 
-      border-radius: 50px; 
-      border: 2px solid #faeab8; 
-      font-size: 1.1rem;
-    }
+    <style>
+        /* =========================================
+           1. المتغيرات ونظام الألوان (Color System)
+           ========================================= */
+        :root {
+            --primary: #1a4d2e;       /* أخضر أكاديمي غامق */
+            --primary-dark: #0f301b;
+            --accent: #d4af37;        /* ذهبي ملكي */
+            --accent-glow: rgba(212, 175, 55, 0.4);
+            --bg-body: #f3f4f6;
+            --text-main: #2d3436;
+            --text-light: #636e72;
+            --white: #ffffff;
+            --card-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            --hover-shadow: 0 20px 40px rgba(26, 77, 46, 0.15);
+        }
 
-    /* الحاوية */
-    .timeline-container { max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; gap: 25px; }
-    
-    /* البطاقات */
-    .topic-card { 
-        background: var(--card-bg); border-radius: 15px; padding: 25px; 
-        box-shadow: 0 5px 15px rgba(0,0,0,0.05); display: flex; align-items: center; 
-        justify-content: space-between; transition: transform 0.3s ease; border-right: 6px solid #ccc; 
-    }
-    .topic-card:hover { transform: translateY(-5px); }
-    
-    .topic-card.active { border-right-color: var(--primary); background: #ffffff; }
-    .topic-card.highlight { border-right-color: #d35400; background: #fffbf7; } /* للموضوع الجديد */
-    .topic-card.locked { opacity: 0.7; background: #fafafa; border: 1px dashed #ddd; border-right-color: #999; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
-    .card-content { flex: 1; padding-left: 20px; }
-    .topic-number { font-size: 0.9rem; color: #888; margin-bottom: 8px; font-weight: bold; }
-    .topic-title { font-size: 1.3rem; font-weight: 700; margin: 0; color: #333; }
-    .topic-desc { font-size: 1rem; color: #666; margin-top: 8px; line-height: 1.6; }
+        body {
+            margin: 0; padding: 0;
+            font-family: 'Tajawal', sans-serif;
+            background-color: var(--bg-body);
+            background-image: radial-gradient(#e2e8f0 1px, transparent 1px);
+            background-size: 20px 20px; /* خلفية منقطة احترافية */
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex; flex-direction: column;
+        }
 
-    /* الأزرار */
-    .action-btn { 
-        text-decoration: none; padding: 12px 25px; border-radius: 50px; font-weight: bold; font-size: 1rem; 
-        transition: all 0.3s; white-space: nowrap; display: inline-flex; align-items: center; gap: 10px;
-    }
-    .btn-view { background: var(--primary); color: white; box-shadow: 0 4px 10px rgba(26, 77, 46, 0.2); }
-    .btn-special { background: #d35400; color: white; box-shadow: 0 4px 10px rgba(211, 84, 0, 0.2); }
-    
-    .btn-view:hover { background: #143d24; transform: scale(1.05); }
-    .btn-special:hover { background: #a04000; transform: scale(1.05); }
-    
-    .status-badge { background: #eee; color: #777; padding: 10px 20px; border-radius: 50px; font-size: 0.9rem; font-weight: bold; cursor: default; }
+        /* =========================================
+           2. الترويسة الفاخرة (Hero Section)
+           ========================================= */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--white);
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+            box-shadow: 0 10px 30px rgba(26, 77, 46, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
 
-    /* التجاوب مع الهاتف */
-    @media (max-width: 600px) {
-      .topic-card { flex-direction: column; align-items: flex-start; gap: 20px; text-align: center; }
-      .card-content { padding: 0; width: 100%; }
-      .action-btn, .status-badge { width: 100%; justify-content: center; }
-      header { padding: 20px; }
-      h1 { font-size: 1.5rem; }
-    }
-  </style>
+        /* زخرفة خلفية الترويسة */
+        header::before {
+            content: "\f19c"; /* أيقونة ميزان */
+            font-family: "Font Awesome 6 Free"; font-weight: 900;
+            position: absolute; top: -20px; left: -20px;
+            font-size: 15rem; opacity: 0.05; color: white; transform: rotate(-15deg);
+        }
+
+        .logo-container {
+            width: 110px; height: 110px;
+            margin: 0 auto 15px;
+            background: white;
+            border-radius: 50%;
+            padding: 5px;
+            box-shadow: 0 0 0 5px rgba(255,255,255,0.2);
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .logo-img { width: 100%; height: 100%; object-fit: contain; border-radius: 50%; }
+
+        h1 { margin: 10px 0; font-family: 'Amiri', serif; font-size: 2.2rem; text-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+        .subtitle { font-size: 1.1rem; opacity: 0.9; font-weight: 300; letter-spacing: 1px; }
+
+        /* شارة الأستاذ */
+        .prof-badge {
+            margin-top: 25px;
+            display: inline-flex; align-items: center; gap: 10px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(5px);
+            padding: 8px 25px; border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            font-weight: bold; color: var(--accent);
+        }
+
+        /* =========================================
+           3. شبكة البطاقات (Card Grid)
+           ========================================= */
+        .container {
+            max-width: 1100px; margin: -30px auto 40px;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            position: relative; z-index: 10;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 25px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.05);
+            box-shadow: var(--card-shadow);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex; flex-direction: column; justify-content: space-between;
+        }
+
+        /* تأثير التحويم */
+        .card:hover { transform: translateY(-10px); box-shadow: var(--hover-shadow); border-color: var(--accent); }
+
+        /* الزخرفة الداخلية للبطاقة */
+        .card::after {
+            content: attr(data-icon);
+            font-family: "Font Awesome 6 Free"; font-weight: 900;
+            position: absolute; bottom: -10px; left: -10px;
+            font-size: 6rem; opacity: 0.05; color: var(--text-main);
+            z-index: 0;
+        }
+
+        /* حالة البطاقة (نشطة / مغلقة) */
+        .card.active { border-top: 5px solid var(--primary); }
+        .card.locked { opacity: 0.8; background: #f9f9f9; cursor: not-allowed; filter: grayscale(0.8); }
+        .card.featured { border-top: 5px solid var(--accent); background: linear-gradient(to bottom right, #fff, #fffdf5); }
+
+        /* محتوى البطاقة */
+        .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; position: relative; z-index: 1; }
+        .topic-num { font-size: 0.85rem; font-weight: 800; text-transform: uppercase; color: var(--text-light); letter-spacing: 1px; }
+        .status-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--primary); box-shadow: 0 0 10px var(--primary); }
+        .card.locked .status-dot { background: #ccc; box-shadow: none; }
+        .card.featured .status-dot { background: var(--accent); box-shadow: 0 0 10px var(--accent); }
+
+        .card-title { font-size: 1.4rem; font-weight: 800; margin: 0 0 10px; color: var(--primary); line-height: 1.4; position: relative; z-index: 1; }
+        .card-desc { font-size: 0.95rem; color: var(--text-light); line-height: 1.6; margin-bottom: 20px; position: relative; z-index: 1; }
+
+        /* الأزرار */
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            width: 100%; padding: 12px;
+            border-radius: 12px;
+            font-weight: bold; text-decoration: none;
+            transition: 0.3s; position: relative; z-index: 1;
+            font-size: 0.95rem;
+        }
+
+        .btn-primary { background: var(--primary); color: white; box-shadow: 0 4px 10px rgba(26, 77, 46, 0.2); }
+        .btn-primary:hover { background: var(--primary-dark); transform: scale(1.02); }
+
+        .btn-gold { background: var(--accent); color: white; box-shadow: 0 4px 10px rgba(212, 175, 55, 0.3); }
+        .btn-gold:hover { background: #b89628; transform: scale(1.02); }
+
+        .btn-locked { background: #e0e0e0; color: #999; cursor: not-allowed; }
+
+        /* التذييل */
+        footer { text-align: center; padding: 30px; color: var(--text-light); font-size: 0.9rem; margin-top: auto; }
+
+        /* تأثير العائم للشعار */
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+
+        /* التجاوب */
+        @media (max-width: 600px) {
+            h1 { font-size: 1.8rem; }
+            .container { grid-template-columns: 1fr; margin-top: -20px; }
+            header { border-radius: 0 0 20px 20px; }
+        }
+    </style>
 </head>
 <body>
 
-  <header>
-    <img src="logo.jpg" alt="جامعة سعيدة" class="logo-img">
-    
-    <h1>مقياس: تقنيات إعداد البحث العلمي</h1>
-    <div class="subtitle">السداسي الرابع - أعمال موجهة</div>
-    
-    <div class="prof-name">
-        <i class="fa-solid fa-chalkboard-user"></i> إشراف الأستاذ: د. خرشي عمر معمر
+    <header>
+        <div class="logo-container">
+            <img src="logo.jpg" alt="University Logo" class="logo-img">
+        </div>
+        <h1>تقنيات إعداد البحث العلمي</h1>
+        <div class="subtitle">السداسي الرابع - أعمال موجهة</div>
+        
+        <div class="prof-badge">
+            <i class="fa-solid fa-user-tie"></i>
+            إشراف الأستاذ: د. خرشي عمر معمر
+        </div>
+    </header>
+
+    <div class="container">
+
+        <div class="card active" data-icon="\f0e3"> <div class="card-header">
+                <span class="topic-num">الموضوع الأول</span>
+                <span class="status-dot"></span>
+            </div>
+            <h3 class="card-title">منهجية تحرير النصوص التشريعية</h3>
+            <p class="card-desc">دراسة تحليلية لقانون الطيران المدني 98-06، وكيفية صياغة المواد القانونية بأسلوب الإلزام.</p>
+            <a href="Presentation.html" class="btn btn-primary">
+                <i class="fa-solid fa-play"></i> عرض المشروع
+            </a>
+        </div>
+
+        <div class="card active" data-icon="\f56e"> <div class="card-header">
+                <span class="topic-num">الموضوع الثاني</span>
+                <span class="status-dot"></span>
+            </div>
+            <h3 class="card-title">منهجية تحرير النصوص التنظيمية</h3>
+            <p class="card-desc">
+                <strong>دراسة المرسوم الرئاسي 25-221</strong><br>
+                المتضمن تحويل اعتمادات مالية بعنوان ميزانية الدولة لرئاسة الجمهورية.
+            </p>
+            <a href="Presentation2.html" class="btn btn-primary">
+                <i class="fa-solid fa-file-invoice-dollar"></i> عرض التحليل
+            </a>
+        </div>
+
+        <div class="card featured" data-icon="\f005"> <div class="card-header">
+                <span class="topic-num" style="color: var(--accent);">الموضوع الرابع (جديد)</span>
+                <span class="status-dot"></span>
+            </div>
+            <h3 class="card-title" style="color: var(--primary);">منهجية التعليق على نص قانوني</h3>
+            <p class="card-desc">تحليل معمق للمادتين 42 و 43 من القانون المدني الجزائري (نظام الأهلية وعوارضها).</p>
+            <a href="Presentation4.html" class="btn btn-gold">
+                <i class="fa-solid fa-star"></i> عرض المنصة الشاملة
+            </a>
+        </div>
+
+        <div class="card locked" data-icon="\f023">
+            <div class="card-header">
+                <span class="topic-num">الموضوع الثالث</span>
+                <span class="status-dot"></span>
+            </div>
+            <h3 class="card-title" style="color: #999;">منهجية تحرير العرائض القضائية</h3>
+            <p class="card-desc">كيفية صياغة العرائض الافتتاحية ومقالات الرد.</p>
+            <button class="btn btn-locked">
+                <i class="fa-solid fa-lock"></i> قريباً
+            </button>
+        </div>
+
+        <div class="card locked" data-icon="\f0e3">
+            <div class="card-header">
+                <span class="topic-num">الموضوع الخامس</span>
+                <span class="status-dot"></span>
+            </div>
+            <h3 class="card-title" style="color: #999;">التعليق على حكم قضائي</h3>
+            <p class="card-desc">منهجية استخراج الوقائع والإجراءات من الأحكام.</p>
+            <button class="btn btn-locked"><i class="fa-solid fa-lock"></i> قريباً</button>
+        </div>
+
     </div>
-  </header>
 
-  <div class="timeline-container">
-
-    <div class="topic-card active">
-      <div class="card-content">
-        <div class="topic-number">الموضوع الأول</div>
-        <h3 class="topic-title">منهجية تحرير النصوص التشريعية</h3>
-        <p class="topic-desc">دراسة نموذجية لقانون الطيران المدني 98-06.</p>
-      </div>
-      <a href="Presentation.html" class="action-btn btn-view">
-          <i class="fa-solid fa-play"></i> عرض المشروع
-      </a>
-    </div>
-
-    <div class="topic-card active">
-      <div class="card-content">
-        <div class="topic-number">الموضوع الثاني</div>
-        <h3 class="topic-title">منهجية تحرير النصوص التنظيمية</h3>
-        <p class="topic-desc">تحليل المرسوم التنفيذي 26-70 (الثانوية المتخصصة).</p>
-      </div>
-      <a href="Presentation2.html" class="action-btn btn-view">
-          <i class="fa-solid fa-play"></i> عرض المشروع
-      </a>
-    </div>
-
-    <div class="topic-card locked">
-      <div class="card-content">
-        <div class="topic-number">الموضوع الثالث</div>
-        <h3 class="topic-title">منهجية تحرير العرائض القضائية</h3>
-      </div>
-      <span class="status-badge"><i class="fa-solid fa-lock"></i> قريباً</span>
-    </div>
-
-    <div class="topic-card highlight">
-      <div class="card-content">
-        <div class="topic-number" style="color: #d35400;">الموضوع الرابع (جديد) <i class="fa-solid fa-star"></i></div>
-        <h3 class="topic-title">منهجية التعليق على نص قانوني</h3>
-        <p class="topic-desc">تحليل معمق للمادتين 42 و 43 من القانون المدني (نظام الأهلية).</p>
-      </div>
-      <a href="Presentation4.html" class="action-btn btn-special">
-          <i class="fa-solid fa-rocket"></i> عرض المنصة
-      </a>
-    </div>
-
-    <div class="topic-card locked">
-      <div class="card-content">
-        <div class="topic-number">الموضوع الخامس</div>
-        <h3 class="topic-title">التعليق على حكم أو قرار قضائي</h3>
-      </div>
-      <span class="status-badge">قريباً</span>
-    </div>
-
-    <div class="topic-card locked">
-      <div class="card-content">
-        <div class="topic-number">الموضوع السادس</div>
-        <h3 class="topic-title">منهجية الاستشارة القانونية</h3>
-      </div>
-      <span class="status-badge">قريباً</span>
-    </div>
-
-  </div>
-
-  <footer style="text-align: center; margin-top: 50px; color: #999; font-size: 0.9rem; padding-bottom: 20px;">
-    <strong>إعداد وتطوير الطالب:</strong> بولنوار م | السنة الجامعية 2026
-  </footer>
+    <footer>
+        <p>تم التصميم والتطوير بلمسة أكاديمية <br> 
+        <strong>الطالب: بولنوار م</strong> | جميع الحقوق محفوظة © 2026</p>
+    </footer>
 
 </body>
 </html>
