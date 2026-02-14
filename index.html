@@ -3,26 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>المنصة الأكاديمية: تقنيات البحث العلمي</title>
+    <meta name="description" content="المنصة الأكاديمية الرقمية - تقنيات إعداد البحث العلمي">
+    <title>المنصة الأكاديمية: الرئيسية</title>
     
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         /* =========================================
-           1. المتغيرات ونظام الألوان (Color System)
+           1. المتغيرات ونظام التصميم (Design System)
            ========================================= */
         :root {
-            --primary: #1a4d2e;       /* أخضر أكاديمي غامق */
+            --primary: #1a4d2e;       /* أخضر أكاديمي */
             --primary-dark: #0f301b;
-            --accent: #d4af37;        /* ذهبي ملكي */
-            --accent-glow: rgba(212, 175, 55, 0.4);
+            --secondary: #d4af37;     /* ذهبي */
+            --secondary-glow: rgba(212, 175, 55, 0.4);
             --bg-body: #f3f4f6;
+            --bg-card: #ffffff;
             --text-main: #2d3436;
             --text-light: #636e72;
-            --white: #ffffff;
-            --card-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            --hover-shadow: 0 20px 40px rgba(26, 77, 46, 0.15);
+            --shadow-card: 0 10px 30px rgba(0,0,0,0.08);
+            --shadow-hover: 0 20px 40px rgba(26, 77, 46, 0.15);
+            --radius: 20px;
+            --header-height: 80px;
+            --sidebar-width: 280px;
+        }
+
+        [data-theme="dark"] {
+            --primary: #2ecc71;
+            --primary-dark: #27ae60;
+            --bg-body: #1e1e1e;
+            --bg-card: #2d2d2d;
+            --text-main: #ecf0f1;
+            --text-light: #bdc3c7;
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -31,226 +46,343 @@
             margin: 0; padding: 0;
             font-family: 'Tajawal', sans-serif;
             background-color: var(--bg-body);
-            background-image: radial-gradient(#e2e8f0 1px, transparent 1px);
-            background-size: 20px 20px; /* خلفية منقطة احترافية */
+            background-image: radial-gradient(rgba(0,0,0,0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
             color: var(--text-main);
             min-height: 100vh;
             display: flex; flex-direction: column;
+            transition: 0.3s;
         }
 
         /* =========================================
-           2. الترويسة الفاخرة (Hero Section)
+           2. شاشة الترحيب (Splash Screen)
+           ========================================= */
+        .splash-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, #1a4d2e, #000);
+            z-index: 9999;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            transition: opacity 0.8s ease-out, visibility 0.8s;
+        }
+
+        .splash-content { text-align: center; animation: fadeInUp 1s ease-out; color: white; }
+        .splash-logo { 
+            width: 120px; height: 120px; border-radius: 50%; 
+            border: 4px solid var(--secondary); 
+            box-shadow: 0 0 30px var(--secondary-glow);
+            margin-bottom: 20px;
+        }
+
+        .start-btn {
+            margin-top: 30px; padding: 15px 50px;
+            font-size: 1.2rem; background: var(--secondary);
+            color: white; border: none; border-radius: 50px;
+            cursor: pointer; font-family: 'Tajawal'; font-weight: bold;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
+            transition: 0.3s; display: inline-flex; align-items: center; gap: 10px;
+        }
+        .start-btn:hover { transform: scale(1.05); background: #b89628; }
+
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* =========================================
+           3. الترويسة (Header)
            ========================================= */
         header {
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: var(--white);
+            color: white;
             padding: 40px 20px;
             text-align: center;
             border-bottom-left-radius: 30px;
             border-bottom-right-radius: 30px;
             box-shadow: 0 10px 30px rgba(26, 77, 46, 0.3);
-            position: relative;
-            overflow: hidden;
+            position: relative; overflow: hidden;
         }
 
-        /* زخرفة خلفية الترويسة */
-        header::before {
-            content: "\f19c"; /* أيقونة ميزان */
-            font-family: "Font Awesome 6 Free"; font-weight: 900;
-            position: absolute; top: -20px; left: -20px;
-            font-size: 15rem; opacity: 0.05; color: white; transform: rotate(-15deg);
-        }
-
-        .logo-container {
-            width: 110px; height: 110px;
-            margin: 0 auto 15px;
-            background: white;
-            border-radius: 50%;
-            padding: 5px;
-            box-shadow: 0 0 0 5px rgba(255,255,255,0.2);
-            animation: float 3s ease-in-out infinite;
-        }
+        .header-content { position: relative; z-index: 2; }
         
-        .logo-img { width: 100%; height: 100%; object-fit: contain; border-radius: 50%; }
+        .logo-img { 
+            width: 100px; height: 100px; border-radius: 50%; 
+            border: 3px solid rgba(255,255,255,0.3);
+            margin-bottom: 15px; 
+        }
 
-        h1 { margin: 10px 0; font-family: 'Amiri', serif; font-size: 2.2rem; text-shadow: 0 2px 4px rgba(0,0,0,0.2); }
-        .subtitle { font-size: 1.1rem; opacity: 0.9; font-weight: 300; letter-spacing: 1px; }
+        h1 { margin: 10px 0; font-family: 'Amiri', serif; font-size: 2.5rem; text-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        .subtitle { font-size: 1.1rem; opacity: 0.9; letter-spacing: 1px; }
 
-        /* شارة الأستاذ */
         .prof-badge {
-            margin-top: 25px;
+            margin-top: 20px;
             display: inline-flex; align-items: center; gap: 10px;
             background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(5px);
             padding: 8px 25px; border-radius: 50px;
             border: 1px solid rgba(255, 255, 255, 0.3);
-            font-weight: bold; color: var(--accent);
+            font-weight: bold; color: var(--secondary);
         }
 
+        /* أدوات التحكم العلوية */
+        .top-tools {
+            position: absolute; top: 20px; right: 20px; display: flex; gap: 15px;
+        }
+        .tool-btn {
+            background: rgba(255,255,255,0.2); border: none; color: white;
+            width: 40px; height: 40px; border-radius: 50%;
+            cursor: pointer; transition: 0.3s; display: flex; justify-content: center; align-items: center;
+        }
+        .tool-btn:hover { background: var(--secondary); }
+
         /* =========================================
-           3. شبكة البطاقات (Card Grid)
+           4. شبكة البطاقات (Cards Grid)
            ========================================= */
         .container {
-            max-width: 1100px; margin: -30px auto 40px;
+            max-width: 1200px; margin: -40px auto 40px;
             padding: 0 20px;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 25px;
             position: relative; z-index: 10;
         }
 
         .card {
-            background: var(--white);
-            border-radius: 20px;
+            background: var(--bg-card);
+            border-radius: var(--radius);
             padding: 25px;
-            position: relative;
-            overflow: hidden;
+            position: relative; overflow: hidden;
             border: 1px solid rgba(0,0,0,0.05);
-            box-shadow: var(--card-shadow);
+            box-shadow: var(--shadow-card);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             display: flex; flex-direction: column; justify-content: space-between;
         }
 
-        /* تأثير التحويم */
-        .card:hover { transform: translateY(-10px); box-shadow: var(--hover-shadow); border-color: var(--accent); }
+        .card:hover { transform: translateY(-10px); box-shadow: var(--shadow-hover); }
 
-        /* الزخرفة الداخلية للبطاقة */
+        /* زخرفة خلفية البطاقة */
         .card::after {
             content: attr(data-icon);
             font-family: "Font Awesome 6 Free"; font-weight: 900;
-            position: absolute; bottom: -10px; left: -10px;
-            font-size: 6rem; opacity: 0.05; color: var(--text-main);
-            z-index: 0;
+            position: absolute; bottom: -20px; left: -20px;
+            font-size: 8rem; opacity: 0.05; color: var(--text-main);
+            z-index: 0; pointer-events: none;
         }
 
-        /* حالة البطاقة (نشطة / مغلقة) */
+        /* الحالات (Active, Locked, Featured) */
         .card.active { border-top: 5px solid var(--primary); }
-        .card.locked { opacity: 0.8; background: #f9f9f9; cursor: not-allowed; filter: grayscale(0.8); }
-        .card.featured { border-top: 5px solid var(--accent); background: linear-gradient(to bottom right, #fff, #fffdf5); }
+        .card.locked { opacity: 0.8; background: #f9f9f9; filter: grayscale(0.9); }
+        .card.featured { border-top: 5px solid var(--secondary); background: linear-gradient(to bottom right, var(--bg-card), #fffbf0); }
 
-        /* محتوى البطاقة */
-        .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; position: relative; z-index: 1; }
-        .topic-num { font-size: 0.85rem; font-weight: 800; text-transform: uppercase; color: var(--text-light); letter-spacing: 1px; }
-        .status-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--primary); box-shadow: 0 0 10px var(--primary); }
-        .card.locked .status-dot { background: #ccc; box-shadow: none; }
-        .card.featured .status-dot { background: var(--accent); box-shadow: 0 0 10px var(--accent); }
+        .card-header { display: flex; justify-content: space-between; margin-bottom: 15px; position: relative; z-index: 1; }
+        .topic-tag { 
+            font-size: 0.8rem; font-weight: 800; text-transform: uppercase; 
+            padding: 5px 10px; border-radius: 10px; background: #eee; color: var(--text-light);
+        }
+        .card.featured .topic-tag { background: var(--secondary); color: white; }
 
-        .card-title { font-size: 1.4rem; font-weight: 800; margin: 0 0 10px; color: var(--primary); line-height: 1.4; position: relative; z-index: 1; }
-        .card-desc { font-size: 0.95rem; color: var(--text-light); line-height: 1.6; margin-bottom: 20px; position: relative; z-index: 1; }
+        .card-title { font-size: 1.4rem; font-weight: 800; margin: 0 0 10px; color: var(--primary); position: relative; z-index: 1; }
+        .card.featured .card-title { color: #b8860b; }
+        
+        .card-desc { font-size: 0.95rem; color: var(--text-light); line-height: 1.6; margin-bottom: 25px; position: relative; z-index: 1; min-height: 60px; }
 
-        /* الأزرار */
+        /* الأزرار داخل البطاقات */
         .btn {
-            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-            width: 100%; padding: 12px;
-            border-radius: 12px;
-            font-weight: bold; text-decoration: none;
-            transition: 0.3s; position: relative; z-index: 1;
-            font-size: 0.95rem;
+            display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+            width: 100%; padding: 12px; border-radius: 12px;
+            font-weight: bold; text-decoration: none; transition: 0.3s;
+            position: relative; z-index: 1; font-size: 1rem; border: none; cursor: pointer;
         }
 
         .btn-primary { background: var(--primary); color: white; box-shadow: 0 4px 10px rgba(26, 77, 46, 0.2); }
         .btn-primary:hover { background: var(--primary-dark); transform: scale(1.02); }
 
-        .btn-gold { background: var(--accent); color: white; box-shadow: 0 4px 10px rgba(212, 175, 55, 0.3); }
+        .btn-gold { background: var(--secondary); color: white; box-shadow: 0 4px 10px rgba(212, 175, 55, 0.3); }
         .btn-gold:hover { background: #b89628; transform: scale(1.02); }
 
         .btn-locked { background: #e0e0e0; color: #999; cursor: not-allowed; }
 
-        /* التذييل */
-        footer { text-align: center; padding: 30px; color: var(--text-light); font-size: 0.9rem; margin-top: auto; }
+        /* =========================================
+           5. التذييل (Footer)
+           ========================================= */
+        footer {
+            text-align: center; padding: 40px 20px;
+            color: var(--text-light); font-size: 0.9rem; margin-top: auto;
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
 
-        /* تأثير العائم للشعار */
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
-
-        /* التجاوب */
-        @media (max-width: 600px) {
-            h1 { font-size: 1.8rem; }
-            .container { grid-template-columns: 1fr; margin-top: -20px; }
-            header { border-radius: 0 0 20px 20px; }
+        /* =========================================
+           6. التجاوب (Media Queries)
+           ========================================= */
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .container { grid-template-columns: 1fr; margin-top: -30px; }
+            header { padding-bottom: 60px; }
         }
     </style>
 </head>
-<body>
+<body data-theme="light">
+
+    <div class="splash-screen" id="splashScreen">
+        <div class="splash-content">
+            <img src="logo.jpg" alt="شعار الجامعة" class="splash-logo">
+            <h1 style="margin: 0; font-size: 2.2rem;">المنصة الأكاديمية</h1>
+            <p style="font-size: 1.1rem; opacity: 0.8;">تقنيات إعداد البحث العلمي - السداسي الرابع</p>
+            
+            <button class="start-btn" id="startBtn">
+                <i class="fa-solid fa-rocket"></i> الدخول للمنصة
+            </button>
+        </div>
+    </div>
+
+    <audio id="bgAudio" loop>
+        <source src="vocal01.mp3" type="audio/mpeg">
+    </audio>
 
     <header>
-        <div class="logo-container">
-            <img src="logo.jpg" alt="University Logo" class="logo-img">
+        <div class="top-tools">
+            <button class="tool-btn" id="themeToggle" title="الوضع الليلي"><i class="fa-solid fa-moon"></i></button>
         </div>
-        <h1>تقنيات إعداد البحث العلمي</h1>
-        <div class="subtitle">السداسي الرابع - أعمال موجهة</div>
-        
-        <div class="prof-badge">
-            <i class="fa-solid fa-user-tie"></i>
-            إشراف الأستاذ: د. خرشي عمر معمر
+
+        <div class="header-content">
+            <img src="logo.jpg" alt="University Logo" class="logo-img">
+            <h1>تقنيات إعداد البحث العلمي</h1>
+            <div class="subtitle">السداسي الرابع - أعمال موجهة</div>
+            
+            <div class="prof-badge">
+                <i class="fa-solid fa-user-tie"></i>
+                إشراف الأستاذ: د. خرشي عمر معمر
+            </div>
         </div>
     </header>
 
     <div class="container">
 
-        <div class="card active" data-icon="\f0e3"> <div class="card-header">
-                <span class="topic-num">الموضوع الأول</span>
-                <span class="status-dot"></span>
+        <div class="card active" data-icon="\f0e3">
+            <div class="card-header">
+                <span class="topic-tag">الموضوع الأول</span>
+                <i class="fa-solid fa-check-circle" style="color: var(--primary);"></i>
             </div>
             <h3 class="card-title">منهجية تحرير النصوص التشريعية</h3>
-            <p class="card-desc">دراسة تحليلية لقانون الطيران المدني 98-06، وكيفية صياغة المواد القانونية بأسلوب الإلزام.</p>
+            <p class="card-desc">دراسة نموذجية لقانون الطيران المدني 98-06، وقواعد الصياغة القانونية.</p>
             <a href="Presentation.html" class="btn btn-primary">
                 <i class="fa-solid fa-play"></i> عرض المشروع
             </a>
         </div>
 
-        <div class="card active" data-icon="\f56e"> <div class="card-header">
-                <span class="topic-num">الموضوع الثاني</span>
-                <span class="status-dot"></span>
+        <div class="card active" data-icon="\f56e">
+            <div class="card-header">
+                <span class="topic-tag">الموضوع الثاني</span>
+                <i class="fa-solid fa-check-circle" style="color: var(--primary);"></i>
             </div>
             <h3 class="card-title">منهجية تحرير النصوص التنظيمية</h3>
             <p class="card-desc">
-                <strong>دراسة المرسوم الرئاسي 25-221</strong><br>
-                المتضمن تحويل اعتمادات مالية بعنوان ميزانية الدولة لرئاسة الجمهورية.
+                <strong>تحليل المرسوم الرئاسي 25-221</strong><br>
+                المتضمن تحويل اعتمادات مالية بعنوان ميزانية الدولة.
             </p>
             <a href="Presentation2.html" class="btn btn-primary">
-                <i class="fa-solid fa-file-invoice-dollar"></i> عرض التحليل
+                <i class="fa-solid fa-file-invoice"></i> عرض التحليل
             </a>
         </div>
 
-        <div class="card featured" data-icon="\f005"> <div class="card-header">
-                <span class="topic-num" style="color: var(--accent);">الموضوع الرابع (جديد)</span>
-                <span class="status-dot"></span>
-            </div>
-            <h3 class="card-title" style="color: var(--primary);">منهجية التعليق على نص قانوني</h3>
-            <p class="card-desc">تحليل معمق للمادتين 42 و 43 من القانون المدني الجزائري (نظام الأهلية وعوارضها).</p>
-            <a href="Presentation4.html" class="btn btn-gold">
-                <i class="fa-solid fa-star"></i> عرض المنصة الشاملة
-            </a>
-        </div>
-
-        <div class="card locked" data-icon="\f023">
+        <div class="card active" data-icon="\f023">
             <div class="card-header">
-                <span class="topic-num">الموضوع الثالث</span>
-                <span class="status-dot"></span>
+                <span class="topic-tag">الموضوع الثالث</span>
+                <i class="fa-solid fa-lock-open" style="color: var(--primary);"></i>
             </div>
-            <h3 class="card-title" style="color: #999;">منهجية تحرير العرائض القضائية</h3>
-            <p class="card-desc">كيفية صياغة العرائض الافتتاحية ومقالات الرد.</p>
-            <button class="btn btn-locked">
-                <i class="fa-solid fa-lock"></i> قريباً
-            </button>
+            <h3 class="card-title">منهجية تحرير العرائض القضائية</h3>
+            <p class="card-desc">الهيكلة الفنية للعريضة الافتتاحية: البيانات الشكلية، الوقائع، والطلبات.</p>
+            <a href="Presentation3.html" class="btn btn-primary">
+                <i class="fa-solid fa-pen-fancy"></i> عرض العريضة
+            </a>
+        </div>
+
+        <div class="card featured" data-icon="\f005">
+            <div class="card-header">
+                <span class="topic-tag">الموضوع الرابع</span>
+                <i class="fa-solid fa-star" style="color: var(--secondary);"></i>
+            </div>
+            <h3 class="card-title">منهجية التعليق على نص قانوني</h3>
+            <p class="card-desc">تحليل معمق للمادتين 42 و 43 من القانون المدني (نظام الأهلية وعوارضها).</p>
+            <a href="Presentation4.html" class="btn btn-gold">
+                <i class="fa-solid fa-rocket"></i> المنصة الشاملة
+            </a>
         </div>
 
         <div class="card locked" data-icon="\f0e3">
             <div class="card-header">
-                <span class="topic-num">الموضوع الخامس</span>
-                <span class="status-dot"></span>
+                <span class="topic-tag">الموضوع الخامس</span>
+                <i class="fa-solid fa-lock"></i>
             </div>
             <h3 class="card-title" style="color: #999;">التعليق على حكم قضائي</h3>
-            <p class="card-desc">منهجية استخراج الوقائع والإجراءات من الأحكام.</p>
-            <button class="btn btn-locked"><i class="fa-solid fa-lock"></i> قريباً</button>
+            <p class="card-desc">منهجية استخراج الوقائع والإجراءات من الأحكام والقرارات القضائية.</p>
+            <button class="btn btn-locked">قريباً</button>
+        </div>
+
+        <div class="card locked" data-icon="\f086">
+            <div class="card-header">
+                <span class="topic-tag">الموضوع السادس</span>
+                <i class="fa-solid fa-lock"></i>
+            </div>
+            <h3 class="card-title" style="color: #999;">الاستشارة القانونية</h3>
+            <p class="card-desc">كيفية تقديم استشارة قانونية مكتوبة وفق المنهجية الأكاديمية.</p>
+            <button class="btn btn-locked">قريباً</button>
         </div>
 
     </div>
 
     <footer>
-        <p>تم التصميم والتطوير بلمسة أكاديمية <br> 
-        <strong>الطالب: بولنوار م</strong> | جميع الحقوق محفوظة © 2026</p>
+        <p>تم التطوير والبرمجة بواسطة الطالب: <strong style="color: var(--primary);">بولنوار ميلود</strong></p>
+        <p style="font-size: 0.8rem; opacity: 0.7;">جميع الحقوق محفوظة © السنة الجامعية 2025-2026</p>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const startBtn = document.getElementById('startBtn');
+            const splash = document.getElementById('splashScreen');
+            const audio = document.getElementById('bgAudio');
+            const themeBtn = document.getElementById('themeToggle');
+
+            // 1. بدء العرض وتشغيل الصوت
+            startBtn.addEventListener('click', () => {
+                // محاولة تشغيل الصوت
+                audio.play().then(() => {
+                    console.log("Audio started");
+                }).catch(error => {
+                    console.log("Audio play failed (Autoplay policy):", error);
+                });
+
+                // إخفاء الشاشة
+                splash.style.opacity = '0';
+                setTimeout(() => {
+                    splash.style.display = 'none';
+                }, 800);
+            });
+
+            // 2. تبديل الوضع الليلي
+            themeBtn.addEventListener('click', () => {
+                const body = document.body;
+                const isDark = body.getAttribute('data-theme') === 'dark';
+                
+                if (isDark) {
+                    body.setAttribute('data-theme', 'light');
+                    themeBtn.innerHTML = '<i class="fa-solid fa-moon"></i>';
+                } else {
+                    body.setAttribute('data-theme', 'dark');
+                    themeBtn.innerHTML = '<i class="fa-solid fa-sun"></i>';
+                }
+            });
+
+            // 3. تأثير ظهور البطاقات (Staggered Animation)
+            const cards = document.querySelectorAll('.card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    card.style.transition = 'all 0.5s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 300 + (index * 100)); // تأخير متتابع
+            });
+        });
+    </script>
 
 </body>
 </html>
