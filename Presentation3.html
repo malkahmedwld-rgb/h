@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>منهجية تحرير العرائض القضائية</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* نفس ستايل "الماستر بيس" لضمان التناسق */
+        :root {
+            --primary-hue: 210; 
+            --primary-color: #1c2e4a;
+            --secondary-color: #d4af37;
+            --bg-body: #f4f7f6;
+            --bg-card: #ffffff;
+            --text-main: #2c3e50;
+            --text-muted: #7f8c8d;
+            --sidebar-width: 280px;
+            --header-height: 70px;
+        }
+
+        /* [ ... تخيل أن هنا نفس كود CSS الضخم من الملف السابق لعدم التكرار والطول ... ] */
+        /* سأضع لك الستايل المختصر والفعال ليعمل الملف فوراً */
+        
+        body { margin: 0; font-family: 'Tajawal', sans-serif; background: var(--bg-body); color: var(--text-main); height: 100vh; display: flex; overflow: hidden; }
+        
+        .main-wrapper { flex: 1; display: flex; flex-direction: column; }
+        .top-bar { height: 70px; background: white; border-bottom: 1px solid #eee; display: flex; align-items: center; justify-content: space-between; padding: 0 30px; }
+        .home-btn { background: var(--primary-color); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center; text-decoration: none; }
+        
+        .viewport { flex: 1; padding: 20px; display: flex; justify-content: center; align-items: center; }
+        .slide-card { background: white; width: 100%; max-width: 1100px; height: 100%; border-radius: 20px; box-shadow: 0 15px 30px rgba(0,0,0,0.1); border-top: 6px solid var(--primary-color); position: relative; overflow: hidden; display: flex; flex-direction: column; }
+        
+        .slide { position: absolute; width: 100%; height: 100%; padding: 40px 60px; opacity: 0; transform: translateY(20px); transition: 0.5s; overflow-y: auto; }
+        .slide.active { opacity: 1; transform: translateY(0); z-index: 10; }
+        
+        h1 { font-family: 'Amiri'; color: var(--primary-color); border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        .legal-card { background: #f9f9f9; border-right: 5px solid var(--secondary-color); padding: 20px; border-radius: 8px; margin-bottom: 15px; }
+        
+        .controls-bar { height: 60px; background: white; border-top: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; padding: 0 30px; }
+        .nav-btn { background: white; border: 1px solid #ddd; padding: 8px 25px; border-radius: 20px; cursor: pointer; font-weight: bold; }
+        .nav-btn:hover { background: var(--primary-color); color: white; }
+        .nav-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    </style>
+</head>
+<body>
+
+    <div class="main-wrapper">
+        <header class="top-bar">
+            <a href="index.html" class="home-btn"><i class="fa-solid fa-house"></i></a>
+            <h2 style="margin:0; font-size:1.2rem;">الموضوع الثالث: تحرير العرائض</h2>
+            <div style="font-weight:bold;">2026</div>
+        </header>
+
+        <div class="viewport">
+            <div class="slide-card">
+                
+                <div class="slide active">
+                    <div style="text-align: center; margin-top: 50px;">
+                        <i class="fa-solid fa-scale-balanced" style="font-size: 4rem; color: var(--secondary-color); margin-bottom: 20px;"></i>
+                        <h1 style="font-size: 3rem; border: none;">منهجية تحرير العرائض القضائية</h1>
+                        <p style="font-size: 1.3rem; color: #666;">العريضة الافتتاحية للدعوى: شكلاً وموضوعاً</p>
+                        <div style="margin-top: 40px;">
+                            <div class="legal-card" style="display: inline-block; text-align: right; min-width: 300px;">
+                                <strong><i class="fa-solid fa-user-graduate"></i> إعداد الطالب:</strong> بولنوار ميلود<br>
+                                <strong><i class="fa-solid fa-chalkboard-user"></i> إشراف الأستاذ:</strong> د. خرشي عمر معمر
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slide">
+                    <h1>ما هي العريضة الافتتاحية؟</h1>
+                    <p style="font-size: 1.2rem; line-height: 1.8;">هي العمل الإجرائي الذي يجسد المطالبة القضائية، وبها ترفع الدعوى أمام الجهة القضائية المختصة.</p>
+                    <div class="legal-card">
+                        <strong><i class="fa-solid fa-book-open"></i> السند القانوني:</strong>
+                        <p>نصت المادة 14 من قانون الإجراءات المدنية والإدارية: "ترفع الدعوى بعريضة مكتوبة، موقعة ومؤرخة، تودع بأمانة ضبط المحكمة..."</p>
+                    </div>
+                </div>
+
+                <div class="slide">
+                    <h1>1. البيانات الشكلية (تحت طائلة عدم القبول)</h1>
+                    <p>يجب أن تتضمن العريضة بيانات دقيقة لضمان قبولها شكلاً:</p>
+                    <ul style="line-height: 2; font-size: 1.1rem;">
+                        <li><i class="fa-solid fa-building-columns"></i> <strong>الجهة القضائية:</strong> ذكر المحكمة والقسم (مثلاً: محكمة سعيدة، قسم شؤون الأسرة).</li>
+                        <li><i class="fa-solid fa-user"></i> <strong>المدعي:</strong> الاسم، اللقب، الموطن (العنوان).</li>
+                        <li><i class="fa-solid fa-user-shield"></i> <strong>المدعى عليه:</strong> الاسم، اللقب، الموطن.</li>
+                        <li><i class="fa-solid fa-signature"></i> <strong>التوقيع:</strong> توقيع المدعي أو محاميه.</li>
+                    </ul>
+                </div>
+
+                <div class="slide">
+                    <h1>2. البيانات الموضوعية (المتن)</h1>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div class="legal-card" style="border-color: #2980b9;">
+                            <h3 style="color: #2980b9; margin:0;">أ. عرض الوقائع</h3>
+                            <p>سرد موجز وواضح للقصة أو النزاع (متى حدث؟ أين؟ كيف؟) دون حشو زائد.</p>
+                        </div>
+                        <div class="legal-card" style="border-color: #c0392b;">
+                            <h3 style="color: #c0392b; margin:0;">ب. المناقشة القانونية</h3>
+                            <p>تكييف الوقائع مع المواد القانونية (إسقاط القانون على الواقعة).</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slide">
+                    <h1>3. الطلبات (الخاتمة)</h1>
+                    <p>هي النتيجة النهائية التي يطلب المدعي من القاضي الحكم بها. يجب أن تكون:</p>
+                    <div class="legal-card" style="border-color: var(--secondary-color); background: #fffbe6;">
+                        <ul style="list-style: none; padding: 0;">
+                            <li>✅ <strong>جازمة:</strong> (يلتمس الحكم بـ...)</li>
+                            <li>✅ <strong>محددة:</strong> (تعويض قدره 100.000 دج، وليس "تعويض مناسب").</li>
+                            <li>✅ <strong>مشروعة:</strong> موافقة للقانون.</li>
+                        </ul>
+                    </div>
+                    <h3>لهذه الأسباب:</h3>
+                    <p>يلتمس المدعي من المحكمة الموقرة: 1. في الشكل: قبول الدعوى... 2. في الموضوع: الحكم بـ...</p>
+                </div>
+
+            </div>
+        </div>
+
+        <footer class="controls-bar">
+            <div id="counter">1 / 5</div>
+            <div>
+                <button class="nav-btn" id="prevBtn" onclick="move(-1)">السابق</button>
+                <button class="nav-btn" id="nextBtn" onclick="move(1)">التالي</button>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        let current = 0;
+        const slides = document.querySelectorAll('.slide');
+        const total = slides.length;
+        
+        function update() {
+            slides.forEach(s => s.classList.remove('active'));
+            slides[current].classList.add('active');
+            document.getElementById('counter').innerText = (current + 1) + " / " + total;
+            document.getElementById('prevBtn').disabled = current === 0;
+            document.getElementById('nextBtn').disabled = current === total - 1;
+        }
+        
+        function move(dir) {
+            current += dir;
+            if (current < 0) current = 0;
+            if (current >= total) current = total - 1;
+            update();
+        }
+    </script>
+</body>
+</html>
