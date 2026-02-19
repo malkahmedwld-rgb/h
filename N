@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>التحليل الهيكلي - المادة 13</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root {
+    --primary: #0f172a;
+    --primary-light: #1e293b;
+    --accent: #d4af37;
+    --accent-hover: #b89628;
+    --bg-page: #f8fafc;
+    --card-bg: #ffffff;
+    --text-main: #334155;
+    --text-muted: #64748b;
+    --danger: #e11d48;
+    --success: #059669;
+    --info: #0284c7;
+}
+* { box-sizing: border-box; outline: none; margin: 0; padding: 0; }
+body {
+    font-family: 'Tajawal', sans-serif;
+    background-color: var(--bg-page);
+    background-image: linear-gradient(rgba(15, 23, 42, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15, 23, 42, 0.03) 1px, transparent 1px);
+    background-size: 20px 20px;
+    color: var(--text-main);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+.header {
+    background: var(--primary);
+    color: white;
+    padding: 30px 40px;
+    text-align: center;
+    border-bottom: 4px solid var(--accent);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    position: relative;
+    z-index: 10;
+}
+.header h1 {
+    font-family: 'Amiri', serif;
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: var(--accent);
+}
+.header p { font-size: 1.1rem; opacity: 0.9; }
+.container {
+    flex: 1;
+    padding: 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+    position: relative;
+}
+.article-canvas {
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+    border: 1px solid rgba(0,0,0,0.05);
+    position: relative;
+    z-index: 2;
+    margin-bottom: 40px;
+    text-align: center;
+}
+.article-badge {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--accent);
+    color: var(--primary);
+    padding: 10px 30px;
+    border-radius: 50px;
+    font-weight: 800;
+    font-size: 1.2rem;
+    box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+}
+.article-text {
+    font-family: 'Amiri', serif;
+    font-size: 2.2rem;
+    line-height: 2;
+    color: var(--primary);
+    direction: rtl;
+}
+.interactive-term {
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    transition: 0.3s ease;
+    padding: 0 5px;
+    border-radius: 5px;
+}
+.term-yesri { color: var(--danger); font-weight: bold; background: rgba(225, 29, 72, 0.05); }
+.term-eihala { color: var(--info); border-bottom: 2px dashed var(--info); }
+.term-waqt { color: var(--success); font-weight: bold; background: rgba(5, 150, 105, 0.05); }
+.term-istithna { color: #8b5cf6; font-weight: bold; background: rgba(139, 92, 246, 0.05); }
+
+.interactive-term:hover { transform: translateY(-3px); box-shadow: 0 5px 10px rgba(0,0,0,0.1); }
+.term-yesri:hover { background: var(--danger); color: white; }
+.term-eihala:hover { background: var(--info); color: white; border-bottom: none; }
+.term-waqt:hover { background: var(--success); color: white; }
+.term-istithna:hover { background: #8b5cf6; color: white; }
+
+.grid-analysis {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    position: relative;
+    z-index: 2;
+}
+.analysis-card {
+    background: var(--card-bg);
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.03);
+    border-top: 4px solid transparent;
+    transition: 0.4s;
+    position: relative;
+    overflow: hidden;
+}
+.analysis-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+}
+.analysis-card::before {
+    content: ''; position: absolute; top: 0; right: 0; width: 100%; height: 100%;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent);
+    pointer-events: none;
+}
+.card-icon {
+    width: 50px; height: 50px;
+    border-radius: 50%;
+    display: flex; justify-content: center; align-items: center;
+    font-size: 1.5rem; margin-bottom: 20px;
+    color: white;
+}
+.card-title {
+    font-size: 1.3rem; font-weight: 800; color: var(--primary);
+    margin-bottom: 15px;
+}
+.card-body { font-size: 1.05rem; line-height: 1.8; color: var(--text-main); }
+.hierarchy-pyramid {
+    display: flex; flex-direction: column; align-items: center; gap: 5px; margin-top: 15px;
+}
+.pyramid-level {
+    background: var(--primary); color: white; padding: 5px 15px; border-radius: 5px;
+    font-size: 0.9rem; font-weight: bold; text-align: center; width: 100%;
+}
+.pyramid-level.top { width: 60%; background: var(--accent); color: var(--primary); }
+.pyramid-level.mid { width: 80%; background: var(--primary-light); }
+.pyramid-level.bot { width: 100%; }
+
+.svg-overlay {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none; z-index: 1;
+}
+.path-line {
+    fill: none; stroke-width: 2; stroke-dasharray: 6;
+    animation: dash 20s linear infinite; opacity: 0; transition: opacity 0.3s;
+}
+@keyframes dash { to { stroke-dashoffset: -1000; } }
+.highlighted .path-line { opacity: 0.6; }
+
+@media (max-width: 900px) {
+    .article-text { font-size: 1.6rem; }
+    .grid-analysis { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+    <h1>المرحلة التحضيرية: التفكيك الهيكلي للنص القانوني</h1>
+    <p>الأمر رقم 75-58 المؤرخ في 26 سبتمبر 1975، المعدل والمتمم (القانون المدني)</p>
+</header>
+
+<div class="container" id="mainContainer">
+    
+    <svg class="svg-overlay" id="svgOverlay">
+        <defs>
+            <marker id="arrowDanger" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                <path d="M0,0 L0,6 L9,3 z" fill="var(--danger)" />
+            </marker>
+            <marker id="arrowInfo" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                <path d="M0,0 L0,6 L9,3 z" fill="var(--info)" />
+            </marker>
+            <marker id="arrowSuccess" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                <path d="M0,0 L0,6 L9,3 z" fill="var(--success)" />
+            </marker>
+            <marker id="arrowPurple" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                <path d="M0,0 L0,6 L9,3 z" fill="#8b5cf6" />
+            </marker>
+        </defs>
+        <path id="lineYesri" class="path-line" stroke="var(--danger)" marker-end="url(#arrowDanger)"></path>
+        <path id="lineEihala" class="path-line" stroke="var(--info)" marker-end="url(#arrowInfo)"></path>
+        <path id="lineWaqt" class="path-line" stroke="var(--success)" marker-end="url(#arrowSuccess)"></path>
+        <path id="lineIstithna" class="path-line" stroke="#8b5cf6" marker-end="url(#arrowPurple)"></path>
+    </svg>
+
+    <div class="article-canvas" id="articleCanvas">
+        <div class="article-badge">المادة 13</div>
+        <p class="article-text">
+            "<span class="interactive-term term-yesri" id="termYesri" data-target="cardYesri">يسري</span> القانون الجزائري وحده في 
+            <span class="interactive-term term-eihala" id="termEihala" data-target="cardEihala">الأحوال المنصوص عليها في المادتين 11 و 12</span> 
+            إذا كان أحد الزوجين جزائريا 
+            <span class="interactive-term term-waqt" id="termWaqt" data-target="cardWaqt">وقت انعقاد الزواج</span>، 
+            <span class="interactive-term term-istithna" id="termIstithna" data-target="cardIstithna">إلا فيما يخص أهلية الزواج</span>."
+        </p>
+    </div>
+
+    <div class="grid-analysis">
+        
+        <div class="analysis-card" style="border-top-color: var(--primary);">
+            <div class="card-icon" style="background: var(--primary);"><i class="fa-solid fa-sitemap"></i></div>
+            <div class="card-title">التموقع المنهجي للنص</div>
+            <div class="card-body">
+                أدرج المشرع الجزائري المادة 13 بشكل دقيق ومتسلسل داخل الهيكل العضوي للقانون المدني:
+                <ul style="list-style:none; margin-top:10px; padding-right:15px; border-right:2px solid var(--accent);">
+                    <li><strong>الكتاب الأول:</strong> أحكام عامة</li>
+                    <li><strong>الباب الأول:</strong> آثار القوانين وتطبيقها</li>
+                    <li><strong>الفصل الثاني:</strong> تنازع القوانين من حيث المكان</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="analysis-card" style="border-top-color: var(--accent);">
+            <div class="card-icon" style="background: var(--accent); color: var(--primary);"><i class="fa-solid fa-scale-unbalanced"></i></div>
+            <div class="card-title">طبيعة النص وموقعه في الهرم</div>
+            <div class="card-body">
+                <strong>الطبيعة:</strong> نص تشريعي يمثل <strong>قاعدة إسناد آمرة</strong>، تتعلق بالنظام العام والسيادة الوطنية (لتعلقها بزواج جزائري)، ولا يجوز الاتفاق على مخالفتها.<br><br>
+                <strong>الهرم القانوني:</strong> تأتي هذه المادة (كنص تشريعي داخلي) <strong>تحت الاتفاقيات الدولية</strong>. عملاً بالمادة 21 من القانون المدني والمادة 154 من الدستور، تسمو المعاهدات الدولية المصادق عليها على القوانين الداخلية في حال التعارض.
+                <div class="hierarchy-pyramid">
+                    <div class="pyramid-level top">الدستور / الاتفاقيات الدولية</div>
+                    <div class="pyramid-level mid">التشريع (القانون المدني - المادة 13)</div>
+                    <div class="pyramid-level bot">التنظيمات والقرارات</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="analysis-card" id="cardYesri" style="border-top-color: var(--danger);">
+            <div class="card-icon" style="background: var(--danger);"><i class="fa-solid fa-gavel"></i></div>
+            <div class="card-title">دلالة مصطلح "يسري"</div>
+            <div class="card-body">
+                استخدام المشرع لفعل المضارع "يسري" مقترناً بكلمة "وحده" يفيد <strong>الوجوب والإلزام المطلق</strong>. وهي تقنية تشريعية تهدف إلى تغليب قانون القاضي (القانون الوطني) متى كان أحد الأطراف يحمل الجنسية الجزائرية، حمايةً للنظام العام الوطني وتكريساً لمبدأ السيادة الإقليمية والشخصية.
+            </div>
+        </div>
+
+        <div class="analysis-card" id="cardEihala" style="border-top-color: var(--info);">
+            <div class="card-icon" style="background: var(--info);"><i class="fa-solid fa-link"></i></div>
+            <div class="card-title">دلالة "الإحالة التشريعية"</div>
+            <div class="card-body">
+                اعتمد المشرع تقنية الإحالة تفادياً للتكرار، قاصداً تطبيق القانون الجزائري حصراً على:
+                <br><br>
+                <strong>المادة 11:</strong> الشروط الموضوعية الخاصة بصحة الزواج.<br>
+                <strong>المادة 12:</strong> الآثار الشخصية والمالية التي يرتبها عقد الزواج (كالنفقة، الطاعة، النسب).
+            </div>
+        </div>
+
+        <div class="analysis-card" id="cardWaqt" style="border-top-color: var(--success);">
+            <div class="card-icon" style="background: var(--success);"><i class="fa-solid fa-clock"></i></div>
+            <div class="card-title">المقصود بـ "وقت انعقاد الزواج"</div>
+            <div class="card-body">
+                المقصود بالانعقاد هنا هو <strong>وقت إبرام وتوثيق عقد الزواج قانوناً وشرعاً</strong> (تطابق الإيجاب والقبول وتوافر الأركان)، <strong>ولا يقصد به وقت الخطبة</strong> بأي حال من الأحوال، لأن الخطبة قانوناً (المادة 5 من قانون الأسرة) مجرد وعد بالزواج لا تترتب عليها الآثار القانونية والمالية للزواج الفعلي.
+            </div>
+        </div>
+
+        <div class="analysis-card" id="cardIstithna" style="border-top-color: #8b5cf6;">
+            <div class="card-icon" style="background: #8b5cf6;"><i class="fa-solid fa-ban"></i></div>
+            <div class="card-title">دلالة الاستثناء "إلا فيما يخص الأهلية"</div>
+            <div class="card-body">
+                أخرج المشرع مسألة "أهلية الزواج" من التطبيق الحصري للقانون الجزائري. يعني ذلك أن الأهلية تبقى خاضعة للقانون الوطني لكل زوج (تطبيقاً للقواعد العامة في المادة 11). الغاية من هذا الاستثناء هي احترام التكوين البيولوجي والأنظمة القانونية الأجنبية لحماية استقرار المعاملات الدولية الخاصة، ومنع التحايل على القانون.
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const terms = document.querySelectorAll('.interactive-term');
+    const container = document.getElementById('mainContainer');
+    const svgOverlay = document.getElementById('svgOverlay');
+
+    function drawLine(termId, cardId, lineId) {
+        const term = document.getElementById(termId);
+        const card = document.getElementById(cardId);
+        const line = document.getElementById(lineId);
+
+        if (!term || !card || !line) return;
+
+        const containerRect = container.getBoundingClientRect();
+        const termRect = term.getBoundingClientRect();
+        const cardRect = card.getBoundingClientRect();
+
+        const startX = termRect.left + (termRect.width / 2) - containerRect.left;
+        const startY = termRect.bottom - containerRect.top;
+        
+        const endX = cardRect.left + (cardRect.width / 2) - containerRect.left;
+        const endY = cardRect.top - containerRect.top;
+
+        const controlY = startY + ((endY - startY) / 2);
+
+        const path = \`M \${startX} \${startY} C \${startX} \${controlY}, \${endX} \${controlY}, \${endX} \${endY - 10}\`;
+        line.setAttribute('d', path);
+    }
+
+    function updateAllLines() {
+        drawLine('termYesri', 'cardYesri', 'lineYesri');
+        drawLine('termEihala', 'cardEihala', 'lineEihala');
+        drawLine('termWaqt', 'cardWaqt', 'lineWaqt');
+        drawLine('termIstithna', 'cardIstithna', 'lineIstithna');
+    }
+
+    window.addEventListener('resize', updateAllLines);
+    setTimeout(updateAllLines, 500);
+
+    terms.forEach(term => {
+        term.addEventListener('mouseenter', () => {
+            const cardId = term.getAttribute('data-target');
+            const card = document.getElementById(cardId);
+            container.classList.add('highlighted');
+            
+            terms.forEach(t => { if(t !== term) t.style.opacity = '0.3'; });
+            document.querySelectorAll('.analysis-card').forEach(c => {
+                if(c.id !== cardId) c.style.opacity = '0.3';
+            });
+            
+            card.style.transform = 'translateY(-10px) scale(1.02)';
+            card.style.boxShadow = '0 20px 40px rgba(0,0,0,0.15)';
+            card.style.zIndex = '10';
+        });
+
+        term.addEventListener('mouseleave', () => {
+            const cardId = term.getAttribute('data-target');
+            const card = document.getElementById(cardId);
+            container.classList.remove('highlighted');
+            
+            terms.forEach(t => t.style.opacity = '1');
+            document.querySelectorAll('.analysis-card').forEach(c => c.style.opacity = '1');
+            
+            card.style.transform = '';
+            card.style.boxShadow = '';
+            card.style.zIndex = '';
+        });
+    });
+});
+</script>
+
+</body>
+</html>
