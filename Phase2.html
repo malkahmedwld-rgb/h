@@ -2,31 +2,36 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>المرحلة التحريرية - دراسة المادة 13</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>التحليل الأكاديمي لنص المادة 13 من القانون المدني</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Tajawal:wght@300;400;500;700;800&family=Changa:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 <style>
 /* ==========================================================================
-   1. المتغيرات والألوان (Premium Academic Theme)
+   1. المتغيرات والأساسيات (Variables & Base)
    ========================================================================== */
 :root {
-    --primary: #1e3a8a;       /* أزرق داكن أكاديمي */
-    --primary-dark: #172554;
-    --primary-light: #3b82f6;
-    --accent: #d4af37;        /* ذهبي للفت الانتباه */
-    --accent-hover: #b89628;
-    --bg-main: #f8fafc;
-    --bg-slide: #ffffff;
-    --text-dark: #0f172a;
+    --primary: #0f3460;           /* أزرق داكن أكاديمي */
+    --primary-light: #1a5276;
+    --primary-dark: #0a2342;
+    --accent: #cda434;            /* ذهبي ملكي */
+    --accent-light: #e8c355;
+    --bg-main: #f4f6f9;
+    --bg-card: #ffffff;
+    --text-dark: #1e293b;
     --text-muted: #475569;
-    --danger: #dc2626;
-    --success: #16a34a;
-    --shadow-sm: 0 4px 6px rgba(0,0,0,0.05);
-    --shadow-lg: 0 15px 35px rgba(0,0,0,0.1);
-    --border-radius: 12px;
+    --border-color: #e2e8f0;
+    --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+    --shadow-md: 0 10px 25px rgba(0,0,0,0.08);
+    --shadow-lg: 0 20px 40px rgba(0,0,0,0.12);
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --sidebar-width: 340px;
+    --transition-speed: 0.3s;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
@@ -35,376 +40,636 @@ body {
     font-family: 'Tajawal', sans-serif;
     background-color: var(--bg-main);
     color: var(--text-dark);
-    height: 100vh; display: flex; overflow: hidden;
+    height: 100vh;
+    display: flex;
+    overflow: hidden;
 }
 
 /* ==========================================================================
-   2. القائمة الجانبية (خطة البحث - Table of Contents)
+   2. القائمة الجانبية (Sidebar & Table of Contents)
    ========================================================================== */
 .sidebar {
-    width: 320px;
+    width: var(--sidebar-width);
     background: var(--primary-dark);
     color: white;
-    display: flex; flex-direction: column;
-    box-shadow: 5px 0 20px rgba(0,0,0,0.15);
+    display: flex;
+    flex-direction: column;
+    box-shadow: 5px 0 25px rgba(0,0,0,0.15);
     z-index: 100;
 }
 
 .sidebar-header {
     padding: 30px 20px;
-    background: rgba(0,0,0,0.2);
-    border-bottom: 2px solid var(--accent);
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    border-bottom: 3px solid var(--accent);
     text-align: center;
 }
-.sidebar-header h2 { font-family: 'Amiri', serif; color: var(--accent); font-size: 1.6rem; margin-bottom: 10px; }
-.sidebar-header p { font-size: 0.85rem; opacity: 0.8; }
 
-.plan-menu {
-    flex: 1; overflow-y: auto; padding: 15px 0;
-    list-style: none;
-}
-
-.plan-item {
-    padding: 12px 20px; cursor: pointer;
-    border-left: 4px solid transparent;
-    transition: 0.3s; font-size: 0.95rem;
-    display: flex; align-items: flex-start; gap: 10px;
-}
-.plan-item:hover { background: rgba(255,255,255,0.05); }
-.plan-item.active {
+.sidebar-header .icon-container {
+    width: 60px; height: 60px;
     background: rgba(255,255,255,0.1);
+    border-radius: 50%;
+    display: flex; justify-content: center; align-items: center;
+    margin: 0 auto 15px;
+    font-size: 1.8rem; color: var(--accent);
+}
+
+.sidebar-header h2 { font-family: 'Amiri', serif; font-size: 1.5rem; margin-bottom: 5px; }
+.sidebar-header p { font-size: 0.85rem; color: #cbd5e1; }
+
+.plan-container {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px 0;
+}
+
+/* تنسيق خطة البحث المتداخلة */
+.plan-level-1 { font-family: 'Changa', sans-serif; font-size: 1.05rem; font-weight: 700; color: var(--accent); padding: 15px 20px 5px; margin-top: 10px; border-top: 1px solid rgba(255,255,255,0.05); }
+.plan-level-2 { font-weight: 700; font-size: 0.95rem; color: #e2e8f0; padding: 10px 20px 5px 30px; }
+.plan-item {
+    padding: 10px 20px 10px 40px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: #cbd5e1;
+    transition: var(--transition-speed);
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    border-left: 4px solid transparent;
+}
+.plan-item i { margin-top: 4px; font-size: 0.7rem; opacity: 0.5; }
+.plan-item:hover { background: rgba(255,255,255,0.05); color: white; }
+.plan-item.active {
+    background: rgba(205, 164, 52, 0.1);
     border-left-color: var(--accent);
-    color: var(--accent); font-weight: bold;
+    color: var(--accent);
+    font-weight: 700;
 }
-.plan-item i { margin-top: 4px; font-size: 0.8rem; color: var(--accent); }
-.plan-sub-item { padding-right: 40px; font-size: 0.85rem; opacity: 0.8; }
-.plan-sub-item.active { opacity: 1; color: #60a5fa; font-weight: bold; }
+
+.download-box {
+    padding: 20px;
+    background: rgba(0,0,0,0.2);
+    border-top: 1px solid rgba(255,255,255,0.05);
+}
+.btn-download {
+    width: 100%;
+    padding: 12px;
+    background: var(--accent);
+    color: var(--primary-dark);
+    border: none;
+    border-radius: var(--radius-sm);
+    font-family: 'Tajawal', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex; justify-content: center; align-items: center; gap: 10px;
+    transition: var(--transition-speed);
+}
+.btn-download:hover { background: var(--accent-light); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(205, 164, 52, 0.3); }
 
 /* ==========================================================================
-   3. منطقة العرض الرئيسية (Main Viewport)
+   3. المنطقة الرئيسية والشريط العلوي (Main & Header)
    ========================================================================== */
-.main-wrapper {
-    flex: 1; display: flex; flex-direction: column;
-    background-image: radial-gradient(rgba(30, 58, 138, 0.05) 2px, transparent 2px);
-    background-size: 30px 30px;
+.main-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background-image: radial-gradient(var(--border-color) 1px, transparent 1px);
+    background-size: 20px 20px;
 }
 
-.top-header {
-    height: 70px; background: white; border-bottom: 1px solid #e2e8f0;
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 0 40px; box-shadow: var(--shadow-sm);
+.top-bar {
+    height: 70px;
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+    box-shadow: var(--shadow-sm);
+    z-index: 10;
 }
-.breadcrumb { font-weight: bold; color: var(--primary); font-size: 1.1rem; }
-.btn-outline {
-    border: 2px solid var(--primary); color: var(--primary);
-    padding: 8px 20px; border-radius: 50px; font-weight: bold;
-    text-decoration: none; transition: 0.3s;
-}
-.btn-outline:hover { background: var(--primary); color: white; }
 
+.breadcrumb {
+    font-family: 'Changa', sans-serif;
+    font-size: 1.1rem;
+    color: var(--primary);
+    display: flex; align-items: center; gap: 10px;
+}
+.breadcrumb span { color: var(--accent); }
+
+.btn-home {
+    background: transparent;
+    border: 2px solid var(--primary);
+    color: var(--primary);
+    padding: 8px 20px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: var(--transition-speed);
+    display: flex; align-items: center; gap: 8px;
+}
+.btn-home:hover { background: var(--primary); color: white; }
+
+/* ==========================================================================
+   4. منصة العرض (Presentation Viewport)
+   ========================================================================== */
 .viewport {
-    flex: 1; padding: 30px; display: flex;
-    justify-content: center; align-items: center;
-    position: relative; overflow: hidden;
+    flex: 1;
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
 }
 
-/* ==========================================================================
-   4. تصميم الشرائح (Slide Container)
-   ========================================================================== */
-.slide-card {
-    background: var(--bg-slide);
-    width: 100%; max-width: 1100px; height: 100%; max-height: 800px;
-    border-radius: var(--border-radius);
+.slide-deck {
+    background: var(--bg-card);
+    width: 100%;
+    max-width: 1100px;
+    height: 100%;
+    border-radius: var(--radius-lg);
     box-shadow: var(--shadow-lg);
-    position: relative; overflow: hidden;
-    border-top: 6px solid var(--accent);
-    display: flex; flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
+
+/* شريط التقدم العلوي للبطاقة */
+.progress-container { width: 100%; height: 5px; background: var(--border-color); }
+.progress-bar { height: 100%; background: var(--accent); width: 0%; transition: width 0.4s ease; }
+
+.slides-wrapper { flex: 1; position: relative; }
 
 .slide {
     position: absolute; top: 0; right: 0; width: 100%; height: 100%;
-    padding: 50px 70px;
+    padding: 40px 60px;
     opacity: 0; visibility: hidden;
-    transform: translateY(30px) scale(0.98);
-    transition: 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    transform: translateY(20px);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     overflow-y: auto;
 }
-.slide.active { opacity: 1; visibility: visible; transform: translateY(0) scale(1); z-index: 10; }
+.slide.active { opacity: 1; visibility: visible; transform: translateY(0); z-index: 10; }
 
 /* ==========================================================================
-   5. المكونات الأكاديمية (Typography & Components)
+   5. المكونات الأكاديمية داخل الشرائح (Typography & Elements)
    ========================================================================== */
-.slide-title {
-    font-family: 'Amiri', serif; font-size: 2.4rem; color: var(--primary);
-    margin-bottom: 30px; padding-bottom: 15px; border-bottom: 2px solid #e2e8f0;
+.slide-header {
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--border-color);
     position: relative;
 }
-.slide-title::after {
+.slide-header::after {
     content: ''; position: absolute; bottom: -2px; right: 0;
-    width: 80px; height: 3px; background: var(--accent);
+    width: 100px; height: 3px; background: var(--accent);
+}
+.slide-title { font-family: 'Amiri', serif; font-size: 2.2rem; color: var(--primary); margin-bottom: 5px; }
+.slide-subtitle { font-family: 'Changa', sans-serif; font-size: 1.2rem; color: var(--accent); }
+
+.academic-text {
+    font-size: 1.2rem; line-height: 2; color: var(--text-dark);
+    text-align: justify; margin-bottom: 20px;
 }
 
-.text-content { font-size: 1.25rem; line-height: 2; color: var(--text-dark); text-align: justify; margin-bottom: 20px; }
+/* شبكة البطاقات (Grid Cards) */
+.info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 25px; margin-top: 20px; }
 
-/* بطاقات المعلومات */
-.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-top: 20px; }
-.info-card {
-    background: #f8fafc; border: 1px solid #e2e8f0;
-    padding: 25px; border-radius: var(--border-radius);
+.info-box {
+    background: #fafbfc;
+    border: 1px solid var(--border-color);
     border-right: 5px solid var(--primary);
-    box-shadow: var(--shadow-sm); transition: 0.3s;
+    border-radius: var(--radius-md);
+    padding: 25px;
+    transition: var(--transition-speed);
 }
-.info-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
-.card-header { font-weight: 800; color: var(--primary); font-size: 1.2rem; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
-.card-header i { color: var(--accent); font-size: 1.5rem; }
+.info-box:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
+.info-box.accent-box { border-right-color: var(--accent); background: #fffdf5; }
+.info-box.danger-box { border-right-color: #e74c3c; background: #fff5f5; }
 
-/* الاقتباسات القانونية */
-.legal-quote {
-    background: rgba(212, 175, 55, 0.05);
-    border-right: 4px solid var(--accent);
-    padding: 20px; margin: 20px 0;
-    font-family: 'Amiri', serif; font-size: 1.4rem; color: var(--primary-dark);
-    font-style: italic;
+.box-title {
+    font-size: 1.2rem; font-weight: 700; color: var(--primary);
+    margin-bottom: 15px; display: flex; align-items: center; gap: 10px;
+}
+.accent-box .box-title { color: #b08a2a; }
+.danger-box .box-title { color: #c0392b; }
+
+.box-list { list-style: none; margin-right: 10px; }
+.box-list li {
+    position: relative; padding-right: 20px; margin-bottom: 10px;
+    font-size: 1.1rem; line-height: 1.7;
+}
+.box-list li::before {
+    content: "\f104"; font-family: "Font Awesome 6 Free"; font-weight: 900;
+    position: absolute; right: 0; color: var(--accent);
 }
 
-/* صندوق التنبيه/النقد */
-.critique-box {
-    background: #fef2f2; border: 1px solid #fecaca;
-    padding: 20px; border-radius: var(--border-radius);
-    border-right: 5px solid var(--danger);
-    margin-top: 20px;
+/* اقتباس قانوني (Legal Citation) */
+.legal-citation {
+    background: var(--primary); color: white;
+    padding: 25px; border-radius: var(--radius-md);
+    margin: 30px 0; position: relative;
+    box-shadow: var(--shadow-sm);
 }
-.critique-title { color: var(--danger); font-weight: bold; margin-bottom: 10px; font-size: 1.2rem; }
+.legal-citation::before {
+    content: "\f10e"; font-family: "Font Awesome 6 Free"; font-weight: 900;
+    position: absolute; top: 10px; right: 20px; font-size: 3rem; opacity: 0.1;
+}
+.citation-text { font-family: 'Amiri', serif; font-size: 1.5rem; line-height: 1.8; text-align: center; }
 
 /* ==========================================================================
-   6. شريط التحكم (Controls)
+   6. شريط التحكم السفلي (Bottom Navigation)
    ========================================================================== */
-.controls {
-    height: 70px; background: white; border-top: 1px solid #e2e8f0;
-    display: flex; justify-content: space-between; align-items: center; padding: 0 40px;
+.bottom-controls {
+    height: 80px; background: var(--bg-card);
+    border-top: 1px solid var(--border-color);
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 40px; box-shadow: 0 -5px 15px rgba(0,0,0,0.02);
 }
-.nav-btn {
-    background: white; border: 2px solid var(--primary); color: var(--primary);
-    padding: 10px 30px; border-radius: 50px; font-weight: bold;
-    cursor: pointer; transition: 0.3s; font-family: 'Tajawal';
-    display: flex; align-items: center; gap: 10px; font-size: 1.1rem;
-}
-.nav-btn:hover:not(:disabled) { background: var(--primary); color: white; }
-.nav-btn:disabled { border-color: #cbd5e1; color: #cbd5e1; cursor: not-allowed; }
-.counter { font-weight: bold; color: var(--text-muted); font-size: 1.2rem; font-family: 'Amiri'; }
 
-/* شريط التقدم */
-.progress-bar { position: absolute; top: 0; right: 0; left: 0; height: 4px; background: #e2e8f0; }
-.progress-fill { height: 100%; background: var(--accent); width: 0%; transition: width 0.4s ease; }
+.slide-counter { font-family: 'Changa', sans-serif; font-size: 1.2rem; color: var(--text-muted); font-weight: 700; }
+
+.nav-buttons { display: flex; gap: 15px; }
+.btn-control {
+    background: white; border: 2px solid var(--primary); color: var(--primary);
+    padding: 10px 30px; border-radius: 50px; font-family: 'Tajawal', sans-serif;
+    font-weight: 700; font-size: 1.1rem; cursor: pointer;
+    display: flex; align-items: center; gap: 10px; transition: var(--transition-speed);
+}
+.btn-control:hover:not(:disabled) { background: var(--primary); color: white; box-shadow: var(--shadow-sm); }
+.btn-control:disabled { border-color: #cbd5e1; color: #cbd5e1; cursor: not-allowed; }
+
+/* ==========================================================================
+   7. التجاوب مع الشاشات (Responsive)
+   ========================================================================== */
+@media (max-width: 1024px) {
+    .sidebar { position: fixed; right: -100%; height: 100%; transition: right 0.4s; }
+    .sidebar.open { right: 0; }
+    .slide { padding: 30px; }
+    .slide-title { font-size: 1.8rem; }
+}
 </style>
 </head>
 <body>
 
 <aside class="sidebar">
     <div class="sidebar-header">
-        <h2>المرحلة التحريرية</h2>
-        <p>دراسة تحليلية ناقدة لنص المادة 13</p>
+        <div class="icon-container"><i class="fa-solid fa-scale-balanced"></i></div>
+        <h2>التحليل الأكاديمي</h2>
+        <p>دراسة نص المادة 13 من القانون المدني</p>
     </div>
-    <ul class="plan-menu" id="planMenu">
-        </ul>
+    
+    <div class="plan-container" id="planMenu">
+        </div>
+
+    <div class="download-box">
+        <button class="btn-download" onclick="downloadResearch()">
+            <i class="fa-solid fa-file-word"></i> تحميل مسودة البحث
+        </button>
+    </div>
 </aside>
 
-<div class="main-wrapper">
-    <header class="top-header">
-        <div class="breadcrumb" id="breadcrumbText">المقدمة</div>
-        <a href="index.html" class="btn-outline"><i class="fa-solid fa-house"></i> العودة للرئيسية</a>
+<div class="main-area">
+    
+    <header class="top-bar">
+        <div class="breadcrumb">
+            <i class="fa-solid fa-folder-tree"></i>
+            <span id="breadcrumbText">واجهة البحث</span>
+        </div>
+        <a href="index.html" class="btn-home"><i class="fa-solid fa-house"></i> الرئيسية</a>
     </header>
 
     <div class="viewport">
-        <div class="slide-card">
-            <div class="progress-bar"><div class="progress-fill" id="progressBar"></div></div>
+        <div class="slide-deck">
+            
+            <div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
 
-            <div class="slide active" data-title="واجهة البحث" data-menu="المقدمة">
-                <div style="text-align: center; margin-top: 40px;">
-                    <i class="fa-solid fa-scale-unbalanced" style="font-size: 4rem; color: var(--accent); margin-bottom: 20px;"></i>
-                    <h2 style="color: var(--text-muted); margin-bottom: 10px;">المرحلة التحريرية (المسودة النهائية)</h2>
-                    <h1 style="font-family: 'Amiri'; font-size: 3.5rem; color: var(--primary); margin-bottom: 30px; line-height: 1.3;">
-                        دراسة تحليلية ناقدة لنص المادة 13<br>من القانون المدني الجزائري
-                    </h1>
+            <div class="slides-wrapper">
+
+                <div class="slide active" data-level1="واجهة البحث" data-level2="" data-title="الغلاف الرئيسي">
+                    <div style="text-align: center; margin-top: 5vh;">
+                        <img src="logo.jpg" alt="شعار الجامعة" style="width: 100px; margin-bottom: 20px; border-radius: 50%; box-shadow: var(--shadow-md);">
+                        <h3 style="color: var(--text-muted); font-size: 1.2rem; margin-bottom: 5px;">مقياس: تقنيات إعداد البحث العلمي</h3>
+                        <h4 style="color: var(--accent); font-size: 1rem; margin-bottom: 30px;">السداسي الثاني - السنة الأولى ماستر</h4>
+                        
+                        <h1 style="font-family: 'Amiri', serif; font-size: 3.5rem; color: var(--primary); margin-bottom: 20px; line-height: 1.4;">
+                            تحليل نص المادة 13<br>من القانون المدني الجزائري
+                        </h1>
+                        <p style="font-size: 1.4rem; color: var(--text-dark); margin-bottom: 40px;">نطاق تطبيق وتكييف القواعد الاستثنائية في الأحوال الشخصية</p>
+                        
+                        <div style="display: flex; justify-content: center; gap: 50px; background: #f8fafc; padding: 20px; border-radius: var(--radius-md); border: 1px solid var(--border-color); display: inline-flex;">
+                            <div style="text-align: right;">
+                                <span style="font-size: 0.9rem; color: var(--text-muted);">إعداد الطالب</span><br>
+                                <strong style="font-size: 1.2rem; color: var(--primary);">بولنوار ميلود</strong>
+                            </div>
+                            <div style="width: 2px; background: var(--border-color);"></div>
+                            <div style="text-align: right;">
+                                <span style="font-size: 0.9rem; color: var(--text-muted);">إشراف الأستاذ</span><br>
+                                <strong style="font-size: 1.2rem; color: var(--primary);">د. خرشي عمر معمر</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slide" data-level1="واجهة البحث" data-level2="" data-title="النص القانوني">
+                    <div class="slide-header">
+                        <div class="slide-subtitle">النص محل التحليل</div>
+                        <h2 class="slide-title">نص المادة 13 من القانون المدني</h2>
+                    </div>
                     
-                    <div class="info-card" style="display: inline-block; text-align: right; border-right-color: var(--accent); max-width: 600px;">
-                        <ul style="list-style: none; font-size: 1.2rem; line-height: 2;">
-                            <li><i class="fa-solid fa-book-open" style="color: var(--accent); width: 30px;"></i> <strong>الموضوع:</strong> تنازع القوانين في الأحوال الشخصية.</li>
-                            <li><i class="fa-solid fa-gavel" style="color: var(--accent); width: 30px;"></i> <strong>القاعدة:</strong> الاستثناء الوارد على المادتين 11 و 12.</li>
+                    <div class="legal-citation" style="margin-top: 50px;">
+                        <p class="citation-text">
+                            "يسري القانون الجزائري وحده في الأحوال المنصوص عليها في المادتين 11 و 12 إذا كان أحد الزوجين جزائرياً وقت انعقاد الزواج، إلا فيما يخص الأهلية".
+                        </p>
+                    </div>
+                    <p class="academic-text" style="text-align: center; color: var(--text-muted);">
+                        <em>الأمر رقم 75-58 المؤرخ في 26 سبتمبر 1975، المتضمن القانون المدني، المعدل والمتمم.</em>
+                    </p>
+                </div>
+
+                <div class="slide" data-level1="المبحث الأول: الإطار المفاهيمي والتكييف القانوني للمادة 13" data-level2="المطلب الأول: موقع المادة 13 في تنازع القوانين" data-title="الفرع الأول: علاقة المادة 13 بقواعد الإسناد العامة (المادتين 11 و 12)">
+                    <div class="slide-header">
+                        <div class="slide-subtitle">المطلب الأول: موقع المادة 13 في تنازع القوانين</div>
+                        <h2 class="slide-title">الفرع الأول: علاقة المادة 13 بقواعد الإسناد العامة</h2>
+                    </div>
+                    
+                    <p class="academic-text">
+                        لا يمكن فهم المادة 13 بمعزل عن المادتين السابقتين لها، فهي وُجدت لتكون <strong>استثناءً</strong> يحد من النطاق الواسع لتطبيق القانون الأجنبي في مسائل الزواج التي أقرتها القواعد العامة.
+                    </p>
+
+                    <div class="info-grid">
+                        <div class="info-box">
+                            <h3 class="box-title"><i class="fa-solid fa-file-contract"></i> القاعدة العامة (المادة 11)</h3>
+                            <p class="academic-text" style="font-size:1.1rem;">
+                                تنص على <strong>التطبيق الموزع</strong> للقوانين بخصوص الشروط الموضوعية لصحة الزواج، حيث يخضع كل زوج لقانونه الوطني.
+                            </p>
+                        </div>
+                        <div class="info-box">
+                            <h3 class="box-title"><i class="fa-solid fa-ring"></i> القاعدة العامة (المادة 12)</h3>
+                            <p class="academic-text" style="font-size:1.1rem;">
+                                تعقد الاختصاص <strong>لقانون الزوج</strong> سواء وقت إبرام العقد (للآثار المالية والشخصية) أو وقت رفع الدعوى (للانحلال والانفصال).
+                            </p>
+                        </div>
+                    </div>
+                    <div class="info-box accent-box" style="margin-top: 20px;">
+                        <h3 class="box-title"><i class="fa-solid fa-bolt"></i> دور المادة 13 (الاستثناء)</h3>
+                        <p class="academic-text" style="margin:0; font-size:1.1rem;">
+                            تتدخل المادة 13 لتعطيل المادتين 11 و 12، وتفرض تطبيق <strong>القانون الجزائري وحده</strong> متى ظهر رابط الجنسية الجزائرية لأحد الطرفين، مستبعدة بذلك أي قانون أجنبي آخر.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="slide" data-level1="المبحث الأول: الإطار المفاهيمي والتكييف القانوني للمادة 13" data-level2="المطلب الأول: موقع المادة 13 في تنازع القوانين" data-title="الفرع الثاني: تحديد الطبيعة القانونية للمادة 13 (قاعدة استثنائية)">
+                    <div class="slide-header">
+                        <div class="slide-subtitle">المطلب الأول: موقع المادة 13 في تنازع القوانين</div>
+                        <h2 class="slide-title">الفرع الثاني: تحديد الطبيعة القانونية للمادة 13</h2>
+                    </div>
+
+                    <p class="academic-text">
+                        من حيث التكييف القانوني، تعتبر قواعد الإسناد في الأصل <strong>قواعد مزدوجة (Bilatérales)</strong> ومحايدة، تقتصر مهمتها على الإرشاد إلى القانون الأنسب لحكم العلاقة (سواء كان وطنياً أو أجنبياً).
+                    </p>
+
+                    <div class="info-box danger-box">
+                        <h3 class="box-title"><i class="fa-solid fa-scale-unbalanced"></i> طبيعة المادة 13: قاعدة استثنائية ذات تطبيق مباشر</h3>
+                        <ul class="box-list">
+                            <li><strong>فقدان الحياد:</strong> المادة 13 تجردت من خاصية الحياد المميزة لقواعد الإسناد.</li>
+                            <li><strong>قاعدة تطبيقية:</strong> هي أقرب للقواعد ذات التطبيق الضروري المباشر؛ لأنها تعقد الاختصاص سلفاً لقانون القاضي (القانون الجزائري).</li>
+                            <li><strong>تغليب الرابطة الوطنية:</strong> تمثل أداة تشريعية لفرض سيادة القانون الوطني في العلاقات المختلطة.</li>
                         </ul>
                     </div>
                 </div>
-            </div>
 
-            <div class="slide" data-title="المبحث الأول: الإطار المفاهيمي والتكييف القانوني" data-menu="المبحث الأول">
-                <h1 class="slide-title">المبحث الأول: الإطار المفاهيمي والتكييف القانوني</h1>
-                <h2 style="color: var(--accent); margin-bottom: 20px;">المطلب الأول: موقع المادة 13 في تنازع القوانين</h2>
-                
-                <div class="info-card">
-                    <div class="card-header"><i class="fa-solid fa-link"></i> الفرع الأول: علاقة المادة 13 بقواعد الإسناد العامة</div>
-                    <p class="text-content">
-                        [cite_start]تعتبر المادة 13 استثناءً صريحاً يحد من الإطلاق الوارد في قاعدتي الإسناد العامتين (المادتين 11 و 12)[cite: 1948].
-                    </p>
-                    <ul style="font-size: 1.2rem; line-height: 1.8; margin-right: 20px; color: var(--text-dark);">
-                        [cite_start]<li><strong>القاعدة العامة في المادة 11:</strong> تنص على التطبيق الموزع للقوانين بإخضاع الشروط الموضوعية للزواج للقانون الوطني لكل من الزوجين[cite: 1980].</li>
-                        [cite_start]<li><strong>القاعدة العامة في المادة 12:</strong> تعقد الاختصاص لقانون جنسية الزوج وقت رفع الدعوى (في آثار وانحلال الزواج)[cite: 1981].</li>
-                        [cite_start]<li><strong>تدخل المادة 13:</strong> تتدخل المادة 13 لتعطيل تطبيق القانون الأجنبي واستبداله بالقانون الجزائري <strong>"وحده"</strong> إذا توافر شرط الجنسية الجزائرية لأحد الزوجين[cite: 1981, 1984].</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="slide" data-title="الطبيعة القانونية للمادة 13" data-menu="المبحث الأول">
-                <h1 class="slide-title">المطلب الأول: موقع المادة 13</h1>
-                <div class="info-card" style="border-right-color: var(--primary-light);">
-                    <div class="card-header"><i class="fa-solid fa-scale-balanced"></i> الفرع الثاني: تحديد الطبيعة القانونية (قاعدة استثنائية)</div>
-                    <p class="text-content">
-                        [cite_start]الأصل في قواعد الإسناد أنها <strong>قواعد مزدوجة</strong> (Bilatérales) ومحايدة، تقتصر مهمتها على الإرشاد إلى القانون الأنسب لحكم العلاقة، سواء كان قانون القاضي الوطني أو قانوناً أجنبياً[cite: 1972, 1984].
-                    </p>
-                    <div class="legal-quote">
-                        [cite_start]"المادة 13 أفقدت روح قاعدة الإسناد باعتبارها قاعدة أحادية، فهي قاعدة حمائية أكثر منها قاعدة إسناد"[cite: 1985].
+                <div class="slide" data-level1="المبحث الأول: الإطار المفاهيمي والتكييف القانوني للمادة 13" data-level2="المطلب الثاني: تحليل الطابع المميز للمادة 13" data-title="الفرع الأول: الطابع الأحادي في الإسناد">
+                    <div class="slide-header">
+                        <div class="slide-subtitle">المطلب الثاني: تحليل الطابع المميز للمادة 13</div>
+                        <h2 class="slide-title">الفرع الأول: الطابع الأحادي في الإسناد</h2>
                     </div>
-                    <p class="text-content">
-                        [cite_start]وبالتالي، تكيّف المادة 13 على أنها <strong>قاعدة استثنائية</strong> ذات طبيعة مادية تطبيقية مباشرة، وضعت لتقييد مجال تطبيق القوانين الأجنبية متى تعلق الأمر بطرف يحمل الجنسية الجزائرية[cite: 1982].
-                    </p>
-                </div>
-            </div>
 
-            <div class="slide" data-title="المطلب الثاني: الطابع المميز للمادة 13" data-menu="المبحث الأول">
-                <h1 class="slide-title">المطلب الثاني: تحليل الطابع المميز للمادة 13</h1>
-                <div class="grid-2">
-                    <div class="info-card">
-                        <div class="card-header"><i class="fa-solid fa-arrow-right-to-bracket"></i> الفرع الأول: الطابع الأحادي في الإسناد</div>
-                        <p class="text-content" style="font-size: 1.1rem;">
-                            تتسم المادة 13 بالطابع "الأحادي" (Unilatéral) لأنها لا تترك مجالاً لتزاحم القوانين أو البحث عن القانون الأنسب. [cite_start]بمجرد ظهور عنصر "الجنسية الجزائرية" وقت إبرام العقد، ينعقد الاختصاص <strong>مباشرة وبصفة مطلقة</strong> للقانون الداخلي الجزائري[cite: 1973, 1984].
-                        </p>
-                    </div>
-                    <div class="info-card" style="background: #fdf8e3; border-right-color: var(--accent);">
-                        <div class="card-header" style="color: var(--accent);"><i class="fa-solid fa-triangle-exclamation"></i> إشكالية هذا الطابع</div>
-                        <p class="text-content" style="font-size: 1.1rem;">
-                            [cite_start]هذا التوجه يتعارض مع خاصية "الحياد" لقواعد الإسناد، ويعتبره الفقه حلاً يقود إلى نتائج "شاذة" كونه يغلب جنسية أحد الأطراف دون مراعاة لتوقعات الأطراف أو طبيعة النزاع الحقيقية[cite: 1997, 1998].
-                        </p>
+                    <p class="academic-text">
+                        تتميز المادة 13 بطابعها <strong>الأحادي (Unilatéral)</strong>، وهو طابع نادر في قواعد التنازع الحديثة.
+                    </p>
+
+                    <div class="info-grid">
+                        <div class="info-box">
+                            <h3 class="box-title"><i class="fa-solid fa-arrow-down-1-9"></i> ماذا يعني الطابع الأحادي؟</h3>
+                            <p class="academic-text" style="font-size:1.1rem; margin:0;">
+                                يعني أن القاعدة لا تحدد القانون الواجب التطبيق بشكل تبادلي، بل تكتفي بإعلان <strong>اختصاص قانونها الوطني فقط</strong> (القانون الجزائري)، دون أن تشير إلى متى يطبق القانون الأجنبي.
+                            </p>
+                        </div>
+                        <div class="info-box accent-box">
+                            <h3 class="box-title"><i class="fa-solid fa-magnifying-glass-chart"></i> التحليل الفقهي لهذا الطابع</h3>
+                            <p class="academic-text" style="font-size:1.1rem; margin:0;">
+                                يرى الفقه أن هذا الطابع يؤدي إلى <strong>احتكار الاختصاص التشريعي</strong>. فبمجرد أن يتبين للقاضي أن أحد الزوجين جزائري (ولو كان الزوج أجنبياً)، يُغلق باب التنازع فوراً ويُطبق القانون الداخلي.
+                            </p>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="slide" data-title="أساس الطابع الأحادي" data-menu="المبحث الأول">
-                <h1 class="slide-title">الفرع الثاني: أساس هذا الطابع</h1>
-                [cite_start]<p class="text-content">إن تغليب المشرع الجزائري لضابط الجنسية الجزائرية لإقرار هذا الاختصاص الفردي ينبع من أساسين جوهريين[cite: 1986]:</p>
-                
-                <div class="grid-2">
-                    <div class="info-card" style="border-right-color: var(--success);">
-                        <div class="card-header" style="color: var(--success);"><i class="fa-solid fa-shield-halved"></i> 1. حماية الطرف الوطني</div>
-                        <p class="text-content" style="font-size: 1.1rem;">
-                            [cite_start]نظراً لكثرة زيجات الجزائريات من أجانب، تدخل المشرع لحماية المرأة الحاملة للجنسية الجزائرية أمام الزوج الأجنبي، وتفادياً لظاهرة الغش نحو القانون (تغيير الزوج لجنسيته للتهرب من القانون الجزائري)[cite: 1973, 1991].
-                        </p>
+                <div class="slide" data-level1="المبحث الأول: الإطار المفاهيمي والتكييف القانوني للمادة 13" data-level2="المطلب الثاني: تحليل الطابع المميز للمادة 13" data-title="الفرع الثاني: أساس هذا الطابع">
+                    <div class="slide-header">
+                        <div class="slide-subtitle">المطلب الثاني: تحليل الطابع المميز للمادة 13</div>
+                        <h2 class="slide-title">الفرع الثاني: أساس هذا الطابع (فلسفة التشريع)</h2>
                     </div>
-                    <div class="info-card" style="border-right-color: var(--danger);">
-                        <div class="card-header" style="color: var(--danger);"><i class="fa-solid fa-building-flag"></i> 2. حماية المصلحة الوطنية والنظام العام</div>
-                        <p class="text-content" style="font-size: 1.1rem;">
-                            تعتبر مواضيع الأسرة مرتبطة بثوابت المجتمع والشريعة الإسلامية. [cite_start]المادة 13 هي بمثابة صمام أمان لصد الأنظمة الدخيلة والمخالفة للنظام العام الجزائري[cite: 1995].
-                        </p>
-                    </div>
-                </div>
-            </div>
 
-            <div class="slide" data-title="المبحث الثاني: نطاق التطبيق أحكام المادة 13" data-menu="المبحث الثاني">
-                <h1 class="slide-title">المبحث الثاني: نطاق تطبيق أحكام المادة 13</h1>
-                <h2 style="color: var(--accent); margin-bottom: 20px;">المطلب الأول: التطبيق على مسائل الزواج وآثاره</h2>
-                
-                <div class="info-card">
-                    <div class="card-header"><i class="fa-solid fa-check-double"></i> الفرع الأول: إعمال النص على الشروط الموضوعية</div>
-                    <p class="text-content">
-                        تطبق المادة 13 كاستثناء على المادة 11 فيما يخص الشروط الموضوعية لصحة الزواج (الرضا، الولي، الصداق، الخلو من الموانع).
-                    </p>
-                    <div style="background: white; padding: 15px; border-radius: 8px; border: 1px dashed #cbd5e1; margin-top: 15px;">
-                        [cite_start]<strong>مثال توضيحي:</strong> إذا تزوجت امرأة جزائرية برجل أجنبي (فرنسي مثلاً)، فإن المادة 13 توجب خضوع الشروط الموضوعية لعقدهما <strong>للقانون الجزائري وحده</strong>، وليس لقانون كل منهما كما تقضي المادة 11[cite: 2012, 2014].
+                    <p class="academic-text">إن خروج المشرع عن القاعدة المزدوجة ولجوءه للطابع الأحادي في المادة 13 لم يأتِ عبثاً، بل يستند إلى مبررات سيادية واجتماعية:</p>
+
+                    <div class="info-grid">
+                        <div class="info-box">
+                            <h3 class="box-title"><i class="fa-solid fa-shield-halved"></i> 1. حماية الطرف الوطني (الزوجة)</h3>
+                            <p class="academic-text" style="font-size:1.1rem;">
+                                تهدف المادة أساساً لحماية <strong>المرأة الجزائرية</strong> المتزوجة بأجنبي. فلو تركنا الأمر للمادة 12، لخضعت الزوجة الجزائرية لقانون زوجها الأجنبي في آثار الزواج والطلاق، مما قد يهدر حقوقها أو يفاجئها بقوانين لم تتوقعها.
+                            </p>
+                        </div>
+                        <div class="info-box danger-box">
+                            <h3 class="box-title"><i class="fa-solid fa-landmark-dome"></i> 2. حماية النظام العام الوطني</h3>
+                            <p class="academic-text" style="font-size:1.1rem;">
+                                الأحوال الشخصية في الجزائر مرتبطة ارتباطاً وثيقاً بالشريعة الإسلامية. إعمال المادة 13 يمنع تسلل أنظمة أجنبية تخالف النظام العام الجزائري، ويغلق الباب أمام "الغش نحو القانون" (كتغيير الزوج جنسيته للتهرب من أحكام الطلاق).
+                            </p>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="slide" data-title="إعمال النص على الآثار" data-menu="المبحث الثاني">
-                <h1 class="slide-title">تابع المطلب الأول: مسائل الزواج وآثاره</h1>
-                
-                <div class="info-card" style="border-right-color: var(--primary-light);">
-                    <div class="card-header"><i class="fa-solid fa-ring"></i> الفرع الثاني: إعمال النص على الآثار الشخصية والمالية</div>
-                    <p class="text-content">
-                        الأصل في المادة 12/ف1 هو خضوع الآثار لقانون جنسية الزوج. لكن المادة 13 تستثني حالتين رئيسيتين:
-                    </p>
-                    <ul style="font-size: 1.2rem; line-height: 1.8; margin-right: 20px;">
-                        [cite_start]<li><strong>إذا كانت الزوجة جزائرية والزوج أجنبي:</strong> يسري القانون الجزائري حماية لها[cite: 2025].</li>
-                        [cite_start]<li><strong>إذا كان الزوج جزائرياً والزوجة أجنبية:</strong> يسري القانون الجزائري (وهنا يتوافق مع الأصل في المادة 12)[cite: 2023].</li>
-                    </ul>
-                    <div class="critique-box" style="margin-top: 20px;">
-                        <span class="critique-title"><i class="fa-solid fa-bolt"></i> ملاحظة تحليلية:</span><br>
-                        [cite_start]حتى لو اكتسبت الزوجة الجزائرية جنسية زوجها الأجنبي لاحقاً، يظل القانون الجزائري هو المطبق لأن العبرة بـ <strong>"وقت انعقاد الزواج"</strong>[cite: 2025].
+                <div class="slide" data-level1="المبحث الثاني: نطاق التطبيق أحكام المادة 13" data-level2="المطلب الأول: تطبيق المادة 13 على مسائل الزواج وآثاره" data-title="الفرع الأول: إعمال النص على الشروط الموضوعية لصحة عقد الزواج">
+                    <div class="slide-header">
+                        <div class="slide-subtitle">المطلب الأول: تطبيق المادة 13 على مسائل الزواج وآثاره</div>
+                        <h2 class="slide-title">الفرع الأول: إعمال النص على الشروط الموضوعية</h2>
                     </div>
-                </div>
-            </div>
 
-            <div class="slide" data-title="المطلب الثاني: مجال استبعاد القانون الجزائري" data-menu="المبحث الثاني">
-                <h1 class="slide-title">المطلب الثاني: مجال الاستبعاد (الانحلال)</h1>
-                
-                <div class="info-card">
-                    <div class="card-header"><i class="fa-solid fa-heart-crack"></i> الفرع الأول: انحلال الرابطة والانفصال الجسماني</div>
-                    <p class="text-content">
-                        الأصل إخضاع الانحلال لقانون جنسية الزوج وقت رفع الدعوى (م 12/ف2). لكن المادة 13 تلزم بتطبيق القانون الجزائري إذا كان أحدهما جزائرياً وقت الزواج، وهذا يطرح إشكاليات قانونية عميقة:
+                    <p class="academic-text">
+                        بالرجوع للمادة 13، نجدها تحيل صراحة على المادة 11 المتعلقة بالشروط الموضوعية لصحة الزواج.
                     </p>
-                    
-                    <div class="critique-box">
-                        <span class="critique-title"><i class="fa-solid fa-gavel"></i> النقد الأكاديمي لموضوع "الانفصال الجسماني":</span><br>
-                        <p style="font-size: 1.1rem; line-height: 1.6;">
-                            يطرح التطبيق الحرفي للمادة 13 صعوبة عملية؛ [cite_start]فإذا عرض نزاع على قاضٍ جزائري حول "انفصال جسماني" (Séparation de corps) نشأ وفق قانون فرنسي، فإن إلزامه بتطبيق القانون الجزائري يؤدي إلى طريق مسدود، لأن الانفصال الجسماني <strong>نظام غير معروف أصلاً في القانون الجزائري ومخالف للنظام العام</strong>[cite: 2046, 2047].
+
+                    <div class="info-box">
+                        <h3 class="box-title"><i class="fa-solid fa-clipboard-check"></i> آلية التطبيق</h3>
+                        <ul class="box-list">
+                            <li>بدلاً من تطبيق قانون كل زوج على حدة (التطبيق الموزع)، يتم تطبيق <strong>قانون الأسرة الجزائري</strong> على كلا الزوجين معاً.</li>
+                            <li>يشمل ذلك أركان الزواج: <strong>الرضا، الولي (للزوجة)، الصداق، والشاهدين، والخلو من الموانع الشرعية.</strong></li>
+                        </ul>
+                    </div>
+
+                    <div class="info-box accent-box" style="margin-top: 20px;">
+                        <h3 class="box-title"><i class="fa-solid fa-gavel"></i> مثال تحليلي</h3>
+                        <p class="academic-text" style="margin:0; font-size:1.1rem;">
+                            إذا تزوج جزائري بفرنسية، فإن شروط صحة العقد الموضوعية للفرنسية لن تخضع للقانون الفرنسي، بل تخضع للقانون الجزائري (المادة 13). بالتالي، يُشترط توافر الولي (إذا اقتضى القانون ذلك) والصداق لصحته أمام القضاء الجزائري.
                         </p>
                     </div>
                 </div>
-            </div>
 
-            <div class="slide" data-title="المسائل المستثناة (الأهلية)" data-menu="المبحث الثاني">
-                <h1 class="slide-title">تابع المطلب الثاني: مجال الاستبعاد</h1>
-                
-                <div class="info-card" style="border-right-color: #8b5cf6;">
-                    <div class="card-header" style="color: #8b5cf6;"><i class="fa-solid fa-ban"></i> الفرع الثاني: المسائل المستثناة صراحة (الأهلية)</div>
-                    <p class="text-content">
-                        نصت المادة 13 صراحة في عجزها: <em>"...إلا فيما يخص الأهلية"</em>.
-                    </p>
-                    <p class="text-content">
-                        [cite_start]هذا يعني إخراج أهلية الزواج من هيمنة القانون الجزائري المطلقة، لتبقى خاضعة للقاعدة العامة (المادة 11، التي تحيل للمادة 10) أي تخضع لـ <strong>القانون الوطني لكل زوج على حدة</strong>[cite: 2007, 2095].
-                    </p>
-                    <p class="text-content">
-                        <strong>السبب:</strong> الأهلية مسألة تتعلق بالتكوين البيولوجي والنفسي للشخص، وتخضع لتقدير النظام القانوني الذي ينتمي إليه، ولا يمكن فرض السن القانوني الجزائري على أجنبي يسمح قانونه الوطني بالزواج في سن مغاير.
-                    </p>
-                </div>
-            </div>
+                <div class="slide" data-level1="المبحث الثاني: نطاق التطبيق أحكام المادة 13" data-level2="المطلب الأول: تطبيق المادة 13 على مسائل الزواج وآثاره" data-title="الفرع الثاني: إعمال النص على الآثار الشخصية والمالية للزواج">
+                    <div class="slide-header">
+                        <div class="slide-subtitle">المطلب الأول: تطبيق المادة 13 على مسائل الزواج وآثاره</div>
+                        <h2 class="slide-title">الفرع الثاني: إعمال النص على الآثار الشخصية والمالية</h2>
+                    </div>
 
-            <div class="slide" data-title="الخاتمة" data-menu="الخاتمة">
-                <div style="text-align: center; margin-top: 40px;">
-                    <i class="fa-solid fa-scale-unbalanced-flip" style="font-size: 5rem; color: var(--accent); margin-bottom: 20px;"></i>
-                    <h1 style="font-family: 'Amiri'; font-size: 3rem; color: var(--primary); margin-bottom: 20px; border: none;">الخاتمة الأكاديمية</h1>
-                    
-                    <div class="critique-box" style="text-align: right; background: white; border-color: var(--accent); border-right-color: var(--accent);">
-                        <p class="text-content" style="font-size: 1.3rem;">
-                            [cite_start]نستنتج أن المادة 13 هي <strong>"قاعدة حمائية وليست قاعدة إسناد"</strong> بالمعنى الدقيق[cite: 2056]. فرغم نبل هدفها في حماية الطرف الجزائري (خاصة الزوجة)، إلا أن صياغتها المطلقة أدت إلى نتائج غير منطقية، كإخضاع حالات الانفصال الجسماني أو تغيير الجنسية اللاحق لقانون لا يرتبط بواقع النزاع.
-                        </p>
-                        <p class="text-content" style="font-size: 1.3rem; font-weight: bold; color: var(--danger);">
-                            [cite_start]التوصية: يستوجب على المشرع إعادة النظر في النص واعتماد ضوابط مرنة كالموطن المشترك أو الجنسية المشتركة لتلافي القصور التشريعي[cite: 2056].
-                        </p>
+                    <p class="academic-text">
+                        تستثني المادة 13 أحكام الفقرة الأولى من المادة 12 التي كانت تعطي الأولوية لـ "قانون الزوج".
+                    </p>
+
+                    <div class="info-grid">
+                        <div class="info-box">
+                            <h3 class="box-title"><i class="fa-solid fa-users"></i> افتراض: الزوج جزائري</h3>
+                            <p class="academic-text" style="font-size:1.1rem;">
+                                إذا كان الزوج جزائرياً والزوجة أجنبية، يُطبق القانون الجزائري. في هذه الحالة، يتطابق الاستثناء في المادة 13 مع الأصل في المادة 12 (قانون الزوج).
+                            </p>
+                        </div>
+                        <div class="info-box accent-box">
+                            <h3 class="box-title"><i class="fa-solid fa-person-dress"></i> افتراض: الزوجة جزائرية</h3>
+                            <p class="academic-text" style="font-size:1.1rem;">
+                                إذا كانت الزوجة جزائرية والزوج أجنبياً وقت انعقاد الزواج، يتدخل الاستثناء لتعطيل قانون الزوج، ويُطبق القانون الجزائري على كافة الآثار (كالنفقة، الطاعة، ونظام الأموال).
+                            </p>
+                        </div>
                     </div>
                 </div>
-            </div>
 
+                <div class="slide" data-level1="المبحث الثاني: نطاق التطبيق أحكام المادة 13" data-level2="المطلب الثاني: مجال استبعاد القانون الجزائري في المادة 13" data-title="الفرع الأول: انحلال الرابطة الزوجية والانفصال الجسماني">
+                    <div class="slide-header">
+                        <div class="slide-subtitle">المطلب الثاني: مجال استبعاد القانون الجزائري (جزئياً)</div>
+                        <h2 class="slide-title">الفرع الأول: انحلال الرابطة والانفصال الجسماني</h2>
+                    </div>
+
+                    <p class="academic-text">
+                        تُطبق المادة 13 على أحكام الفقرة 2 من المادة 12 المتعلقة بالطلاق والانفصال. لكن هذا التطبيق أفرز إشكالات قانونية حادة:
+                    </p>
+
+                    <div class="info-box danger-box">
+                        <h3 class="box-title"><i class="fa-solid fa-triangle-exclamation"></i> الإشكال التحليلي: الانفصال الجسماني</h3>
+                        <ul class="box-list">
+                            <li>ينص القانون على إخضاع الانفصال الجسماني للقانون الجزائري متى كان أحدهما جزائرياً وقت الزواج.</li>
+                            <li><strong>التناقض:</strong> "الانفصال الجسماني" (Séparation de corps) هو نظام معروف في القوانين الغربية ومجهول تماماً في قانون الأسرة الجزائري، بل ويعتبر مخالفاً للنظام العام الإسلامي.</li>
+                            <li><strong>النتيجة:</strong> يستحيل على القاضي الجزائري تطبيق القانون الجزائري على دعوى انفصال جسماني لعدم وجود نصوص موضوعية تنظمه، مما يفرغ النص من محتواه العملي في هذه الجزئية.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="slide" data-level1="المبحث الثاني: نطاق التطبيق أحكام المادة 13" data-level2="المطلب الثاني: مجال استبعاد القانون الجزائري في المادة 13" data-title="الفرع الثاني: المسائل المستثناة صراحة من التطبيق (الأهلية)">
+                    <div class="slide-header">
+                        <div class="slide-subtitle">المطلب الثاني: مجال استبعاد القانون الجزائري</div>
+                        <h2 class="slide-title">الفرع الثاني: المسائل المستثناة صراحة (الأهلية)</h2>
+                    </div>
+
+                    <p class="academic-text">
+                        تدارك المشرع طغيان المادة 13 بوضع استثناء صريح في عجزها بالنص على: <strong style="color: var(--primary);">"إلا فيما يخص أهلية الزواج"</strong>.
+                    </p>
+
+                    <div class="info-grid">
+                        <div class="info-box">
+                            <h3 class="box-title"><i class="fa-solid fa-id-card"></i> رجوع للقاعدة العامة</h3>
+                            <p class="academic-text" style="font-size:1.1rem;">
+                                بموجب هذا الاستثناء، تُستبعد "الأهلية" من التطبيق الاحتكاري للقانون الجزائري، لتعود للخضوع إلى المادة 10 من القانون المدني (تخضع أهلية الشخص لقانونه الوطني).
+                            </p>
+                        </div>
+                        <div class="info-box accent-box">
+                            <h3 class="box-title"><i class="fa-solid fa-brain"></i> التبرير التحليلي</h3>
+                            <p class="academic-text" style="font-size:1.1rem;">
+                                الأهلية حالة لصيقة بالشخص وتكوينه البيولوجي والعقلي. من غير المنطقي فرض سن الرشد أو الزواج الجزائري (19 سنة) على أجنبي يعتبره قانونه الوطني بالغاً أو أهلاً للزواج في سن الـ 18 مثلاً.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slide" data-level1="خاتمة التحليل" data-level2="" data-title="خلاصة واستنتاجات">
+                    <div style="text-align: center; margin-top: 20px;">
+                        <i class="fa-solid fa-book-open-reader" style="font-size: 4rem; color: var(--accent); margin-bottom: 20px;"></i>
+                        <h2 class="slide-title" style="border: none; margin-bottom: 30px;">خلاصة التحليل</h2>
+                        
+                        <div class="info-box" style="text-align: right; max-width: 900px; margin: 0 auto;">
+                            <p class="academic-text">
+                                من خلال تحليل نص المادة 13 من القانون المدني، نستخلص ما يلي:
+                            </p>
+                            <ul class="box-list">
+                                <li>المادة 13 هي <strong>أداة حمائية استثنائية</strong> غلّب فيها المشرع اعتبارات السيادة والنظام العام على حساب المنطق المجرد لقواعد الإسناد.</li>
+                                <li>تتسم بـ <strong>الطابع الأحادي</strong> الذي يعقد الاختصاص الحصري للقانون الجزائري بناءً على ضابط زمني محدد (وقت انعقاد الزواج).</li>
+                                <li>نطاق إعمالها واسع يشمل الشروط الموضوعية، الآثار، والانحلال، مع استبعاد دقيق لمسألة <strong>الأهلية</strong> لارتباطها بشخصية الإنسان الأجنبي.</li>
+                                <li>تطرح إشكالات عملية معقدة، خاصة عند تطبيقها على مؤسسات قانونية أجنبية غير معترف بها وطنياً كالانفصال الجسماني.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
 
-    <div class="controls">
-        <div class="counter" id="slideCounter">1 / 10</div>
-        <div style="display: flex; gap: 15px;">
-            <button class="nav-btn" id="prevBtn"><i class="fa-solid fa-arrow-right"></i> السابق</button>
-            <button class="nav-btn" id="nextBtn">التالي <i class="fa-solid fa-arrow-left"></i></button>
+    <footer class="bottom-controls">
+        <div class="slide-counter" id="slideCounter">1 / 11</div>
+        <div class="nav-buttons">
+            <button class="btn-control" id="prevBtn" onclick="moveSlide(-1)">
+                <i class="fa-solid fa-arrow-right"></i> السابق
+            </button>
+            <button class="btn-control" id="nextBtn" onclick="moveSlide(1)">
+                التالي <i class="fa-solid fa-arrow-left"></i>
+            </button>
         </div>
-    </div>
+    </footer>
 </div>
 
 <script>
+    // 1. البيانات النصية لتنزيل مسودة البحث كاملة
+    const documentContent = `
+جامعة د. مولاي الطاهر - سعيدة
+كلية الحقوق والعلوم السياسية
+مقياس: تقنيات إعداد البحث العلمي - السداسي الثاني
+إعداد الطالب: بولنوار ميلود
+إشراف الأستاذ: د. خرشي عمر معمر
+
+عنوان البحث: تحليل نص المادة 13 من القانون المدني الجزائري
+
+مقدمة:
+النص القانوني: "يسري القانون الجزائري وحده في الأحوال المنصوص عليها في المادتين 11 و 12 إذا كان أحد الزوجين جزائرياً وقت انعقاد الزواج، إلا فيما يخص الأهلية".
+
+المبحث الأول: الإطار المفاهيمي والتكييف القانوني للمادة 13
+المطلب الأول: موقع المادة 13 في تنازع القوانين
+الفرع الأول: علاقة المادة 13 بقواعد الإسناد العامة (المادتين 11 و 12).
+المادة 13 تتدخل كاستثناء لتعطيل المادتين 11 و 12 وفرض القانون الجزائري وحده متى توافر شرط الجنسية الجزائرية لأحد الزوجين.
+الفرع الثاني: تحديد الطبيعة القانونية للمادة 13 (قاعدة استثنائية).
+هي قاعدة استثنائية ذات تطبيق مباشر فقدت حياد قواعد الإسناد.
+
+المطلب الثاني: تحليل الطابع المميز للمادة 13
+الفرع الأول: الطابع الأحادي في الإسناد.
+تكتفي القاعدة بإعلان اختصاص قانونها الوطني فقط دون الإشارة لتطبيق القانون الأجنبي.
+الفرع الثاني: أساس هذا الطابع.
+يستند لحماية الطرف الوطني (المرأة الجزائرية) وحماية النظام العام والمصلحة الوطنية.
+
+المبحث الثاني: نطاق التطبيق أحكام المادة 13
+المطلب الأول: تطبيق المادة 13 على مسائل الزواج وآثاره
+الفرع الأول: إعمال النص على الشروط الموضوعية لصحة عقد الزواج.
+يطبق القانون الجزائري على الشروط الموضوعية (الرضا، الولي، الصداق) بدلا من التطبيق الموزع.
+الفرع الثاني: إعمال النص على الآثار الشخصية والمالية للزواج.
+تعطيل قانون الزوج إذا كانت الزوجة جزائرية، وتطبيق القانون الجزائري حماية لها.
+
+المطلب الثاني: مجال استبعاد القانون الجزائري في المادة 13
+الفرع الأول: انحلال الرابطة الزوجية والانفصال الجسماني.
+تطبيق المادة 13 يفرز إشكالا في الانفصال الجسماني كونه نظام مجهول في القانون الجزائري.
+الفرع الثاني: المسائل المستثناة صراحة من التطبيق (الأهلية).
+استثنى المشرع الأهلية لتخضع للقانون الوطني لكل زوج (المادة 10).
+
+خاتمة:
+المادة 13 قاعدة حمائية استثنائية تغلب اعتبارات السيادة والنظام العام، رغم ما تطرحه من إشكالات عملية في التنفيذ.
+`;
+
     document.addEventListener('DOMContentLoaded', () => {
         const slides = document.querySelectorAll('.slide');
         const planMenu = document.getElementById('planMenu');
@@ -414,62 +679,107 @@ body {
         const progressBar = document.getElementById('progressBar');
         const breadcrumbText = document.getElementById('breadcrumbText');
         
-        let currentIdx = 0;
+        let currentIndex = 0;
+        let currentLevel1 = "";
 
-        // توليد قائمة الخطة الجانبية (Sidebar Menu)
+        // 2. بناء القائمة الجانبية (Sidebar) برمجياً بناءً على بيانات الشرائح
         slides.forEach((slide, index) => {
+            const level1 = slide.getAttribute('data-level1');
+            const level2 = slide.getAttribute('data-level2');
             const title = slide.getAttribute('data-title');
-            const menuCat = slide.getAttribute('data-menu');
-            
-            const li = document.createElement('li');
-            li.className = `plan-item ${index === 0 ? 'active' : ''}`;
-            li.innerHTML = `<i class="fa-solid fa-chevron-left"></i> <span>${title}</span>`;
+
+            // إذا تغير المبحث (Level 1) نضيف عنواناً رئيسياً
+            if(level1 !== currentLevel1 && level1 !== "") {
+                const headDiv = document.createElement('div');
+                headDiv.className = 'plan-level-1';
+                headDiv.innerText = level1;
+                planMenu.appendChild(headDiv);
+                currentLevel1 = level1;
+            }
+
+            // إذا وجد مطلب (Level 2) نضيفه
+            if(level2 !== "") {
+                // نتحقق إذا لم نضفه مسبقاً في الشريحة السابقة
+                const prevLevel2 = index > 0 ? slides[index-1].getAttribute('data-level2') : "";
+                if(level2 !== prevLevel2) {
+                    const subHead = document.createElement('div');
+                    subHead.className = 'plan-level-2';
+                    subHead.innerText = level2;
+                    planMenu.appendChild(subHead);
+                }
+            }
+
+            // إضافة العنصر القابل للضغط (الشريحة)
+            const li = document.createElement('div');
+            li.className = 'plan-item';
+            li.id = 'menu-item-' + index;
+            li.innerHTML = `<i class="fa-solid fa-circle"></i> <span>${title}</span>`;
             li.onclick = () => goToSlide(index);
             planMenu.appendChild(li);
         });
 
-        const navItems = document.querySelectorAll('.plan-item');
-
-        function goToSlide(index) {
-            slides[currentIdx].classList.remove('active');
-            navItems[currentIdx].classList.remove('active');
+        // 3. دالة الانتقال للشرائح
+        window.goToSlide = function(index) {
+            // إخفاء الشريحة الحالية
+            slides[currentIndex].classList.remove('active');
+            document.getElementById('menu-item-' + currentIndex).classList.remove('active');
             
-            currentIdx = index;
+            // تفعيل الشريحة الجديدة
+            currentIndex = index;
+            slides[currentIndex].classList.add('active');
             
-            slides[currentIdx].classList.add('active');
-            navItems[currentIdx].classList.add('active');
+            const activeMenuItem = document.getElementById('menu-item-' + currentIndex);
+            activeMenuItem.classList.add('active');
+            
+            // التمرير التلقائي للقائمة الجانبية لتتبع العنصر النشط
+            activeMenuItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             
             updateUI();
         }
 
-        function updateUI() {
-            // تحديث العداد
-            counter.innerText = `${currentIdx + 1} / ${slides.length}`;
-            
-            // تحديث شريط التقدم
-            const progress = ((currentIdx + 1) / slides.length) * 100;
-            progressBar.style.width = `${progress}%`;
-            
-            // تحديث مسار التنقل (Breadcrumb)
-            breadcrumbText.innerText = slides[currentIdx].getAttribute('data-menu');
-
-            // حالة الأزرار
-            prevBtn.disabled = currentIdx === 0;
-            nextBtn.disabled = currentIdx === slides.length - 1;
+        // 4. دالة التنقل النسبي
+        window.moveSlide = function(dir) {
+            let newIndex = currentIndex + dir;
+            if (newIndex >= 0 && newIndex < slides.length) {
+                goToSlide(newIndex);
+            }
         }
 
-        // تفاعل الأزرار
-        prevBtn.onclick = () => { if(currentIdx > 0) goToSlide(currentIdx - 1); };
-        nextBtn.onclick = () => { if(currentIdx < slides.length - 1) goToSlide(currentIdx + 1); };
+        // 5. تحديث الواجهة (العداد، التقدم، المسار)
+        function updateUI() {
+            counter.innerText = `${currentIndex + 1} / ${slides.length}`;
+            
+            const progress = ((currentIndex + 1) / slides.length) * 100;
+            progressBar.style.width = `${progress}%`;
+            
+            const lvl1 = slides[currentIndex].getAttribute('data-level1');
+            const title = slides[currentIndex].getAttribute('data-title');
+            breadcrumbText.innerHTML = `${lvl1} <span>/</span> ${title}`;
 
-        // تفاعل لوحة المفاتيح
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === slides.length - 1;
+        }
+
+        // 6. التحكم بلوحة المفاتيح
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight' && currentIdx > 0) goToSlide(currentIdx - 1);
-            if (e.key === 'ArrowLeft' && currentIdx < slides.length - 1) goToSlide(currentIdx + 1);
+            if (e.key === 'ArrowRight') moveSlide(-1);
+            if (e.key === 'ArrowLeft') moveSlide(1);
         });
 
-        // تهيئة مبدئية
-        updateUI();
+        // 7. دالة التحميل للمسودة
+        window.downloadResearch = function() {
+            const blob = new Blob([documentContent], { type: 'text/plain;charset=utf-8' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'تحليل_المادة_13_قانون_مدني.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        };
+
+        // تفعيل أولي
+        goToSlide(0);
     });
 </script>
 
