@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>المرحلة التحريرية - المادة 16</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Tajawal:wght@300;400;500;700;800&family=Changa:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+/* ==========================================================================
+   1. المتغيرات والأساسيات (Premium Variables)
+   ========================================================================== */
+:root {
+    --primary: #1a365d;           /* أزرق كحلي عميق */
+    --primary-light: #2c5282;
+    --primary-dark: #0f172a;
+    --accent: #d4af37;            /* ذهبي ملكي */
+    --accent-light: #f6e05e;
+    --bg-main: #f8fafc;
+    --bg-card: #ffffff;
+    --text-dark: #1e293b;
+    --text-muted: #64748b;
+    --border-color: #e2e8f0;
+    --shadow-sm: 0 4px 6px rgba(0,0,0,0.05);
+    --shadow-md: 0 10px 25px rgba(0,0,0,0.08);
+    --shadow-lg: 0 20px 40px rgba(0,0,0,0.12);
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --sidebar-width: 340px;
+    --transition-speed: 0.4s;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
+
+body {
+    font-family: 'Tajawal', sans-serif; background-color: var(--bg-main);
+    color: var(--text-dark); height: 100vh; display: flex; overflow: hidden;
+}
+
+/* ==========================================================================
+   2. القائمة الجانبية (Sidebar)
+   ========================================================================== */
+.sidebar {
+    width: var(--sidebar-width); background: var(--primary-dark); color: white;
+    display: flex; flex-direction: column; box-shadow: 5px 0 20px rgba(0,0,0,0.2); z-index: 100;
+}
+
+.sidebar-header {
+    padding: 30px 20px; background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    border-bottom: 3px solid var(--accent); text-align: center;
+}
+.icon-container {
+    width: 60px; height: 60px; background: rgba(255,255,255,0.05); border: 2px solid var(--accent);
+    border-radius: 50%; display: flex; justify-content: center; align-items: center;
+    margin: 0 auto 10px; font-size: 1.8rem; color: var(--accent);
+}
+.sidebar-header h2 { font-family: 'Amiri', serif; font-size: 1.5rem; margin-bottom: 5px; }
+.sidebar-header p { font-size: 0.9rem; color: #cbd5e1; }
+
+.plan-container { flex: 1; overflow-y: auto; padding: 10px 0; }
+.plan-level-1 { font-family: 'Changa', sans-serif; font-size: 1.05rem; font-weight: 700; color: var(--accent); padding: 10px 20px 5px; margin-top: 5px; border-top: 1px solid rgba(255,255,255,0.05); }
+.plan-level-2 { font-weight: 700; font-size: 0.9rem; color: #e2e8f0; padding: 5px 20px 5px 25px; }
+.plan-item {
+    padding: 10px 20px 10px 30px; cursor: pointer; font-size: 0.95rem; color: #94a3b8;
+    transition: 0.3s; display: flex; align-items: flex-start; gap: 10px; border-left: 4px solid transparent;
+}
+.plan-item:hover { background: rgba(255,255,255,0.05); color: white; }
+.plan-item.active { background: rgba(212, 175, 55, 0.1); border-left-color: var(--accent); color: var(--accent); font-weight: bold; }
+.plan-item i { margin-top: 5px; font-size: 0.6rem; opacity: 0.7; }
+
+.download-box { padding: 20px; background: rgba(0,0,0,0.3); border-top: 1px solid rgba(255,255,255,0.1); }
+.btn-download {
+    width: 100%; padding: 12px; background: var(--accent); color: var(--primary-dark);
+    border: none; border-radius: var(--radius-sm); font-family: 'Tajawal', sans-serif;
+    font-weight: bold; font-size: 1rem; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 10px;
+    transition: 0.3s;
+}
+.btn-download:hover { background: var(--accent-light); transform: translateY(-2px); }
+
+/* ==========================================================================
+   3. المنطقة الرئيسية (Main Viewport)
+   ========================================================================== */
+.main-area {
+    flex: 1; display: flex; flex-direction: column; position: relative;
+    background-image: radial-gradient(var(--border-color) 1px, transparent 1px); background-size: 25px 25px;
+}
+
+.top-bar {
+    height: 70px; background: var(--bg-card); border-bottom: 1px solid var(--border-color);
+    display: flex; justify-content: space-between; align-items: center; padding: 0 30px; box-shadow: var(--shadow-sm); z-index: 10;
+}
+.breadcrumb { font-family: 'Changa', sans-serif; font-size: 1.1rem; color: var(--primary); font-weight: bold; }
+.breadcrumb span { color: var(--accent); }
+.btn-home {
+    background: transparent; border: 2px solid var(--primary); color: var(--primary);
+    padding: 8px 20px; border-radius: 50px; text-decoration: none; font-weight: bold; transition: 0.3s; display: flex; align-items: center; gap: 8px;
+}
+.btn-home:hover { background: var(--primary); color: white; }
+
+/* ==========================================================================
+   4. منصة العرض (Presentation Deck)
+   ========================================================================== */
+.viewport { flex: 1; padding: 30px; display: flex; justify-content: center; align-items: center; overflow: hidden; }
+.slide-deck {
+    background: var(--bg-card); width: 100%; max-width: 1100px; height: 100%;
+    border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); position: relative; display: flex; flex-direction: column;
+    border-top: 6px solid var(--primary);
+}
+
+.progress-container { width: 100%; height: 5px; background: var(--border-color); }
+.progress-bar { height: 100%; background: var(--accent); width: 0%; transition: width 0.4s ease; }
+
+.slides-wrapper { flex: 1; position: relative; overflow: hidden; }
+.slide {
+    position: absolute; top: 0; right: 0; width: 100%; height: 100%; padding: 40px 60px;
+    opacity: 0; visibility: hidden; transform: translateY(30px); transition: all 0.5s ease; overflow-y: auto;
+}
+.slide.active { opacity: 1; visibility: visible; transform: translateY(0); z-index: 10; }
+
+/* ==========================================================================
+   5. المكونات الأكاديمية (Typography & Cards)
+   ========================================================================== */
+.slide-header { margin-bottom: 30px; padding-bottom: 10px; border-bottom: 2px solid var(--border-color); position: relative; }
+.slide-header::after { content: ''; position: absolute; bottom: -2px; right: 0; width: 80px; height: 4px; background: var(--accent); }
+.slide-title { font-family: 'Amiri', serif; font-size: 2.2rem; color: var(--primary); margin-bottom: 5px; }
+.slide-subtitle { font-family: 'Changa', sans-serif; font-size: 1.1rem; color: var(--accent); }
+
+.academic-text { font-size: 1.2rem; line-height: 2; color: var(--text-dark); text-align: justify; margin-bottom: 20px; }
+
+.info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; margin-top: 20px; }
+.info-box {
+    background: #f8fafc; border: 1px solid var(--border-color); border-right: 5px solid var(--primary);
+    border-radius: var(--radius-md); padding: 25px; transition: 0.3s;
+}
+.info-box:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); background: white; }
+
+.box-gold { border-right-color: var(--accent); background: #fffdf5; }
+.box-blue { border-right-color: #3498db; background: #f0f8ff; }
+.box-red { border-right-color: #e74c3c; background: #fff5f5; }
+.box-green { border-right-color: #27ae60; background: #f0fdf4; }
+.box-purple { border-right-color: #9b59b6; background: #fdf2fe; }
+
+.box-title { font-size: 1.25rem; font-weight: bold; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; color: var(--primary); }
+.box-gold .box-title { color: #b08a2a; }
+.box-blue .box-title { color: #2980b9; }
+.box-red .box-title { color: #c0392b; }
+.box-green .box-title { color: #27ae60; }
+.box-purple .box-title { color: #8e44ad; }
+
+.highlight { color: var(--primary); font-weight: bold; background: rgba(212, 175, 55, 0.2); padding: 0 5px; border-radius: 4px; }
+.text-red { color: #e74c3c; font-weight: bold; }
+.text-blue { color: #2980b9; font-weight: bold; }
+
+.plan-tree { background: var(--primary-dark); color: white; padding: 30px; border-radius: var(--radius-md); font-size: 1.2rem; line-height: 2; border-right: 6px solid var(--accent); }
+.plan-tree ul { list-style: none; margin-right: 20px; }
+.plan-tree li { margin-bottom: 10px; }
+.plan-tree i { color: var(--accent); font-size: 0.8rem; margin-left: 10px; }
+
+/* ==========================================================================
+   6. شريط التحكم السفلي (Controls)
+   ========================================================================== */
+.bottom-controls {
+    height: 80px; background: var(--bg-card); border-top: 1px solid var(--border-color);
+    display: flex; justify-content: space-between; align-items: center; padding: 0 40px;
+}
+.slide-counter { font-family: 'Changa', sans-serif; font-size: 1.2rem; color: var(--text-muted); font-weight: bold; }
+.btn-control {
+    background: white; border: 2px solid var(--primary); color: var(--primary);
+    padding: 10px 25px; border-radius: 50px; font-weight: bold; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: 0.3s; font-family: 'Tajawal';
+}
+.btn-control:hover:not(:disabled) { background: var(--primary); color: white; box-shadow: 0 5px 15px rgba(26, 54, 93, 0.2); }
+.btn-control:disabled { border-color: #cbd5e1; color: #cbd5e1; cursor: not-allowed; }
+
+@media (max-width: 900px) { .sidebar { position: fixed; right: -100%; } .slide { padding: 20px; } }
+</style>
+</head>
+<body>
+
+<aside class="sidebar">
+    <div class="sidebar-header">
+        <div class="icon-container"><i class="fa-solid fa-pen-nib"></i></div>
+        <h2>المرحلة التحريرية</h2>
+        <p>صياغة البحث - المادة 16 ق.م</p>
+    </div>
+    <div class="plan-container" id="planMenu"></div>
+    <div class="download-box">
+        <button class="btn-download" onclick="downloadResearch()"><i class="fa-solid fa-file-word"></i> تحميل مسودة البحث</button>
+    </div>
+</aside>
+
+<div class="main-area">
+    <header class="top-bar">
+        <div class="breadcrumb"><i class="fa-solid fa-book-open"></i> <span id="breadcrumbText">الغلاف</span></div>
+        <a href="index.html" class="btn-home"><i class="fa-solid fa-house"></i> الرئيسية</a>
+    </header>
+
+    <div class="viewport">
+        <div class="slide-deck">
+            <div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+            <div class="slides-wrapper">
+
+                <div class="slide active" data-level1="واجهة البحث" data-level2="" data-title="الغلاف الرئيسي">
+                    <div style="text-align: center; margin-top: 5vh;">
+                        <img src="logo.jpg" alt="شعار الجامعة" style="width: 100px; margin-bottom: 15px; border-radius: 50%;">
+                        <h3 style="color: var(--text-muted); font-size: 1.2rem;">مقياس: منهجية وتقنيات إعداد البحث العلمي</h3>
+                        <h1 style="font-family: 'Amiri', serif; font-size: 3.5rem; color: var(--primary); margin: 20px 0;">
+                            المرحلة التحريرية<br>
+                            <span style="color: var(--accent); font-size: 2.5rem;">تحليل المادة 16 من القانون المدني الجزائري</span>
+                        </h1>
+                        <div style="display: inline-flex; gap: 50px; background: white; padding: 20px 40px; border-radius: 15px; border: 2px solid var(--border-color); box-shadow: var(--shadow-sm); margin-top: 30px;">
+                            <div style="text-align: right;">
+                                <span style="color: var(--text-muted); font-size: 0.9rem; font-weight: bold;"><i class="fa-solid fa-user-graduate"></i> إعداد الطالبة:</span>
+                                <div style="font-size: 1.5rem; color: var(--primary); font-weight: bold; margin-top: 5px;">حليمي فاطمة</div>
+                            </div>
+                            <div style="width: 2px; background: var(--border-color);"></div>
+                            <div style="text-align: right;">
+                                <span style="color: var(--text-muted); font-size: 0.9rem; font-weight: bold;"><i class="fa-solid fa-chalkboard-user"></i> إشراف الأستاذ:</span>
+                                <div style="font-size: 1.5rem; color: var(--primary); font-weight: bold; margin-top: 5px;">د. خرشي عمر معمر</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slide" data-level1="واجهة البحث" data-level2="" data-title="تذكير بالمرحلة التحضيرية">
+                    <div class="slide-header">
+                        <h2 class="slide-title">تذكير بمخرجات المرحلة التحضيرية</h2>
+                    </div>
+                    <p class="academic-text">تم استخلاص الأفكار الأساسية والتساؤلات التالية التي بُنيت عليها خطة البحث:</p>
+                    
+                    <div class="info-grid">
+                        <div class="info-box box-gold">
+                            <h3 class="box-title"><i class="fa-solid fa-lightbulb"></i> 1- الأفكار الأساسية</h3>
+                            <ul style="list-style: none; padding: 0; line-height: 1.8;">
+                                <li><i class="fa-solid fa-check text-blue"></i> <strong>في الميراث والوصية:</strong> تخضع لقانون <span class="highlight">جنسية المتوفى (الهالك)</span> أو الموصي، والنطاق الزماني هو <span class="text-red">(وقت الوفاة)</span>.</li>
+                                <li><i class="fa-solid fa-check text-blue"></i> <strong>في التبرعات (الهبة والوقف):</strong> تخضع لقانون <span class="highlight">جنسية الواهب والواقف</span>، والنطاق الزماني هو <span class="text-red">وقت صدور التصرف</span>.</li>
+                            </ul>
+                        </div>
+                        <div class="info-box box-purple">
+                            <h3 class="box-title"><i class="fa-solid fa-circle-question"></i> 2- التساؤلات الفرعية</h3>
+                            <ul style="list-style: none; padding: 0; line-height: 1.5; font-size: 0.95rem;">
+                                <li><i class="fa-solid fa-caret-left"></i> كيف يُعامل عديم أو متعدد الجنسية؟</li>
+                                <li><i class="fa-solid fa-caret-left"></i> لماذا الاعتداد بوقت الوفاة وليس التركة؟ وما أثر تغيير الجنسية قبل الوفاة؟</li>
+                                <li><i class="fa-solid fa-caret-left"></i> هل يسري قانون الجنسية على شكل الوصية أم مضمونها (كالقدر المسموح به)؟</li>
+                                <li><i class="fa-solid fa-caret-left"></i> كيف نميز بين التصرفات المضافة لما بعد الموت والهبة العادية؟</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slide" data-level1="خطة البحث" data-level2="" data-title="الهيكل العام للبحث">
+                    <div class="slide-header">
+                        <h2 class="slide-title">خطة البحث المعتمدة</h2>
+                    </div>
+                    <div class="plan-tree">
+                        <strong>مقدمة</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-folder-open"></i> <strong>المبحث الأول:</strong> ضابط الإسناد في الميراث والوصية (قانون الجنسية)
+                                <ul>
+                                    <li><i class="fa-solid fa-file-lines"></i> <strong>المطلب الأول:</strong> تكريس مبدأ "وحدة التركة" عبر ضابط الجنسية.</li>
+                                    <li><i class="fa-solid fa-file-lines"></i> <strong>المطلب الثاني:</strong> النطاق الزماني لضابط الإسناد (وقت الموت).</li>
+                                </ul>
+                            </li>
+                            <li><i class="fa-solid fa-folder-open"></i> <strong>المبحث الثاني:</strong> نطاق سريان المادة 16 والقيود الواردة عليها.
+                                <ul>
+                                    <li><i class="fa-solid fa-file-lines"></i> <strong>المطلب الأول:</strong> سريان القانون على التصرفات المضافة لما بعد الموت.</li>
+                                    <li><i class="fa-solid fa-file-lines"></i> <strong>المطلب الثاني:</strong> قيد النظام العام الجزائري.</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <strong>خاتمة</strong>
+                    </div>
+                </div>
+
+                <div class="slide" data-level1="مقدمة" data-level2="" data-title="المقدمة">
+                    <div class="slide-header"><h2 class="slide-title">مقدمة البحث</h2></div>
+                    <div class="info-box box-blue" style="font-size: 1.3rem; line-height: 2.2;">
+                        يعتبر الميراث والوصية والتصرفات المضافة لما بعد الموت من المسائل الهامة في القانون الدولي الخاص حيث يطرح التنازع في القوانين. <br><br>
+                        وعليه فإن <span class="highlight">المادة 16 ق.م.ج</span> حددت القانون الواجب التطبيق في مسائل الميراث والوصية والتصرفات المضافة لما بعد الموت وكذا في الوقف والهبة.
+                        <br><br>
+                        <strong style="color: var(--primary);">الإشكالية:</strong> لذلك على ماذا تنص المادة وكيف يطبق الميراث والوصية والوقف على الصعيد الدولي؟
+                    </div>
+                </div>
+
+                <div class="slide" data-level1="المبحث الأول: ضابط الإسناد في الميراث والوصية" data-level2="المطلب الأول: تكريس مبدأ وحدة التركة" data-title="المطلب الأول: تكريس مبدأ وحدة التركة">
+                    <div class="slide-header">
+                        <div class="slide-subtitle">المبحث الأول: ضابط الإسناد في الميراث والوصية (قانون الجنسية)</div>
+                        <h2 class="slide-title">المطلب الأول: تكريس مبدأ "وحدة التركة" عبر ضابط الجنسية</h2>
+                    </div>
+                    <p class="academic-text">
+                        يعتبر <strong>قانون جنسية الهالك</strong> هو الضابط الوحيد لحل مشكلة التنازع في المواريث والوصايا وهذا ما نصت عليه المادة 16 فقرة 01: <br>
+                        <em style="color: var(--primary-light);">"يسري على الميراث والوصية والتصرفات المضافة لما بعد الموت قانون جنسية الهالك أو الموصي أو من صدر منه التصرف وقت موته".</em>
+                    </p>
+                    <div class="info-box box-gold">
+                        <h3 class="box-title"><i class="fa-solid fa-boxes-stacked"></i> هدف المشرع: وحدة التركة</h3>
+                        <p class="academic-text" style="margin:0;">
+                            إن تبني قانون الجنسية كضابط وحيد هدفه هو <strong>"وحدة التركة"</strong>، أي إخضاع كل الأموال المنقولة والعقارية إلى قانون واحد وهو جنسية المتوفى (الهالك)، وذلك عكس ما هو سائد في الدول ذات النظام الازدواجي كفرنسا وبريطانيا (التي تخضع المنقول للجنسية والعقار لموقع العقار).
+                        </p>
+                    </div>
+                </div>
+
+                <div class="slide" data-level1="المبحث الأول: ضابط الإسناد في الميراث والوصية" data-level2="المطلب الثاني: النطاق الزماني (وقت الموت)" data-title="المطلب الثاني: النطاق الزماني">
+                    <div class="slide-header">
+                        <div class="slide-subtitle">المبحث الأول: ضابط الإسناد في الميراث والوصية (قانون الجنسية)</div>
+                        <h2 class="slide-title">المطلب الثاني: النطاق الزماني لضابط الإسناد (وقت الموت)</h2>
+                    </div>
+                    <p class="academic-text">
+                        إن استقرار المراكز القانونية يقتضي تثبيت النطاق الزماني لضابط الإسناد بـ <span class="text-red">وقت الوفاة</span>، لاسيما في المسائل المتعلقة بالوفاة لأن العبرة بالجنسية التي كان يتمتع بها المتوفى وقت وفاته.
+                    </p>
+                    <div class="info-box box-red">
+                        <h3 class="box-title"><i class="fa-solid fa-triangle-exclamation"></i> إشكالية تغيير الجنسية</h3>
+                        <p class="academic-text" style="margin:0;">
+                            إذا قام شخص بتغيير جنسيته قبل وفاته بفترة معينة بحيث كانت مراكزه متعلقة بجنسية قديمة، فإذا قام المشرع الجزائري باستبعاد الرابطة الزوجية، فإن القانون الذي يحكم الميراث والوصية يدور حول <strong>جنسية المتوفى وقت موته</strong>.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="slide" data-level1="المبحث الثاني: نطاق سريان المادة 16 والقيود" data-level2="المطلب الأول: التصرفات المضافة لما بعد الموت" data-title="المطلب الأول: سريان القانون على التصرفات">
+                    <div class="slide-header">
+                        <div class="slide-subtitle">المبحث الثاني: نطاق سريان المادة 16 والقيود الواردة عليها</div>
+                        <h2 class="slide-title">المطلب الأول: سريان القانون على التصرفات المضافة لما بعد الموت</h2>
+                    </div>
+                    <div class="info-grid">
+                        <div class="info-box box-blue">
+                            <h3 class="box-title"><i class="fa-solid fa-expand"></i> اتساع نطاق المادة</h3>
+                            <p class="academic-text" style="margin:0;">
+                                لا تقتصر المادة 16 على الميراث الشرعي فقط، بل تمتد لتشمل <strong>الوصية</strong> من حيث صحتها الموضوعية، ومنها الهبة التي يجوز الرجوع فيها.
+                            </p>
+                        </div>
+                        <div class="info-box box-purple">
+                            <h3 class="box-title"><i class="fa-solid fa-mask"></i> التصرفات المستترة</h3>
+                            <p class="academic-text" style="margin:0;">
+                                يشمل النص التصرفات المستترة: مثل <strong>الهبات التي تأخذ حكم الوصية</strong> إذا صدرت في مرض الموت.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slide" data-level1="المبحث الثاني: نطاق سريان المادة 16 والقيود" data-level2="المطلب الثاني: قيد النظام العام الجزائري" data-title="المطلب الثاني: قيد النظام العام">
+                    <div class="slide-header">
+                        <div class="slide-subtitle">المبحث الثاني: نطاق سريان المادة 16 والقيود الواردة عليها</div>
+                        <h2 class="slide-title">المطلب الثاني: قيد النظام العام الجزائري</h2>
+                    </div>
+                    <p class="academic-text">
+                        بالرغم من صراحة المادة 16 بوجوب تطبيق قانون جنسية الأجنبي، إلا أن ذلك يصطدم بقاعدة <span class="text-red">"النظام العام"</span>.
+                    </p>
+                    <div class="info-box box-red" style="padding: 30px;">
+                        <h3 class="box-title" style="font-size: 1.5rem;"><i class="fa-solid fa-ban"></i> استبعاد القانون الأجنبي</h3>
+                        <p class="academic-text" style="margin:0; font-size: 1.3rem;">
+                            إذا كان قانون جنسية المتوفى في الخارج يقر أحكاماً تخالف المبادئ الجوهرية في الجزائر مثل <strong>(التمييز في الميراث على أساس العرق أو الدين بما يخالف الشريعة الإسلامية)</strong> فإن القاضي الجزائري يستبعد القانون الأجنبي ويطبق القانون الجزائري (قانون القاضي).
+                        </p>
+                    </div>
+                </div>
+
+                <div class="slide" data-level1="خاتمة" data-level2="" data-title="الخاتمة">
+                    <div style="text-align: center; margin-top: 10vh;">
+                        <i class="fa-solid fa-scale-balanced" style="font-size: 5rem; color: var(--accent); margin-bottom: 20px;"></i>
+                        <h2 class="slide-title" style="border: none; margin-bottom: 30px;">خلاصة البحث</h2>
+                        
+                        <div class="info-box box-gold" style="text-align: right; max-width: 900px; margin: 0 auto; font-size: 1.4rem; line-height: 2;">
+                            نخلص إلى أن المادة 16 من القانون المدني الجزائري قد تبنت <strong>موقفاً كلاسيكياً يربط الميراث والوصية بالشخص لا بالمال</strong>، مما يعزز فكرة وحدة التركة. <br><br>
+                            مع إبقاء الباب مفتوحاً للقانون الجزائري للتدخل كلما تعارض القانون الأجنبي مع القيم القانونية والشرعية للمجتمع الجزائري (النظام العام).
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <footer class="bottom-controls">
+        <div class="slide-counter" id="slideCounter">1 / 9</div>
+        <div class="nav-buttons">
+            <button class="btn-control" id="prevBtn" onclick="moveSlide(-1)"><i class="fa-solid fa-arrow-right"></i> السابق</button>
+            <button class="btn-control" id="nextBtn" onclick="moveSlide(1)">التالي <i class="fa-solid fa-arrow-left"></i></button>
+        </div>
+    </footer>
+</div>
+
+<script>
+    // نص المسودة للتحميل
+    const researchText = `
+جامعة د. مولاي الطاهر - سعيدة
+مقياس: منهجية وتقنيات إعداد البحث العلمي
+إعداد الطالبة: حليمي فاطمة
+إشراف الأستاذ: د. خرشي عمر معمر
+
+عنوان البحث: تحليل المادة 16 من القانون المدني الجزائري
+
+مقدمة:
+يعتبر الميراث والوصية والتصرفات المضافة لما بعد الموت من المسائل الهامة في القانون الدولي الخاص حيث يطرح التنازع في القوانين وعليه فإن المادة 16 ق.م.ج حددت القانون الواجب التطبيق في مسائل الميراث والوصية والتصرفات المضافة لما بعد الموت وكذا في الوقف والهبة، لذلك على ماذا تنص المادة وكيف يطبق الميراث والوصية والوقف على الصعيد الدولي؟
+
+المبحث الأول: ضابط الإسناد في الميراث والوصية (قانون الجنسية)
+يعتبر قانون جنسية الهالك هو الضابط الوحيد لحل مشكلة التنازع في المواريث والوصايا وهذا ما نصت عليه المادة 16 فقرة 01.
+
+المطلب الأول: تكريس مبدأ "وحدة التركة" عبر ضابط الجنسية
+إن تبني المادة 16 فقرة 01 قانون الجنسية كضابط وحيد لحل التنازع الهدف منه هو "وحدة التركة" أي إخضاع كل الأموال المنقولة والعقارية إلى قانون واحد وهو جنسية المتوفى عكس الدول ذات النظام الازدواجي.
+
+المطلب الثاني: النطاق الزماني لضابط الإسناد (وقت الموت)
+إن استقرار المراكز القانونية يقتضي تثبيت النطاق الزماني بوقت الوفاة. إشكالية تغيير الجنسية: إذا غير شخص جنسيته قبل وفاته فإن القانون يدور حول جنسية المتوفى وقت موته.
+
+المبحث الثاني: نطاق سريان المادة 16 والقيود الواردة عليها.
+المطلب الأول: سريان القانون على التصرفات المضافة لما بعد الموت.
+لا تقتصر المادة على الميراث الشرعي بل تشمل الوصية والتصرفات المستترة كالهبات في مرض الموت.
+
+المطلب الثاني: قيد النظام العام الجزائري.
+يصطدم تطبيق القانون الأجنبي بقاعدة "النظام العام". إذا كان القانون الأجنبي يخالف الشريعة (كالتمييز في الميراث) يستبعده القاضي ويطبق القانون الجزائري.
+
+خاتمة:
+تبنت المادة 16 موقفا يربط الميراث بالشخص لا بالمال (وحدة التركة)، مع إبقاء الباب لتدخل القانون الجزائري عند التعارض مع النظام العام.
+    `;
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const slides = document.querySelectorAll('.slide');
+        const planMenu = document.getElementById('planMenu');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const counter = document.getElementById('slideCounter');
+        const progressBar = document.getElementById('progressBar');
+        const breadcrumbText = document.getElementById('breadcrumbText');
+        
+        let currentIndex = 0;
+        let currentLevel1 = "";
+
+        // بناء القائمة
+        slides.forEach((slide, index) => {
+            const level1 = slide.getAttribute('data-level1');
+            const level2 = slide.getAttribute('data-level2');
+            const title = slide.getAttribute('data-title');
+
+            if(level1 !== currentLevel1 && level1 !== "") {
+                const headDiv = document.createElement('div');
+                headDiv.className = 'plan-level-1';
+                headDiv.innerText = level1;
+                planMenu.appendChild(headDiv);
+                currentLevel1 = level1;
+            }
+
+            if(level2 !== "") {
+                const prevLevel2 = index > 0 ? slides[index-1].getAttribute('data-level2') : "";
+                if(level2 !== prevLevel2) {
+                    const subHead = document.createElement('div');
+                    subHead.className = 'plan-level-2';
+                    subHead.innerText = level2;
+                    planMenu.appendChild(subHead);
+                }
+            }
+
+            const li = document.createElement('div');
+            li.className = 'plan-item';
+            li.id = 'menu-item-' + index;
+            li.innerHTML = `<i class="fa-solid fa-chevron-left"></i> <span>${title}</span>`;
+            li.onclick = () => goToSlide(index);
+            planMenu.appendChild(li);
+        });
+
+        window.goToSlide = function(index) {
+            slides[currentIndex].classList.remove('active');
+            if(document.getElementById('menu-item-' + currentIndex)) {
+                document.getElementById('menu-item-' + currentIndex).classList.remove('active');
+            }
+            
+            currentIndex = index;
+            slides[currentIndex].classList.add('active');
+            
+            const activeMenuItem = document.getElementById('menu-item-' + currentIndex);
+            if(activeMenuItem) {
+                activeMenuItem.classList.add('active');
+                activeMenuItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+            updateUI();
+        }
+
+        window.moveSlide = function(dir) {
+            let newIndex = currentIndex + dir;
+            if (newIndex >= 0 && newIndex < slides.length) goToSlide(newIndex);
+        }
+
+        function updateUI() {
+            counter.innerText = `${currentIndex + 1} / ${slides.length}`;
+            progressBar.style.width = `${((currentIndex + 1) / slides.length) * 100}%`;
+            breadcrumbText.innerHTML = slides[currentIndex].getAttribute('data-title');
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === slides.length - 1;
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') moveSlide(-1);
+            if (e.key === 'ArrowLeft') moveSlide(1);
+        });
+
+        window.downloadResearch = function() {
+            const blob = new Blob([researchText], { type: 'text/plain;charset=utf-8' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'مسودة_بحث_المادة_16.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        };
+
+        goToSlide(0);
+    });
+</script>
+</body>
+</html>
