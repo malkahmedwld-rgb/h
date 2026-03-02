@@ -20,26 +20,24 @@
             --primary-dark: #0f301b;
             --secondary: #d4af37;     /* ذهبي */
             --secondary-glow: rgba(212, 175, 55, 0.4);
-            --quiz-color: #8e44ad;    /* بنفسجي أكاديمي للكويز */
-            --art16-color: #2980b9;   /* أزرق خاص بتطبيق المادة 16 */
-            --bg-body: #f4f6f9;
+            --bg-body: #f3f4f6;
             --bg-card: #ffffff;
             --text-main: #2d3436;
             --text-light: #636e72;
-            --shadow-card: 0 10px 30px rgba(0,0,0,0.05);
-            --shadow-hover: 0 20px 40px rgba(26, 77, 46, 0.12);
+            --shadow-card: 0 10px 30px rgba(0,0,0,0.08);
+            --shadow-hover: 0 20px 40px rgba(26, 77, 46, 0.15);
             --radius: 20px;
+            --header-height: 80px;
+            --sidebar-width: 280px;
         }
 
         [data-theme="dark"] {
             --primary: #2ecc71;
             --primary-dark: #27ae60;
-            --bg-body: #121212;
-            --bg-card: #1e1e1e;
+            --bg-body: #1e1e1e;
+            --bg-card: #2d2d2d;
             --text-main: #ecf0f1;
             --text-light: #bdc3c7;
-            --shadow-card: 0 10px 30px rgba(0,0,0,0.5);
-            --shadow-hover: 0 20px 40px rgba(46, 204, 113, 0.2);
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -53,7 +51,7 @@
             color: var(--text-main);
             min-height: 100vh;
             display: flex; flex-direction: column;
-            transition: background-color 0.3s, color 0.3s;
+            transition: 0.3s;
         }
 
         /* =========================================
@@ -61,7 +59,7 @@
            ========================================= */
         .splash-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            background: linear-gradient(135deg, #1a4d2e, #000);
             z-index: 9999;
             display: flex; flex-direction: column;
             justify-content: center; align-items: center;
@@ -73,7 +71,7 @@
             width: 120px; height: 120px; border-radius: 50%; 
             border: 4px solid var(--secondary); 
             box-shadow: 0 0 30px var(--secondary-glow);
-            margin-bottom: 20px; object-fit: cover;
+            margin-bottom: 20px;
         }
 
         .start-btn {
@@ -93,8 +91,11 @@
            ========================================= */
         header {
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white; padding: 40px 20px; text-align: center;
-            border-bottom-left-radius: 30px; border-bottom-right-radius: 30px;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
             box-shadow: 0 10px 30px rgba(26, 77, 46, 0.3);
             position: relative; overflow: hidden;
         }
@@ -102,24 +103,28 @@
         .header-content { position: relative; z-index: 2; }
         
         .logo-img { 
-            width: 90px; height: 90px; border-radius: 50%; 
+            width: 100px; height: 100px; border-radius: 50%; 
             border: 3px solid rgba(255,255,255,0.3);
-            margin-bottom: 15px; background: white; padding: 2px;
+            margin-bottom: 15px; 
         }
 
         h1 { margin: 10px 0; font-family: 'Amiri', serif; font-size: 2.5rem; text-shadow: 0 2px 5px rgba(0,0,0,0.2); }
-        .subtitle { font-size: 1.2rem; opacity: 0.9; letter-spacing: 1px; }
+        .subtitle { font-size: 1.1rem; opacity: 0.9; letter-spacing: 1px; }
 
         .prof-badge {
-            margin-top: 20px; display: inline-flex; align-items: center; gap: 10px;
-            background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(5px);
+            margin-top: 20px;
+            display: inline-flex; align-items: center; gap: 10px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(5px);
             padding: 8px 25px; border-radius: 50px;
             border: 1px solid rgba(255, 255, 255, 0.3);
             font-weight: bold; color: var(--secondary);
         }
 
         /* أدوات التحكم العلوية */
-        .top-tools { position: absolute; top: 20px; right: 20px; display: flex; gap: 15px; z-index: 5; }
+        .top-tools {
+            position: absolute; top: 20px; right: 20px; display: flex; gap: 15px;
+        }
         .tool-btn {
             background: rgba(255,255,255,0.2); border: none; color: white;
             width: 40px; height: 40px; border-radius: 50%;
@@ -131,89 +136,80 @@
            4. شبكة البطاقات (Cards Grid)
            ========================================= */
         .container {
-            max-width: 1200px; margin: -40px auto 40px; padding: 0 20px;
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 25px; position: relative; z-index: 10;
+            max-width: 1200px; margin: -40px auto 40px;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            position: relative; z-index: 10;
         }
 
         .card {
-            background: var(--bg-card); border-radius: var(--radius); padding: 25px;
-            position: relative; overflow: hidden; border: 1px solid rgba(0,0,0,0.05);
-            box-shadow: var(--shadow-card); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 25px;
+            position: relative; overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.05);
+            box-shadow: var(--shadow-card);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             display: flex; flex-direction: column; justify-content: space-between;
         }
 
         .card:hover { transform: translateY(-10px); box-shadow: var(--shadow-hover); }
 
-        /* الأيقونة المائية الخلفية */
+        /* زخرفة خلفية البطاقة */
         .card::after {
-            content: attr(data-icon); font-family: "Font Awesome 6 Free"; font-weight: 900;
-            position: absolute; bottom: -20px; left: -10px;
-            font-size: 8rem; opacity: 0.04; color: var(--text-main);
+            content: attr(data-icon);
+            font-family: "Font Awesome 6 Free"; font-weight: 900;
+            position: absolute; bottom: -20px; left: -20px;
+            font-size: 8rem; opacity: 0.05; color: var(--text-main);
             z-index: 0; pointer-events: none;
         }
 
-        /* الحالات والألوان للبطاقات */
+        /* الحالات (Active, Locked, Featured) */
         .card.active { border-top: 5px solid var(--primary); }
-        .card.locked { opacity: 0.7; background: #f9f9f9; filter: grayscale(0.9); }
+        .card.locked { opacity: 0.8; background: #f9f9f9; filter: grayscale(0.9); }
         .card.featured { border-top: 5px solid var(--secondary); background: linear-gradient(to bottom right, var(--bg-card), #fffbf0); }
-        .card.quiz { border-top: 5px solid var(--quiz-color); background: linear-gradient(to bottom right, var(--bg-card), #fdf2fe); }
-        .card.art16 { border-top: 5px solid var(--art16-color); background: linear-gradient(to bottom right, var(--bg-card), #f0f8ff); }
 
         .card-header { display: flex; justify-content: space-between; margin-bottom: 15px; position: relative; z-index: 1; }
         .topic-tag { 
             font-size: 0.8rem; font-weight: 800; text-transform: uppercase; 
-            padding: 5px 12px; border-radius: 10px; background: var(--bg-body); color: var(--text-light);
+            padding: 5px 10px; border-radius: 10px; background: #eee; color: var(--text-light);
         }
-        
         .card.featured .topic-tag { background: var(--secondary); color: white; }
-        .card.quiz .topic-tag { background: var(--quiz-color); color: white; }
-        .card.art16 .topic-tag { background: var(--art16-color); color: white; }
 
         .card-title { font-size: 1.4rem; font-weight: 800; margin: 0 0 10px; color: var(--primary); position: relative; z-index: 1; }
         .card.featured .card-title { color: #b8860b; }
-        .card.quiz .card-title { color: var(--quiz-color); }
-        .card.art16 .card-title { color: var(--art16-color); }
         
         .card-desc { font-size: 0.95rem; color: var(--text-light); line-height: 1.6; margin-bottom: 25px; position: relative; z-index: 1; min-height: 60px; }
 
-        /* تنسيق الأزرار */
-        .btn-group { display: flex; gap: 10px; width: 100%; position: relative; z-index: 1; }
-        
+        /* الأزرار داخل البطاقات */
         .btn {
-            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-            width: 100%; padding: 12px; border-radius: 10px;
+            display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+            width: 100%; padding: 12px; border-radius: 12px;
             font-weight: bold; text-decoration: none; transition: 0.3s;
-            font-size: 0.95rem; border: none; cursor: pointer; text-align: center;
+            position: relative; z-index: 1; font-size: 1rem; border: none; cursor: pointer;
         }
 
-        .btn-group .btn { padding: 10px 5px; font-size: 0.9rem; }
-
-        /* ألوان الأزرار */
         .btn-primary { background: var(--primary); color: white; box-shadow: 0 4px 10px rgba(26, 77, 46, 0.2); }
         .btn-primary:hover { background: var(--primary-dark); transform: scale(1.02); }
 
         .btn-gold { background: var(--secondary); color: white; box-shadow: 0 4px 10px rgba(212, 175, 55, 0.3); }
         .btn-gold:hover { background: #b89628; transform: scale(1.02); }
 
-        .btn-quiz { background: var(--quiz-color); color: white; box-shadow: 0 4px 10px rgba(142, 68, 173, 0.3); }
-        .btn-quiz:hover { background: #732d91; transform: scale(1.02); }
-
-        .btn-blue { background: var(--art16-color); color: white; box-shadow: 0 4px 10px rgba(41, 128, 185, 0.3); }
-        .btn-blue:hover { background: #1f618d; transform: scale(1.02); }
-
-        .btn-darkblue { background: #2c3e50; color: white; box-shadow: 0 4px 10px rgba(44, 62, 80, 0.3); }
-        .btn-darkblue:hover { background: #1a252f; transform: scale(1.02); }
-
         .btn-locked { background: #e0e0e0; color: #999; cursor: not-allowed; }
+
+        /* الإضافات الجديدة الخاصة بالأزرار المزدوجة */
+        .btn-group { display: flex; gap: 10px; width: 100%; }
+        .btn-group .btn { padding: 10px 5px; font-size: 0.9rem; }
 
         /* =========================================
            5. التذييل (Footer)
            ========================================= */
         footer {
             text-align: center; padding: 40px 20px;
-            color: var(--text-light); font-size: 0.95rem; margin-top: auto;
-            border-top: 1px solid rgba(0,0,0,0.05); background: var(--bg-card);
+            color: var(--text-light); font-size: 0.9rem; margin-top: auto;
+            border-top: 1px solid rgba(0,0,0,0.05);
         }
 
         /* =========================================
@@ -233,10 +229,10 @@
         <div class="splash-content">
             <img src="logo.jpg" alt="شعار الجامعة" class="splash-logo">
             <h1 style="margin: 0; font-size: 2.2rem;">المنصة الأكاديمية</h1>
-            <p style="font-size: 1.1rem; opacity: 0.8;">منهجية وتقنيات إعداد البحث العلمي</p>
+            <p style="font-size: 1.1rem; opacity: 0.8;">تقنيات إعداد البحث العلمي - السداسي الرابع</p>
             
             <button class="start-btn" id="startBtn">
-                <i class="fa-solid fa-door-open"></i> الدخول للمنصة
+                <i class="fa-solid fa-rocket"></i> الدخول للمنصة
             </button>
         </div>
     </div>
@@ -253,7 +249,7 @@
         <div class="header-content">
             <img src="logo.jpg" alt="University Logo" class="logo-img">
             <h1>تقنيات إعداد البحث العلمي</h1>
-            <div class="subtitle">السنة الثانية ليسانس - السداسي الثاني</div>
+            <div class="subtitle">السداسي الرابع - أعمال موجهة</div>
             
             <div class="prof-badge">
                 <i class="fa-solid fa-user-tie"></i>
@@ -269,7 +265,7 @@
                 <span class="topic-tag">الموضوع الأول</span>
                 <i class="fa-solid fa-check-circle" style="color: var(--primary);"></i>
             </div>
-            <h3 class="card-title">تحرير النصوص التشريعية</h3>
+            <h3 class="card-title">منهجية تحرير النصوص التشريعية</h3>
             <p class="card-desc">دراسة نموذجية لقانون الطيران المدني 98-06، وقواعد الصياغة القانونية.</p>
             <a href="Presentation.html" class="btn btn-primary">
                 <i class="fa-solid fa-play"></i> عرض المشروع
@@ -281,8 +277,11 @@
                 <span class="topic-tag">الموضوع الثاني</span>
                 <i class="fa-solid fa-check-circle" style="color: var(--primary);"></i>
             </div>
-            <h3 class="card-title">تحرير النصوص التنظيمية</h3>
-            <p class="card-desc">تحليل المرسوم الرئاسي 25-221 المتضمن تحويل اعتمادات ميزانية الدولة.</p>
+            <h3 class="card-title">منهجية تحرير النصوص التنظيمية</h3>
+            <p class="card-desc">
+                <strong>تحليل المرسوم الرئاسي 25-221</strong><br>
+                المتضمن تحويل اعتمادات مالية بعنوان ميزانية الدولة.
+            </p>
             <a href="Presentation2.html" class="btn btn-primary">
                 <i class="fa-solid fa-file-invoice"></i> عرض التحليل
             </a>
@@ -291,9 +290,9 @@
         <div class="card active" data-icon="\f023">
             <div class="card-header">
                 <span class="topic-tag">الموضوع الثالث</span>
-                <i class="fa-solid fa-check-circle" style="color: var(--primary);"></i>
+                <i class="fa-solid fa-lock-open" style="color: var(--primary);"></i>
             </div>
-            <h3 class="card-title">تحرير العرائض القضائية</h3>
+            <h3 class="card-title">منهجية تحرير العرائض القضائية</h3>
             <p class="card-desc">الهيكلة الفنية للعريضة الافتتاحية: البيانات الشكلية، الوقائع، والطلبات.</p>
             <a href="Presentation3.html" class="btn btn-primary">
                 <i class="fa-solid fa-pen-fancy"></i> عرض العريضة
@@ -305,56 +304,64 @@
                 <span class="topic-tag">الموضوع الرابع</span>
                 <i class="fa-solid fa-star" style="color: var(--secondary);"></i>
             </div>
-            <h3 class="card-title">التعليق على المادتين 42 و 43</h3>
-            <p class="card-desc">تحليل معمق لنظام الأهلية وعوارضها في القانون المدني الجزائري.</p>
-            <a href="Presentation4.html" class="btn btn-gold" style="color: #0f301b;">
-                <i class="fa-solid fa-rocket"></i> المنصة الشاملة
+            <h3 class="card-title">منهجية تحليل النصوص القانونية</h3>
+            <p class="card-desc">تحليل المادة 13 (المرحلة التحضيرية والمرحلة التحريرية).</p>
+            <div class="btn-group">
+                <a href="phase1.html" class="btn btn-primary"><i class="fa-solid fa-list-check"></i> التحضيرية</a>
+                <a href="phase2_drafting.html" class="btn btn-gold" style="color: #0f301b;"><i class="fa-solid fa-pen-nib"></i> التحريرية</a>
+            </div>
+        </div>
+
+        <div class="card active" style="border-top-color: #2980b9;" data-icon="\f56e">
+            <div class="card-header">
+                <span class="topic-tag" style="background: #ebf5fb; color: #2980b9;">الموضوع الخامس</span>
+                <i class="fa-solid fa-gavel" style="color: #2980b9;"></i>
+            </div>
+            <h3 class="card-title" style="color: #2980b9;">تطبيق: تحليل المادة 16</h3>
+            <p class="card-desc">تفكيك النص القانوني للمادة 16 وصياغة البحث النهائي.</p>
+            <div class="btn-group">
+                <a href="prep_art16.html" class="btn" style="background: #2980b9; color: white;"><i class="fa-solid fa-diagram-project"></i> التحضيرية</a>
+                <a href="draft_art16.html" class="btn" style="background: #2c3e50; color: white;"><i class="fa-solid fa-file-signature"></i> التحريرية</a>
+            </div>
+        </div>
+
+        <div class="card active" style="border-top-color: #8e44ad;" data-icon="\f059">
+            <div class="card-header">
+                <span class="topic-tag" style="background: #f5eef8; color: #8e44ad;">الموضوع السادس</span>
+                <i class="fa-solid fa-gamepad" style="color: #8e44ad;"></i>
+            </div>
+            <h3 class="card-title" style="color: #8e44ad;">كويز المنهجية</h3>
+            <p class="card-desc">اختبر معلوماتك في تقنيات إعداد البحث العلمي عبر هذا التقييم التفاعلي.</p>
+            <a href="quiz.html" class="btn" style="background: #8e44ad; color: white;">
+                <i class="fa-solid fa-bolt"></i> ابدأ الكويز
             </a>
         </div>
 
-        <div class="card active" data-icon="\f56e">
+        <div class="card locked" data-icon="\f0e3">
             <div class="card-header">
-                <span class="topic-tag">الموضوع الخامس</span>
-                <i class="fa-solid fa-scale-balanced" style="color: var(--primary);"></i>
+                <span class="topic-tag">الموضوع السابع</span>
+                <i class="fa-solid fa-lock"></i>
             </div>
-            <h3 class="card-title">تحليل نص المادة 13 (ق.م.ج)</h3>
-            <p class="card-desc">دراسة وتكييف القواعد الاستثنائية في الأحوال الشخصية (تنازع القوانين).</p>
-            <div class="btn-group">
-                <a href="phase01.html" class="btn btn-primary"><i class="fa-solid fa-diagram-project"></i> التحضيرية</a>
-                <a href="phase2_drafting.html" class="btn btn-gold" style="color: #0f301b;"><i class="fa-solid fa-file-signature"></i> التحريرية</a>
-            </div>
+            <h3 class="card-title" style="color: #999;">التعليق على حكم قضائي</h3>
+            <p class="card-desc">منهجية استخراج الوقائع والإجراءات من الأحكام والقرارات القضائية.</p>
+            <button class="btn btn-locked">قريباً</button>
         </div>
 
-        <div class="card art16" data-icon="\f0e3">
+        <div class="card locked" data-icon="\f086">
             <div class="card-header">
-                <span class="topic-tag">الموضوع السادس</span>
-                <i class="fa-solid fa-gavel" style="color: var(--art16-color);"></i>
+                <span class="topic-tag">الموضوع الثامن</span>
+                <i class="fa-solid fa-lock"></i>
             </div>
-            <h3 class="card-title">تحليل نص المادة 16 (ق.م.ج)</h3>
-            <p class="card-desc">تطبيق منهجي يتضمن تفكيك النص قانونياً (المرحلة التحضيرية) وصياغة البحث (المرحلة التحريرية).</p>
-            <div class="btn-group">
-                <a href="prep_art16.html" class="btn btn-blue"><i class="fa-solid fa-diagram-project"></i> التحضيرية</a>
-                <a href="draft_art16.html" class="btn btn-darkblue"><i class="fa-solid fa-file-signature"></i> التحريرية</a>
-            </div>
-        </div>
-
-        <div class="card quiz" data-icon="\f059">
-            <div class="card-header">
-                <span class="topic-tag">نشاط تفاعلي</span>
-                <i class="fa-solid fa-gamepad" style="color: var(--quiz-color);"></i>
-            </div>
-            <h3 class="card-title">كويز في المنهجية</h3>
-            <p class="card-desc">اختبر مكتسباتك العلمية والمنهجية في تقنيات إعداد البحث العلمي عبر هذا الاختبار التفاعلي الذكي.</p>
-            <a href="quiz.html" class="btn btn-quiz">
-                <i class="fa-solid fa-bolt"></i> ابدأ الاختبار الآن
-            </a>
+            <h3 class="card-title" style="color: #999;">الاستشارة القانونية</h3>
+            <p class="card-desc">كيفية تقديم استشارة قانونية مكتوبة وفق المنهجية الأكاديمية.</p>
+            <button class="btn btn-locked">قريباً</button>
         </div>
 
     </div>
 
     <footer>
-        <p>إعداد وبرمجة الطلبة: <strong style="color: var(--primary);">صحبي رشيدة، العابدين نسيبة، معاريف زينب، بولنوار ميلود</strong></p>
-        <p style="font-size: 0.85rem; opacity: 0.7; margin-top: 5px;">جميع الحقوق محفوظة © السنة الجامعية 2025-2026</p>
+        <p>تم التطوير والبرمجة بواسطة الطالب: <strong style="color: var(--primary);">بولنوار ميلود</strong></p>
+        <p style="font-size: 0.8rem; opacity: 0.7;">جميع الحقوق محفوظة © السنة الجامعية 2025-2026</p>
     </footer>
 
     <script>
@@ -364,24 +371,28 @@
             const audio = document.getElementById('bgAudio');
             const themeBtn = document.getElementById('themeToggle');
 
-            // 1. الدخول للمنصة
+            // 1. بدء العرض وتشغيل الصوت
             startBtn.addEventListener('click', () => {
                 // محاولة تشغيل الصوت
                 audio.play().then(() => {
                     console.log("Audio started");
                 }).catch(error => {
-                    console.log("Audio play failed:", error);
+                    console.log("Audio play failed (Autoplay policy):", error);
                 });
 
                 // إخفاء الشاشة
                 splash.style.opacity = '0';
-                setTimeout(() => { splash.style.display = 'none'; }, 800);
+                setTimeout(() => {
+                    splash.style.display = 'none';
+                }, 800);
             });
 
             // 2. تبديل الوضع الليلي
             themeBtn.addEventListener('click', () => {
                 const body = document.body;
-                if (body.getAttribute('data-theme') === 'dark') {
+                const isDark = body.getAttribute('data-theme') === 'dark';
+                
+                if (isDark) {
                     body.setAttribute('data-theme', 'light');
                     themeBtn.innerHTML = '<i class="fa-solid fa-moon"></i>';
                 } else {
@@ -390,7 +401,7 @@
                 }
             });
 
-            // 3. تأثير ظهور البطاقات التدريجي
+            // 3. تأثير ظهور البطاقات (Staggered Animation)
             const cards = document.querySelectorAll('.card');
             cards.forEach((card, index) => {
                 card.style.opacity = '0';
@@ -399,7 +410,7 @@
                     card.style.transition = 'all 0.5s ease';
                     card.style.opacity = '1';
                     card.style.transform = 'translateY(0)';
-                }, 200 + (index * 100)); // تأخير متتابع للبطاقات
+                }, 300 + (index * 100)); // تأخير متتابع
             });
         });
     </script>
