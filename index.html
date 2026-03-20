@@ -15,12 +15,12 @@
 
     <style>
         /* =========================================
-           1. المتغيرات ونظام التصميم (Design System)
+           1. المتغيرات ونظام التصميم
            ========================================= */
         :root {
-            --primary: #1a4d2e;       /* أخضر أكاديمي */
+            --primary: #1a4d2e;
             --primary-dark: #0f301b;
-            --secondary: #d4af37;     /* ذهبي */
+            --secondary: #d4af37;
             --secondary-glow: rgba(212, 175, 55, 0.4);
             --bg-body: #f3f4f6;
             --bg-card: #ffffff;
@@ -29,8 +29,6 @@
             --shadow-card: 0 10px 30px rgba(0,0,0,0.08);
             --shadow-hover: 0 20px 40px rgba(26, 77, 46, 0.15);
             --radius: 20px;
-            --header-height: 80px;
-            --sidebar-width: 280px;
         }
 
         [data-theme="dark"] {
@@ -57,13 +55,12 @@
         }
 
         /* =========================================
-           2. شاشة الترحيب (Splash Screen)
+           2. شاشة الترحيب والترويسة
            ========================================= */
         .splash-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(135deg, #1a4d2e, #000);
-            z-index: 9999;
-            display: flex; flex-direction: column;
+            z-index: 9999; display: flex; flex-direction: column;
             justify-content: center; align-items: center;
             transition: opacity 0.8s ease-out, visibility 0.8s;
         }
@@ -72,99 +69,68 @@
         .splash-logo { 
             width: 120px; height: 120px; border-radius: 50%; 
             border: 4px solid var(--secondary); 
-            box-shadow: 0 0 30px var(--secondary-glow);
-            margin-bottom: 20px;
+            box-shadow: 0 0 30px var(--secondary-glow); margin-bottom: 20px;
         }
 
         .start-btn {
-            margin-top: 30px; padding: 15px 50px;
-            font-size: 1.2rem; background: var(--secondary);
-            color: white; border: none; border-radius: 50px;
-            cursor: pointer; font-family: 'Tajawal'; font-weight: bold;
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
-            transition: 0.3s; display: inline-flex; align-items: center; gap: 10px;
+            margin-top: 30px; padding: 15px 50px; font-size: 1.2rem;
+            background: var(--secondary); color: white; border: none;
+            border-radius: 50px; cursor: pointer; font-family: 'Tajawal'; font-weight: bold;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.6); transition: 0.3s;
+            display: inline-flex; align-items: center; gap: 10px;
         }
         .start-btn:hover { transform: scale(1.05); background: #b89628; }
 
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* =========================================
-           3. الترويسة (Header)
-           ========================================= */
         header {
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-            padding: 40px 20px;
-            text-align: center;
-            border-bottom-left-radius: 30px;
-            border-bottom-right-radius: 30px;
-            box-shadow: 0 10px 30px rgba(26, 77, 46, 0.3);
-            position: relative; overflow: hidden;
+            color: white; padding: 40px 20px; text-align: center;
+            border-bottom-left-radius: 30px; border-bottom-right-radius: 30px;
+            box-shadow: 0 10px 30px rgba(26, 77, 46, 0.3); position: relative; overflow: hidden;
         }
 
         .header-content { position: relative; z-index: 2; }
-        
-        .logo-img { 
-            width: 100px; height: 100px; border-radius: 50%; 
-            border: 3px solid rgba(255,255,255,0.3);
-            margin-bottom: 15px; 
-        }
-
+        .logo-img { width: 100px; height: 100px; border-radius: 50%; border: 3px solid rgba(255,255,255,0.3); margin-bottom: 15px; }
         h1 { margin: 10px 0; font-family: 'Amiri', serif; font-size: 2.5rem; text-shadow: 0 2px 5px rgba(0,0,0,0.2); }
         .subtitle { font-size: 1.1rem; opacity: 0.9; letter-spacing: 1px; }
 
         .prof-badge {
-            margin-top: 20px;
-            display: inline-flex; align-items: center; gap: 10px;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(5px);
-            padding: 8px 25px; border-radius: 50px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            margin-top: 20px; display: inline-flex; align-items: center; gap: 10px;
+            background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(5px);
+            padding: 8px 25px; border-radius: 50px; border: 1px solid rgba(255, 255, 255, 0.3);
             font-weight: bold; color: var(--secondary);
         }
 
-        /* أدوات التحكم العلوية */
-        .top-tools {
-            position: absolute; top: 20px; right: 20px; display: flex; gap: 15px;
-        }
+        .top-tools { position: absolute; top: 20px; right: 20px; display: flex; gap: 15px; }
         .tool-btn {
             background: rgba(255,255,255,0.2); border: none; color: white;
-            width: 40px; height: 40px; border-radius: 50%;
-            cursor: pointer; transition: 0.3s; display: flex; justify-content: center; align-items: center;
+            width: 40px; height: 40px; border-radius: 50%; cursor: pointer;
+            transition: 0.3s; display: flex; justify-content: center; align-items: center;
         }
         .tool-btn:hover { background: var(--secondary); }
 
         /* =========================================
-           4. شبكة البطاقات (Cards Grid)
+           3. شبكة البطاقات 
            ========================================= */
         .container {
-            max-width: 1200px; margin: -40px auto 40px;
-            padding: 0 20px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 25px;
-            position: relative; z-index: 10;
+            max-width: 1200px; margin: -40px auto 40px; padding: 0 20px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px; position: relative; z-index: 10;
         }
 
         .card {
-            background: var(--bg-card);
-            border-radius: var(--radius);
-            padding: 25px;
-            position: relative; overflow: hidden;
-            border: 1px solid rgba(0,0,0,0.05);
-            box-shadow: var(--shadow-card);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background: var(--bg-card); border-radius: var(--radius); padding: 25px;
+            position: relative; overflow: hidden; border: 1px solid rgba(0,0,0,0.05);
+            box-shadow: var(--shadow-card); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             display: flex; flex-direction: column; justify-content: space-between;
         }
-
         .card:hover { transform: translateY(-10px); box-shadow: var(--shadow-hover); }
 
         .card::after {
-            content: attr(data-icon);
-            font-family: "Font Awesome 6 Free"; font-weight: 900;
-            position: absolute; bottom: -20px; left: -20px;
-            font-size: 8rem; opacity: 0.05; color: var(--text-main);
-            z-index: 0; pointer-events: none;
+            content: attr(data-icon); font-family: "Font Awesome 6 Free"; font-weight: 900;
+            position: absolute; bottom: -20px; left: -20px; font-size: 8rem;
+            opacity: 0.05; color: var(--text-main); z-index: 0; pointer-events: none;
         }
 
         .card.active { border-top: 5px solid var(--primary); }
@@ -172,43 +138,29 @@
         .card.featured { border-top: 5px solid var(--secondary); background: linear-gradient(to bottom right, var(--bg-card), #fffbf0); }
 
         .card-header { display: flex; justify-content: space-between; margin-bottom: 15px; position: relative; z-index: 1; }
-        .topic-tag { 
-            font-size: 0.8rem; font-weight: 800; text-transform: uppercase; 
-            padding: 5px 10px; border-radius: 10px; background: #eee; color: var(--text-light);
-        }
+        .topic-tag { font-size: 0.8rem; font-weight: 800; text-transform: uppercase; padding: 5px 10px; border-radius: 10px; background: #eee; color: var(--text-light); }
         .card.featured .topic-tag { background: var(--secondary); color: white; }
 
         .card-title { font-size: 1.4rem; font-weight: 800; margin: 0 0 10px; color: var(--primary); position: relative; z-index: 1; }
         .card.featured .card-title { color: #b8860b; }
-        
         .card-desc { font-size: 0.95rem; color: var(--text-light); line-height: 1.6; margin-bottom: 25px; position: relative; z-index: 1; min-height: 60px; }
 
         .btn {
             display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-            width: 100%; padding: 12px; border-radius: 12px;
-            font-weight: bold; text-decoration: none; transition: 0.3s;
-            position: relative; z-index: 1; font-size: 1rem; border: none; cursor: pointer;
+            width: 100%; padding: 12px; border-radius: 12px; font-weight: bold;
+            text-decoration: none; transition: 0.3s; position: relative; z-index: 1;
+            font-size: 1rem; border: none; cursor: pointer;
         }
 
         .btn-primary { background: var(--primary); color: white; box-shadow: 0 4px 10px rgba(26, 77, 46, 0.2); }
         .btn-primary:hover { background: var(--primary-dark); transform: scale(1.02); }
-
         .btn-gold { background: var(--secondary); color: white; box-shadow: 0 4px 10px rgba(212, 175, 55, 0.3); }
         .btn-gold:hover { background: #b89628; transform: scale(1.02); }
-
         .btn-locked { background: #e0e0e0; color: #999; cursor: not-allowed; }
-
         .btn-group { display: flex; gap: 10px; width: 100%; }
         .btn-group .btn { padding: 10px 5px; font-size: 0.9rem; }
 
-        /* =========================================
-           5. التذييل (Footer)
-           ========================================= */
-        footer {
-            text-align: center; padding: 40px 20px;
-            color: var(--text-light); font-size: 0.9rem; margin-top: auto;
-            border-top: 1px solid rgba(0,0,0,0.05);
-        }
+        footer { text-align: center; padding: 40px 20px; color: var(--text-light); font-size: 0.9rem; margin-top: auto; border-top: 1px solid rgba(0,0,0,0.05); }
 
         @media (max-width: 768px) {
             h1 { font-size: 2rem; }
@@ -218,13 +170,12 @@
         }
 
         /* =========================================
-           ستايلات النوافذ المنبثقة (Modals)
+           4. ستايلات النوافذ المنبثقة (Modals)
            ========================================= */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.6); z-index: 10000;
-            display: none; justify-content: center; align-items: center;
-            backdrop-filter: blur(5px);
+            background: rgba(0,0,0,0.6); z-index: 10000; display: none;
+            justify-content: center; align-items: center; backdrop-filter: blur(5px);
         }
         .modal-box {
             background: var(--bg-card, #fff); padding: 30px; border-radius: 20px;
@@ -239,11 +190,21 @@
         .modal-btn {
             width: 100%; padding: 12px; background: var(--primary, #1a4d2e);
             color: white; border: none; border-radius: 10px; cursor: pointer;
-            font-family: 'Tajawal'; font-weight: bold; margin-top: 10px;
+            font-family: 'Tajawal'; font-weight: bold; margin-top: 10px; display:inline-block;
         }
         .modal-btn-sec { background: var(--secondary, #d4af37); }
+        .modal-btn-tg { background: #0088cc; text-decoration: none; }
+        .modal-btn-tg:hover { background: #0077b5; color: white;}
         .close-btn { background: #e74c3c; margin-top: 15px; }
-        .quiz-item { background: var(--bg-body); padding: 15px; border-radius: 10px; margin-bottom: 10px; border: 1px solid rgba(0,0,0,0.1); }
+        
+        .quiz-item { background: var(--bg-body); padding: 20px; border-radius: 15px; margin-bottom: 15px; border: 1px solid rgba(0,0,0,0.1); }
+        .quiz-option { 
+            width: 100%; padding: 12px; margin-top: 8px; border-radius: 8px; 
+            border: 1px solid #ccc; background: white; cursor: pointer; 
+            font-family: 'Tajawal'; transition: 0.3s; font-size:1rem;
+        }
+        .quiz-option:hover:not(:disabled) { background: #f0f0f0; }
+        .quiz-option:disabled { cursor: not-allowed; opacity: 0.9; }
     </style>
 </head>
 <body data-theme="light">
@@ -253,81 +214,49 @@
             <img src="logo.jpg" alt="شعار الجامعة" class="splash-logo">
             <h1 style="margin: 0; font-size: 2.2rem;">المنصة الأكاديمية</h1>
             <p style="font-size: 1.1rem; opacity: 0.8;">تقنيات إعداد البحث العلمي - السداسي الرابع</p>
-            
-            <button class="start-btn" id="startBtn">
-                <i class="fa-solid fa-rocket"></i> الدخول للمنصة
-            </button>
+            <button class="start-btn" id="startBtn"><i class="fa-solid fa-rocket"></i> الدخول للمنصة</button>
         </div>
     </div>
 
-    <audio id="bgAudio" loop>
-        <source src="vocal01.mp3" type="audio/mpeg">
-    </audio>
+    <audio id="bgAudio" loop><source src="vocal01.mp3" type="audio/mpeg"></audio>
 
     <header>
         <div class="top-tools">
             <button class="tool-btn" id="loginBtn" title="حسابي / تسجيل الدخول" onclick="openModal('auth-modal')"><i class="fa-solid fa-user"></i></button>
             <button class="tool-btn" id="themeToggle" title="الوضع الليلي"><i class="fa-solid fa-moon"></i></button>
         </div>
-
         <div class="header-content">
             <img src="logo.jpg" alt="University Logo" class="logo-img">
             <h1>تقنيات إعداد البحث العلمي</h1>
             <div class="subtitle">السداسي الرابع - أعمال موجهة</div>
-            
-            <div class="prof-badge">
-                <i class="fa-solid fa-user-tie"></i>
-                إشراف الأستاذ: د. خرشي عمر معمر
-            </div>
+            <div class="prof-badge"><i class="fa-solid fa-user-tie"></i> إشراف الأستاذ: د. خرشي عمر معمر</div>
         </div>
     </header>
 
     <div class="container">
-
         <div class="card active" data-icon="\f0e3">
-            <div class="card-header">
-                <span class="topic-tag">الموضوع الأول</span>
-                <i class="fa-solid fa-check-circle" style="color: var(--primary);"></i>
-            </div>
+            <div class="card-header"><span class="topic-tag">الموضوع الأول</span><i class="fa-solid fa-check-circle" style="color: var(--primary);"></i></div>
             <h3 class="card-title">منهجية تحرير النصوص التشريعية</h3>
             <p class="card-desc">دراسة نموذجية لقانون الطيران المدني 98-06، وقواعد الصياغة القانونية.</p>
-            <a href="Presentation.html" class="btn btn-primary">
-                <i class="fa-solid fa-play"></i> عرض المشروع
-            </a>
+            <a href="Presentation.html" class="btn btn-primary"><i class="fa-solid fa-play"></i> عرض المشروع</a>
         </div>
 
         <div class="card active" data-icon="\f56e">
-            <div class="card-header">
-                <span class="topic-tag">الموضوع الثاني</span>
-                <i class="fa-solid fa-check-circle" style="color: var(--primary);"></i>
-            </div>
+            <div class="card-header"><span class="topic-tag">الموضوع الثاني</span><i class="fa-solid fa-check-circle" style="color: var(--primary);"></i></div>
             <h3 class="card-title">منهجية تحرير النصوص التنظيمية</h3>
-            <p class="card-desc">
-                <strong>تحليل المرسوم الرئاسي 25-221</strong><br>
-                المتضمن تحويل اعتمادات مالية بعنوان ميزانية الدولة.
-            </p>
-            <a href="Presentation2.html" class="btn btn-primary">
-                <i class="fa-solid fa-file-invoice"></i> عرض التحليل
-            </a>
+            <p class="card-desc"><strong>تحليل المرسوم الرئاسي 25-221</strong><br>المتضمن تحويل اعتمادات مالية بعنوان ميزانية الدولة.</p>
+            <a href="Presentation2.html" class="btn btn-primary"><i class="fa-solid fa-file-invoice"></i> عرض التحليل</a>
         </div>
 
         <div class="card active" data-icon="\f023">
-            <div class="card-header">
-                <span class="topic-tag">الموضوع الثالث</span>
-                <i class="fa-solid fa-lock-open" style="color: var(--primary);"></i>
-            </div>
+            <div class="card-header"><span class="topic-tag">الموضوع الثالث</span><i class="fa-solid fa-lock-open" style="color: var(--primary);"></i></div>
             <h3 class="card-title">منهجية تحرير العرائض القضائية</h3>
             <p class="card-desc">الهيكلة الفنية للعريضة الافتتاحية: البيانات الشكلية، الوقائع، والطلبات.</p>
-            <a href="Presentation3.html" class="btn btn-primary">
-                <i class="fa-solid fa-pen-fancy"></i> عرض العريضة
-            </a>
+            <a href="Presentation3.html" class="btn btn-primary"><i class="fa-solid fa-pen-fancy"></i> عرض العريضة</a>
         </div>
 
         <div class="card featured" data-icon="\f005">
-            <div class="card-header">
-                <span class="topic-tag">الموضوع الرابع</span>
-                <i class="fa-solid fa-star" style="color: var(--secondary);"></i>
-            </div>
+            <div class="card-header"><span class="topic-tag">الموضوع الرابع</span><i class="fa-solid fa-star" style="color: var(--secondary);"></i></div>
             <h3 class="card-title">منهجية تحليل النصوص القانونية</h3>
             <p class="card-desc">تحليل المادة 13 (المرحلة التحضيرية والمرحلة التحريرية).</p>
             <div class="btn-group">
@@ -337,10 +266,7 @@
         </div>
 
         <div class="card active" style="border-top-color: #2980b9;" data-icon="\f56e">
-            <div class="card-header">
-                <span class="topic-tag" style="background: #ebf5fb; color: #2980b9;">الموضوع الخامس</span>
-                <i class="fa-solid fa-gavel" style="color: #2980b9;"></i>
-            </div>
+            <div class="card-header"><span class="topic-tag" style="background: #ebf5fb; color: #2980b9;">الموضوع الخامس</span><i class="fa-solid fa-gavel" style="color: #2980b9;"></i></div>
             <h3 class="card-title" style="color: #2980b9;">تطبيق: تحليل المادة 16</h3>
             <p class="card-desc">تفكيك النص القانوني للمادة 16 وصياغة البحث النهائي.</p>
             <div class="btn-group">
@@ -350,22 +276,14 @@
         </div>
 
         <div class="card active" style="border-top-color: #8e44ad;" data-icon="\f059">
-            <div class="card-header">
-                <span class="topic-tag" style="background: #f5eef8; color: #8e44ad;">الموضوع السادس</span>
-                <i class="fa-solid fa-gamepad" style="color: #8e44ad;"></i>
-            </div>
+            <div class="card-header"><span class="topic-tag" style="background: #f5eef8; color: #8e44ad;">الموضوع السادس</span><i class="fa-solid fa-gamepad" style="color: #8e44ad;"></i></div>
             <h3 class="card-title" style="color: #8e44ad;">كويز المنهجية</h3>
             <p class="card-desc">اختبر معلوماتك في تقنيات إعداد البحث العلمي عبر هذا التقييم التفاعلي.</p>
-            <button onclick="openStudentQuiz()" class="btn" style="background: #8e44ad; color: white; width: 100%;">
-                <i class="fa-solid fa-bolt"></i> ابدأ الكويز
-            </button>
+            <button onclick="openStudentQuiz()" class="btn" style="background: #8e44ad; color: white; width: 100%;"><i class="fa-solid fa-bolt"></i> ابدأ الكويز المقيّم</button>
         </div>
 
         <div class="card active" data-icon="\f0e3">
-            <div class="card-header">
-                <span class="topic-tag" style="background: #e8f5e9; color: var(--primary);">الموضوع السابع</span>
-                <i class="fa-solid fa-check-circle" style="color: var(--primary);"></i>
-            </div>
+            <div class="card-header"><span class="topic-tag" style="background: #e8f5e9; color: var(--primary);">الموضوع السابع</span><i class="fa-solid fa-check-circle" style="color: var(--primary);"></i></div>
             <h3 class="card-title">التعليق على حكم قضائي</h3>
             <p class="card-desc">منهجية استخراج الوقائع والإجراءات من الأحكام والقرارات القضائية.</p>
             <div class="btn-group">
@@ -375,15 +293,11 @@
         </div>
         
         <div class="card locked" data-icon="\f086">
-            <div class="card-header">
-                <span class="topic-tag">الموضوع الثامن</span>
-                <i class="fa-solid fa-lock"></i>
-            </div>
+            <div class="card-header"><span class="topic-tag">الموضوع الثامن</span><i class="fa-solid fa-lock"></i></div>
             <h3 class="card-title" style="color: #999;">الاستشارة القانونية</h3>
             <p class="card-desc">كيفية تقديم استشارة قانونية مكتوبة وفق المنهجية الأكاديمية.</p>
             <button class="btn btn-locked">قريباً</button>
         </div>
-
     </div>
 
     <footer>
@@ -397,12 +311,19 @@
             <input type="text" id="login-user" placeholder="اسم المستخدم" class="modal-input">
             <input type="password" id="login-pass" placeholder="كلمة المرور" class="modal-input">
             <button class="modal-btn" onclick="handleLogin()">دخول</button>
+            
             <hr style="margin:20px 0; border-color:rgba(0,0,0,0.1);">
+            
             <h4>أو تسجيل طالب جديد</h4>
             <input type="text" id="reg-fname" placeholder="الاسم واللقب" class="modal-input">
             <input type="text" id="reg-user" placeholder="اسم المستخدم المطلوب" class="modal-input">
             <input type="password" id="reg-pass" placeholder="كلمة المرور" class="modal-input">
             <button class="modal-btn modal-btn-sec" onclick="handleRegister()">إرسال الطلب للإدارة</button>
+            
+            <a href="https://t.me/dioex" target="_blank" class="modal-btn modal-btn-tg">
+                <i class="fa-brands fa-telegram"></i> التسجيل عبر بوت التلغرام
+            </a>
+            
             <button class="modal-btn close-btn" onclick="closeModal('auth-modal')">إغلاق</button>
         </div>
     </div>
@@ -424,26 +345,28 @@
 
     <div id="quiz-modal" class="modal-overlay">
         <div class="modal-box" style="max-width: 600px;">
-            <h3 style="color:var(--primary)"><i class="fa-solid fa-bolt"></i> كويز المنهجية</h3>
+            <h3 style="color:var(--primary)"><i class="fa-solid fa-bolt"></i> كويز المنهجية التقييمي</h3>
             <div id="quiz-list" style="text-align:right;"></div>
-            <button class="modal-btn close-btn" onclick="closeModal('quiz-modal')">إغلاق</button>
+            <button class="modal-btn close-btn" onclick="closeModal('quiz-modal')">إغلاق وتخطي</button>
         </div>
     </div>
 
     <script>
-        // إعدادات Supabase
         const supabaseUrl = 'https://fmvrckvehmyurmgvvqqq.supabase.co';
         const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZtdnJja3ZlaG15dXJtZ3Z2cXFxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM5NjM0NzAsImV4cCI6MjA4OTUzOTQ3MH0.Lr6jLR1E0gLElqEtDoo1O-82ycGo4EMJyV3YE0iVGlw';
         const _supabase = supabase.createClient(supabaseUrl, supabaseKey);
         const TOKEN = '8429435889:AAGmXWKru29o9hmRM7M7mM8fpvB6wFwUvaE';
         
+        // متغيرات النظام
         let currentUser = null;
+        let currentQuizzes = [];
+        let score = 0;
+        let answeredCount = 0;
 
-        // دوال التحكم بالنوافذ المنبثقة
         function openModal(id) { document.getElementById(id).style.display = 'flex'; }
         function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 
-        // أكواد التصميم الأصلية الخاصة بك
+        // أكواد التصميم الأصلية
         document.addEventListener('DOMContentLoaded', () => {
             const startBtn = document.getElementById('startBtn');
             const splash = document.getElementById('splashScreen');
@@ -451,25 +374,17 @@
             const themeBtn = document.getElementById('themeToggle');
 
             startBtn.addEventListener('click', () => {
-                audio.play().then(() => {
-                    console.log("Audio started");
-                }).catch(error => {
-                    console.log("Audio play failed:", error);
-                });
-
+                audio.play().catch(e => console.log(e));
                 splash.style.opacity = '0';
                 setTimeout(() => {
                     splash.style.display = 'none';
-                    // تم تعديل هذا السطر ليفتح نافذة الدخول مباشرة بعد اختفاء الترحيب
                     if(!currentUser) openModal('auth-modal');
                 }, 800);
             });
 
             themeBtn.addEventListener('click', () => {
                 const body = document.body;
-                const isDark = body.getAttribute('data-theme') === 'dark';
-                
-                if (isDark) {
+                if (body.getAttribute('data-theme') === 'dark') {
                     body.setAttribute('data-theme', 'light');
                     themeBtn.innerHTML = '<i class="fa-solid fa-moon"></i>';
                 } else {
@@ -480,17 +395,12 @@
 
             const cards = document.querySelectorAll('.card');
             cards.forEach((card, index) => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(20px)';
-                setTimeout(() => {
-                    card.style.transition = 'all 0.5s ease';
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
-                }, 300 + (index * 100));
+                card.style.opacity = '0'; card.style.transform = 'translateY(20px)';
+                setTimeout(() => { card.style.transition = 'all 0.5s ease'; card.style.opacity = '1'; card.style.transform = 'translateY(0)'; }, 300 + (index * 100));
             });
         });
 
-        // دوال التسجيل والدخول للكويزات
+        // دوال التسجيل والدخول
         async function handleRegister() {
             const fname = document.getElementById('reg-fname').value;
             const username = document.getElementById('reg-user').value;
@@ -499,7 +409,7 @@
             if(!fname || !username || !password) return alert("يرجى ملء جميع الحقول");
 
             const { error } = await _supabase.from('users').insert([{ fname, username, password, status: 'pending' }]);
-            if (error) alert("خطأ: " + error.message);
+            if (error) alert("خطأ: اسم المستخدم موجود مسبقاً.");
             else {
                 fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage?chat_id=@dioex&text=طالب جديد سجل في المنصة: ${fname}`);
                 alert("تم إرسال طلبك! انتظر تفعيل الأستاذ خرشي.");
@@ -512,22 +422,17 @@
             const p = document.getElementById('login-pass').value;
 
             if(u === 'Professor_Kherchi' && p === 'SaidaLaw2026') {
-                closeModal('auth-modal');
-                loadAdmin();
-                return;
+                closeModal('auth-modal'); loadAdmin(); return;
             }
 
             const { data, error } = await _supabase.from('users').select('*').eq('username', u).eq('password', p);
             if (data && data.length > 0) {
-                if(data[0].status === 'pending') return alert("حسابك قيد المراجعة!");
+                if(data[0].status === 'pending') return alert("حسابك قيد المراجعة من طرف الإدارة!");
                 currentUser = data[0].fname;
                 alert("مرحباً بك " + currentUser);
                 closeModal('auth-modal');
-                // تلوين أيقونة المستخدم للدلالة على أنه تم تسجيل الدخول
                 document.getElementById('loginBtn').innerHTML = '<i class="fa-solid fa-user-check" style="color:var(--secondary)"></i>';
-            } else {
-                alert("بيانات خاطئة!");
-            }
+            } else { alert("بيانات خاطئة!"); }
         }
 
         // لوحة الأستاذ
@@ -556,27 +461,66 @@
             if(!error) { alert("تم نشر الكويز!"); document.getElementById('q-text').value=''; }
         }
 
-        // فتح الكويزات للطلاب
+        // نظام التقييم وتصحيح الكويزات (مع التلغرام)
         async function openStudentQuiz() {
-            if(!currentUser && !confirm("يجب تسجيل الدخول أولاً. هل تريد الدخول الآن؟")) return;
+            if(!currentUser && !confirm("يجب تسجيل الدخول أولاً لكي يتم حساب نقاطك. هل تريد الدخول الآن؟")) return;
             if(!currentUser) { openModal('auth-modal'); return; }
 
+            score = 0; answeredCount = 0;
             openModal('quiz-modal');
             const list = document.getElementById('quiz-list');
             list.innerHTML = 'جاري التحميل...';
+            
             const { data } = await _supabase.from('quizzes').select('*');
             if (data && data.length > 0) {
-                list.innerHTML = data.map(q => `
-                    <div class="quiz-item">
-                        <p><strong>${q.question}</strong></p>
-                        <button class="modal-btn" style="background:#ddd; color:#333" onclick="checkAns(${q.correct_answer}, 1)">${q.option1}</button>
-                        <button class="modal-btn" style="background:#ddd; color:#333" onclick="checkAns(${q.correct_answer}, 2)">${q.option2}</button>
+                currentQuizzes = data;
+                list.innerHTML = data.map((q, index) => `
+                    <div class="quiz-item" id="quiz-q-${index}">
+                        <p style="font-size:1.1rem; color:var(--primary);"><strong>${index + 1}. ${q.question}</strong></p>
+                        <button class="quiz-option" id="btn-${index}-1" onclick="answerQuestion(${index}, ${q.correct_answer}, 1, '${q.question}')">${q.option1}</button>
+                        <button class="quiz-option" id="btn-${index}-2" onclick="answerQuestion(${index}, ${q.correct_answer}, 2, '${q.question}')">${q.option2}</button>
                     </div>
                 `).join('');
-            } else list.innerHTML = '<p>لا توجد كويزات حالياً</p>';
+                list.innerHTML += `<div id="quiz-result" style="display:none; text-align:center; margin-top:20px; font-size:1.2rem; font-weight:bold; color:var(--primary); padding:15px; background:#e8f5e9; border-radius:10px; border: 2px dashed var(--primary);"></div>`;
+            } else { list.innerHTML = '<p>لا توجد كويزات حالياً</p>'; }
         }
 
-        function checkAns(correct, choice) { alert(choice == correct ? "إجابة صحيحة ✅" : "إجابة خاطئة ❌"); }
+        function answerQuestion(qIndex, correctOption, selectedOption, questionText) {
+            const btn1 = document.getElementById(`btn-${qIndex}-1`);
+            const btn2 = document.getElementById(`btn-${qIndex}-2`);
+            btn1.disabled = true; btn2.disabled = true;
+
+            if (selectedOption == correctOption) {
+                document.getElementById(`btn-${qIndex}-${selectedOption}`).style.background = '#27ae60'; 
+                document.getElementById(`btn-${qIndex}-${selectedOption}`).style.color = 'white';
+                score++; 
+            } else {
+                document.getElementById(`btn-${qIndex}-${selectedOption}`).style.background = '#e74c3c'; 
+                document.getElementById(`btn-${qIndex}-${selectedOption}`).style.color = 'white';
+                document.getElementById(`btn-${qIndex}-${correctOption}`).style.background = '#27ae60';
+                document.getElementById(`btn-${qIndex}-${correctOption}`).style.color = 'white';
+            }
+
+            answeredCount++;
+
+            // عند الانتهاء من جميع الأسئلة
+            if (answeredCount === currentQuizzes.length) {
+                const resDiv = document.getElementById('quiz-result');
+                resDiv.style.display = 'block';
+                
+                let message = "";
+                let percentage = (score / currentQuizzes.length) * 100;
+                if(percentage === 100) message = "عمل ممتاز! أنت جاهز تماماً 🏆";
+                else if(percentage >= 50) message = "جيد جداً، واصل اجتهادك 👍";
+                else message = "تحتاج إلى مراجعة الدروس أكثر 📚";
+
+                resDiv.innerHTML = `🎉 انتهى الكويز يا ${currentUser}! <br><br> النتيجة النهائية: <span style="font-size:1.8rem; color:#d4af37;">${score}</span> من ${currentQuizzes.length} <br><br> <span style="font-size:1rem; color:#666;">${message}</span>`;
+                
+                // إرسال النتيجة فوراً إلى التلغرام
+                const tgMessage = `🎓 تحديث من منصة الحقوق - جامعة سعيدة:\nالطالب: ${currentUser}\nأنهى للتو كويز المنهجية وحصل على نتيجة: ${score} من ${currentQuizzes.length}\nالتقييم الآلي: ${message}`;
+                fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage?chat_id=@dioex&text=${encodeURIComponent(tgMessage)}`);
+            }
+        }
     </script>
    
 </body>
